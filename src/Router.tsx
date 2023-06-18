@@ -7,6 +7,7 @@ import CategoryPage from "./Pages/CategoryPage";
 import UnitOfMeasurePage from "./Pages/UnitOfMeasurePage";
 import AuthenticationGuard from "./Guards/AuthenticationGuard";
 import AuthenticationPage from "./Pages/AuthenticationPage";
+import Navbar from "./Components/Navbar";
 
 const Router: FC = () => {
   return (
@@ -16,6 +17,7 @@ const Router: FC = () => {
           index
           element={
             <Guard>
+              <Navbar/>
               <PosPage />
             </Guard>
           }
@@ -57,3 +59,4 @@ const Router: FC = () => {
     </BrowserRouter>
   );
 };
+export default Router
