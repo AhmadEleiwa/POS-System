@@ -4,7 +4,7 @@ A web application for supermarkets to manage products and carts, including the a
 
 First of all you need to install node.js. After installing node.js, you have to run client app like the command below.
 ```bash
-    npm start
+npm start
 ```
 ## Authentication
 
