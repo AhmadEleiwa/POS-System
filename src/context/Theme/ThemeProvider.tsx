@@ -3,11 +3,12 @@ import Palette, { keys, palettes } from "./Palettes";
 
 type ProviderValues = {
   palette: Palette;
-  changePalette?: (mode: keys) => void;
+  changePalette: (mode: keys) => void;
 };
 
 export const context = createContext<ProviderValues>({
   palette: palettes.primary,
+  changePalette: (mode: keys)=>{}
 });
 
 const ThemeProvider: FC<PropsWithChildren> = ({ children }) => {
