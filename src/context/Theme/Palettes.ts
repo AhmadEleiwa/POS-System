@@ -20,11 +20,21 @@ const primaryTheme: Palette = {
   textPrimary: "#000000",
   textSecondary: "#414141",
 };
+
+const greenTheme: Palette = {
+    primary: "#7FB77E",
+    secondary: "#B1D7B4",
+    error: "#B00020",
+    white: "F1F1F1",
+    warning: "#FFCC00",
+    textPrimary: "#000000",
+    textSecondary: "#414141",
+  };
 export type keys = "primary" | "green";
 
 export const palettes: Record<keys, Palette> = {
   primary: primaryTheme,
-  green: primaryTheme,
+  green: greenTheme,
 };
 
 export default Palette;
