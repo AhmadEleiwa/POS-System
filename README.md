@@ -1,6 +1,5 @@
 # EMMARKET
-
-POS Supermarket System
+A web application for supermarkets to manage products and carts, including the ability to handle multiple carts and calculate the total amount for each order. Each cart can be added a description for more details.
 ## How To Run
 
 First of all you need to install node.js. After installing node.js, you have to run client app like the command below.
