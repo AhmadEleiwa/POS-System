@@ -1,0 +1,16 @@
+.btn{
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.17s linear;
+    box-shadow: 0 1px 8px #66666666;
+}
+.btn:hover{
+    opacity: 0.9;
+}
+.btn:active{
+    opacity: 0.8;
+    box-shadow: 0 2px 8px #66666699;
+
+}
