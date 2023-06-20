@@ -17,6 +17,9 @@ const Card: FC<props> = ({
   className,
 }) => {
   const theme = useTheme();
+  const addHandler = () => {
+    // some logic to handle the adding to order
+  };
   return (
     <div
       className={style.card + " " + className}
@@ -24,7 +27,12 @@ const Card: FC<props> = ({
     >
       <div className={style.cardMedia}>
         <img src={media} />
-        <Button variant="secondary" size="large" onClick={() => {}} className={style.buttonAdd}>
+        <Button
+          variant="secondary"
+          size="large"
+          onClick={() => addHandler}
+          className={style.buttonAdd}
+        >
           Add
         </Button>
       </div>
