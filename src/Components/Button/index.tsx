@@ -6,6 +6,7 @@ interface props extends PropsWithChildren {
   size?: "large" | "normal";
   onClick: MouseEventHandler<HTMLButtonElement>;
   fullWidth?: boolean;
+  className?:string;
 }
 const Button: FC<props> = ({
   children,
@@ -13,6 +14,7 @@ const Button: FC<props> = ({
   size = "normal",
   onClick,
   fullWidth = false,
+  className
 }) => {
   const theme = useTheme();
   const styles = {
@@ -32,7 +34,7 @@ const Button: FC<props> = ({
   else styles.padding = "0.7em 1em";
   if (fullWidth) styles.width = "100%";
   return (
-    <button className={style.btn} onClick={onClick} style={styles}>
+    <button className={style.btn +" " + className} onClick={onClick} style={styles}>
       {children}
     </button>
   );
