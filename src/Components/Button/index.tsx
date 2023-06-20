@@ -4,7 +4,7 @@ import style from "./style.module.css";
 interface props extends PropsWithChildren {
   variant?: "primary" | "secondary" | "warning" | "error";
   size?: "large" | "normal";
-  onClick: MouseEventHandler<HTMLButtonElement>;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   fullWidth?: boolean;
   className?:string;
 }
@@ -20,7 +20,7 @@ const Button: FC<props> = ({
   const styles = {
     backgroundColor: "",
     width: "auto",
-    padding: "0.5em 1em",
+    padding: "0.7em 1em",
     color: theme.palette.textAction,
   };
   if (variant === "primary") styles.backgroundColor = theme.palette.primary;
