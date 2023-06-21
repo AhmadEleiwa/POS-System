@@ -1,9 +1,9 @@
-import Button from "../Components/Card";
+import Card from "../Components/Card";
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
 export default {
   title: "Example/Card",
-  component: Button,
+  component: Card,
   tags: ["autodocs"],
   args: {
     title: "title",
