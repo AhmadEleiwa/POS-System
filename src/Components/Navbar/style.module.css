@@ -1,17 +1,18 @@
-.header{
-    box-sizing: border-box;
-    padding-top: 2em;
-    height: 100vh;
-    width: 4em;
-    display: flex;
-    flex-direction: column;
-    gap: 2em;
+.header {
+  box-sizing: border-box;
+  padding-top: 2em;
+  height: 100vh;
+  width: 4em;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
 }
-.link{
-    transition: all 0.12s  ease;
-    font-size: 1.3em;
-    cursor: pointer;
+.link {
+  transition: all 0.12s ease;
+  font-size: 1.3em;
+  cursor: pointer;
+  width: 100%;
 }
-.link:hover{
-    scale: 1.2;
+.link:hover {
+  scale: 1.2;
 }
