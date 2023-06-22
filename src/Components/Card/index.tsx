@@ -38,7 +38,7 @@ const Card: FC<props> = ({
       </div>
       <div className={style.cardBody}>
         <div className={style.title}>
-          <p>{title}</p>.
+          <p style={{ color: theme.palette.textPrimary }}>{title}</p>.
           <p style={{ color: theme.palette.textSecondary }}>{unitOfMeasure}</p>
         </div>
         <div className={style.category}>
