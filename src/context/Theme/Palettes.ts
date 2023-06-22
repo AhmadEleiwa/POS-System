@@ -16,12 +16,23 @@ const primaryTheme: Palette = {
   primary: "#8CAEDE",
   secondary: "#8DC6EF",
   error: "#B00020",
-  paper: "#F8F8F8",
+  paper: "#fefefe",
   warning: "#FFCC00",
   textPrimary: "#000000",
   textSecondary: "#414141",
   textAction:'white',
 };
+const darkTheme: Palette = {
+  primary: "#121212",
+  secondary: "#2f2f2f",
+  error: "#B00020",
+  paper: "#121212",
+  warning: "#FFCC00",
+  textPrimary: "#fff",
+  textSecondary: "#afafaf",
+  textAction:'white',
+};
+
 
 const greenTheme: Palette = {
     primary: "#7FB77E",
@@ -33,11 +44,12 @@ const greenTheme: Palette = {
     textPrimary: "#000000",
     textSecondary: "#414141",
   };
-export type keys = "primary" | "green";
+export type keys = "primary" | "green" | 'dark';
 
 export const palettes: Record<keys, Palette> = {
   primary: primaryTheme,
   green: greenTheme,
+  dark:darkTheme,
 };
 
 export default Palette;
