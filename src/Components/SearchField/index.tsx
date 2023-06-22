@@ -28,7 +28,7 @@ const SearchField: FC<props> = ({ onChange, width }) => {
       style={{
         width: width ? width : "18em",
         border: `1px solid ${theme.palette.secondary}`,
-        backgroundColor: "white",
+        backgroundColor: theme.palette.paper,
       }}
     >
       <FontAwesomeIcon
