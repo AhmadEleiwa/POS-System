@@ -1,12 +1,12 @@
 .searchInput{
-    height: 2em;
+    height: 3em;
     display: flex;
     align-items: center;
     justify-content: space-around;
-
+    box-sizing: border-box;
     border-radius: 4px;
     gap: 0.3em;
-    padding: 2px 4px;
+    padding: 2px 8px;
 }
 .searchInput input{
     height: 100%;
