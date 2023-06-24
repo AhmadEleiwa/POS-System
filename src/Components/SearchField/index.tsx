@@ -9,8 +9,10 @@ import { ChangeEventHandler } from "react";
 interface props {
   onChange?: ChangeEventHandler<HTMLInputElement>;
   width?: string;
+  className?: string;
+  color?: string;
 }
-const SearchField: FC<props> = ({ onChange, width }) => {
+const SearchField: FC<props> = ({ onChange, width, className, color=undefined }) => {
   const theme = useTheme();
   const [searchValue, setSearchValue] = useState<string>("");
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -24,10 +26,10 @@ const SearchField: FC<props> = ({ onChange, width }) => {
   };
   return (
     <div
-      className={style.searchInput}
+      className={style.searchInput + " " + className}
       style={{
         width: width ? width : "18em",
-        border: `1px solid ${theme.palette.secondary}`,
+        border: `1px solid ${color? color : theme.palette.secondary}` ,
         backgroundColor: theme.palette.paper,
       }}
     >
@@ -40,6 +42,7 @@ const SearchField: FC<props> = ({ onChange, width }) => {
         placeholder="Search"
         onChange={onChangeHandler}
         value={searchValue}
+        style={{color:theme.palette.textPrimary}}
       />
       {searchValue !== "" && (
         <FontAwesomeIcon
