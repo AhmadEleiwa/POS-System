@@ -1,0 +1,11 @@
+.productList{
+    height: 90vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+    margin-top: 1em;
+    overflow-y: auto;
+}
