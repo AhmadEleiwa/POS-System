@@ -101,13 +101,13 @@ const CartTable: FC<props> = ({ width = "40%" }) => {
       });
     }
   };
-  const onSearchHandler = (event: ChangeEvent<HTMLInputElement>) => {
+  const onSearchHandler = (value: string) => {
     let data = [...DATA_FROM_MOCK_API];
     setItems(
       data.filter(
         (item) =>
-          item.description.startsWith(event.target.value) ||
-          item.id === event.target.value
+          item.description.startsWith(value) ||
+          item.id === value
       )
     );
   };
