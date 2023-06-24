@@ -1,5 +1,5 @@
 .container {
-  width: 40%;
+  min-width: 40%;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -7,8 +7,6 @@
   align-items: center;
   padding-top: 4em;
   justify-content: start;
-  box-shadow: 0 2px 4px #66666666;
-  float:    right;
 }
 
 .table {

@@ -22,6 +22,7 @@ const Button: FC<props> = ({
     width: "auto",
     padding: "0.7em 1em",
     color: theme.palette.textAction,
+    boxShadow: " 0 2px 4px" + theme.palette.shadow,
   };
   if (variant === "primary") styles.backgroundColor = theme.palette.primary;
   else if (variant === "secondary")
