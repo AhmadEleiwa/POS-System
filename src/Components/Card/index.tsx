@@ -23,12 +23,12 @@ const Card: FC<props> = ({
   return (
     <div
       className={style.card + " " + className}
-      style={{ backgroundColor: theme.palette.paper }}
+      style={{ backgroundColor: theme.palette.paper , boxShadow:`0 2px 6px ${theme.palette.shadow}`}}
     >
       <div className={style.cardMedia}>
         <img src={media} />
         <Button
-          variant="secondary"
+          variant="primary"
           size="large"
           onClick={() => addHandler}
           className={style.buttonAdd}
