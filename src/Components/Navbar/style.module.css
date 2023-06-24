@@ -2,7 +2,7 @@
   box-sizing: border-box;
   padding-top: 2em;
   height: 100vh;
-  width: 4em;
+  min-width: 4em;
   display: flex;
   flex-direction: column;
   gap: 2em;
