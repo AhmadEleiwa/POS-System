@@ -11,6 +11,7 @@ type Palette = {
   textPrimary: string;
   textSecondary: string;
   background: string;
+  shadow:string;
 };
 
 const primaryTheme: Palette = {
@@ -23,6 +24,7 @@ const primaryTheme: Palette = {
   textSecondary: "#414141",
   textAction: "white",
   background: "#f1f1f1",
+  shadow:'#66666666'
 };
 const darkTheme: Palette = {
   primary: "#121212",
@@ -34,6 +36,7 @@ const darkTheme: Palette = {
   textSecondary: "#afafaf",
   textAction: "white",
   background: "#2f2f2f",
+  shadow:'#01010166'
 };
 
 const greenTheme: Palette = {
@@ -46,6 +49,7 @@ const greenTheme: Palette = {
   textPrimary: "#000000",
   textSecondary: "#414141",
   background: "#EBFDEE",
+  shadow:'#66666666'
 };
 export type keys = "primary" | "green" | "dark";
 
