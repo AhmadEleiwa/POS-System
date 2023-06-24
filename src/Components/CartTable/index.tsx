@@ -148,6 +148,7 @@ const CartTable: FC<props> = ({ width = "40%" }) => {
         </div>
         {items.map((item) => (
           <div
+            data-testid="cart-item"
             key={item.id}
             className={style.row}
             style={{ color: theme.palette.textSecondary }}
