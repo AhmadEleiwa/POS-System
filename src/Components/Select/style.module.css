@@ -1,0 +1,23 @@
+.select {
+  width: 10em;
+  height: 3em;
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  border-radius: 4px;
+}
+.select select {
+  width: 100%;
+  height: 100%;
+  padding-left: 8px;
+  background-color: transparent;
+  border: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  outline: none;
+}
+.arrowIcon {
+  position: absolute;
+  right: 8px;
+}
