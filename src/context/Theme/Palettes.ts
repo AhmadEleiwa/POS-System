@@ -35,7 +35,7 @@ const darkTheme: Palette = {
   textPrimary: "#fff",
   textSecondary: "#afafaf",
   textAction: "white",
-  background: "#2f2f2f",
+  background: "#1f1f1f",
   shadow:'#01010166'
 };
 
