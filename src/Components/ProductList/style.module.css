@@ -5,6 +5,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: start;
+  
 }
 .head {
   width: 100%;
@@ -18,7 +19,7 @@
   display: flex;
   flex-wrap: wrap;
 
-  gap: 1em;
+  gap: 0.5em;
   margin-top: 1em;
   overflow-y: auto;
 }
@@ -28,4 +29,5 @@
   display: flex;
   align-items: center;
   gap: 1em;
+  margin-left: 1em;
 }

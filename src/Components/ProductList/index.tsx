@@ -3,10 +3,10 @@ import Card from "../Card";
 import style from "./style.module.css";
 import SearchField from "../SearchField";
 import useTheme from "../../context/Theme/useTheme";
-import { ChangeEvent } from "react";
 import Select from "../Select";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTableCells, faTableList } from "@fortawesome/free-solid-svg-icons";
+import ProductRow from "../ProductRow";
 let products = [
   {
     title: "burgur",
@@ -82,6 +82,7 @@ let products = [
 const ProductList: FC = () => {
   const theme = useTheme();
   const [items, setItems] = useState([...products]);
+  const [displayWay, setDisplayWay] = useState<string>("grid");
   const [filters, setFilters] = useState({
     category: "all",
     unitOfMeasure: "all",
@@ -133,6 +134,10 @@ const ProductList: FC = () => {
       ),
     ]);
   };
+
+  const displayWayHandler = (status:string) =>{
+    setDisplayWay(status)
+  }
   return (
     <div className={style.container}>
       <div className={style.head}>
@@ -141,14 +146,18 @@ const ProductList: FC = () => {
       </div>
       <div className={style.controls}>
         <FontAwesomeIcon
+          onClick={()=>displayWayHandler("grid")}
           icon={faTableCells}
           cursor={"pointer"}
-          color={theme.palette.textPrimary}
+          color={theme.palette.textSecondary}
+          fontSize={30}
         />
         <FontAwesomeIcon
+          onClick={()=>displayWayHandler("list")}
           icon={faTableList}
           cursor={"pointer"}
-          color={theme.palette.textPrimary}
+          color={theme.palette.textSecondary}
+          fontSize={30}
         />
         <Select
           onChange={onChangeCategoryFilterHandler}
@@ -160,7 +169,7 @@ const ProductList: FC = () => {
           ]}
         />
         <Select
-          onChange={onChangeCategoryFilterHandler}
+          onChange={onChangeUnitOfMeasureFilterHandler}
           options={[
             { key: "all", value: "All" },
             { key: "350ml", value: "350ml" },
@@ -171,8 +180,16 @@ const ProductList: FC = () => {
       </div>
       <div className={style.productList}>
         {items.map((p) => {
-          return (
+          return displayWay === "grid" ? (
             <Card
+              key={p.id}
+              title={p.title}
+              media={p.media}
+              unitOfMeasure={p.unitOfMeasure}
+              category={p.category}
+            />
+          ) : (
+            <ProductRow
               key={p.id}
               title={p.title}
               media={p.media}
