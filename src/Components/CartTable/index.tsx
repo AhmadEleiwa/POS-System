@@ -101,20 +101,22 @@ const CartTable: FC<props> = ({ width = "40%" }) => {
       });
     }
   };
-  const onSearchHandler = (event: ChangeEvent<HTMLInputElement>) => {
+  const onSearchHandler = (value: string) => {
     let data = [...DATA_FROM_MOCK_API];
     setItems(
       data.filter(
-        (item) =>
-          item.description.startsWith(event.target.value) ||
-          item.id === event.target.value
+        (item) => item.description.startsWith(value) || item.id === value
       )
     );
   };
   return (
     <div
       className={style.container}
-      style={{ backgroundColor: theme.palette.paper, width: width }}
+      style={{
+        backgroundColor: theme.palette.paper,
+        width: width,
+        boxShadow: " 0 2px 4px" + theme.palette.shadow,
+      }}
     >
       <SearchField width="95%" color="#66666622" onChange={onSearchHandler} />
 

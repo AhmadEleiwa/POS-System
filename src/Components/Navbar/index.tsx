@@ -18,7 +18,7 @@ const Navbar: FC = () => {
     >
       <FontAwesomeIcon
         onClick={() => {
-          theme.changePalette("green");
+          theme.changePalette("primary");
         }}
         className={style.link}
         icon={faBars}

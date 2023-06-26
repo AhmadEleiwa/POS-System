@@ -1,0 +1,33 @@
+.container {
+  width: 100%;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  
+}
+.head {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 5em;
+}
+.productList {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 0.5em;
+  margin-top: 1em;
+  overflow-y: auto;
+}
+
+.controls{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  margin-left: 1em;
+}
