@@ -4,6 +4,7 @@ import React, { ChangeEvent, FC, useState } from "react";
 import style from "./style.module.css";
 import useTheme from "../../context/Theme/useTheme";
 import SearchField from "../SearchField";
+import { type } from "os";
 
 const DATA_FROM_MOCK_API = [
   {
@@ -44,13 +45,13 @@ const headings = [
 ];
 
 interface props {
-  width?: string;
+  onChoose: (id: string) => void;
 }
 type Selected = {
   key: string;
   status: "descending" | "ascending" | "";
 };
-const CartTable: FC<props> = ({ width = "40%" }) => {
+const CartTable: FC<props> = ({onChoose}) => {
   const [selectedColumn, setSelectedColumn] = useState<Selected>({
     key: "",
     status: "",
@@ -110,14 +111,7 @@ const CartTable: FC<props> = ({ width = "40%" }) => {
     );
   };
   return (
-    <div
-      className={style.container}
-      style={{
-        backgroundColor: theme.palette.paper,
-        width: width,
-        boxShadow: " 0 2px 4px" + theme.palette.shadow,
-      }}
-    >
+    <>
       <SearchField width="95%" color="#66666622" onChange={onSearchHandler} />
 
       <div className={style.table}>
@@ -150,6 +144,7 @@ const CartTable: FC<props> = ({ width = "40%" }) => {
         </div>
         {items.map((item) => (
           <div
+            onClick={()=>onChoose(item.id)}
             data-testid="cart-item"
             key={item.id}
             className={style.row}
@@ -167,7 +162,7 @@ const CartTable: FC<props> = ({ width = "40%" }) => {
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 };
 export default CartTable;

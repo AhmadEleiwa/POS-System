@@ -4,11 +4,11 @@ import CartTable from "./index";
 
 describe("CartTable", () => {
   test("renders without errors", () => {
-    render(<CartTable />);
+    render(<CartTable onChoose={()=>{}}  />);
   });
 
   test("filters items when search value changes", () => {
-    const { getByPlaceholderText, getAllByTestId } = render(<CartTable />);
+    const { getByPlaceholderText, getAllByTestId } = render(<CartTable onChoose={()=>{}}  />);
     const searchInput = getByPlaceholderText("Search");
     const items = getAllByTestId("cart-item");
 
@@ -18,7 +18,7 @@ describe("CartTable", () => {
     expect(filteredItems.length).toBeLessThan(items.length);
   });
   test("sorts items in ascending order when clicking on column header", () => {
-    const { getAllByTestId, getByText } = render(<CartTable />);
+    const { getAllByTestId, getByText } = render(<CartTable onChoose={()=>{}} />);
     const taxColumnHeader = getByText("TAX");
 
     fireEvent.click(taxColumnHeader);
@@ -31,7 +31,7 @@ describe("CartTable", () => {
   });
 
   test("resets the sort order when clicking on the same column header", () => {
-    const { getAllByTestId, getByText } = render(<CartTable />);
+    const { getAllByTestId, getByText } = render(<CartTable onChoose={()=>{}} />);
     const taxColumnHeader = getByText("TAX");
 
     fireEvent.click(taxColumnHeader);
