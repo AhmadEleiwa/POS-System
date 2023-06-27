@@ -1,4 +1,6 @@
 import React, { FC } from "react";
+import ProductList from "../../Components/ProductList";
+import Aside from "../../Components/Aside";
 
 /**
  * ## POS Page
@@ -15,7 +17,12 @@ import React, { FC } from "react";
  * ```
  */
 const PosPage: FC = () => {
-  return <div></div>;
+  return (
+    <>
+      <ProductList />
+      <Aside />
+    </>
+  );
 };
 
 export default PosPage;
