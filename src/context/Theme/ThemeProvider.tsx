@@ -12,7 +12,7 @@ export const context = createContext<ProviderValues>({
 });
 
 const ThemeProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [paletteKey, setPaletteKey] = useState<keys>("primary");
+  const [paletteKey, setPaletteKey] = useState<keys>("dark");
   const changePalette = (mode: keys) => {
     setPaletteKey(mode);
   };

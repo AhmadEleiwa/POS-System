@@ -8,6 +8,10 @@ import UnitOfMeasurePage from "./Pages/UnitOfMeasurePage";
 import AuthenticationGuard from "./Guards/AuthenticationGuard";
 import AuthenticationPage from "./Pages/AuthenticationPage";
 import Navbar from "./Components/Navbar";
+import Layout from "./Layout";
+import CartTable from "./Components/CartTable";
+import ProductList from "./Components/ProductList";
+import Aside from "./Components/Aside";
 
 const Router: FC = () => {
   return (
@@ -17,8 +21,9 @@ const Router: FC = () => {
           index
           element={
             <Guard>
-              <Navbar/>
-              <PosPage />
+              <Layout>
+                <PosPage />
+              </Layout>
             </Guard>
           }
         ></Route>
@@ -59,4 +64,4 @@ const Router: FC = () => {
     </BrowserRouter>
   );
 };
-export default Router
+export default Router;

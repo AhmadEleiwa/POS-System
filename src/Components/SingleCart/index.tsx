@@ -1,57 +1,103 @@
-import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowDown,
+  faArrowRight,
+  faArrowUp,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { ChangeEvent, FC, useState } from "react";
+import React, { FC, useState } from "react";
 import style from "./style.module.css";
 import useTheme from "../../context/Theme/useTheme";
 import SearchField from "../SearchField";
-import { type } from "os";
+import Row from "./Components/Row";
+import Button from "../Button";
 
 const DATA_FROM_MOCK_API = [
   {
     id: "1",
-    tax: 4,
-    discount: 10,
-    products: [, , , ,],
-    description: "arder one",
+    title: "Doritos",
+    price: 2.33,
+    qty: 4,
+    media: "https://picsum.photos/200/300",
   },
   {
-    id: "2",
-    tax: 8,
-    discount: 14,
-    products: [, , , ,],
-    description: "aa   one",
+    id: "",
+    title: "Milk",
+    price: 4.33,
+    qty: 8,
+    media: "https://picsum.photos/200/300",
   },
   {
-    id: "3",
-    tax: 4,
-    discount: 18,
-    products: [, , , , ,],
-    description: "order one s sss sda asd order one s sss sda asd",
+    id: "1",
+    title: "Doritos",
+    price: 2.33,
+    qty: 4,
+    media: "https://picsum.photos/200/300",
   },
   {
-    id: "4",
-    tax: 3,
-    discount: 10,
-    products: [, , , , , ,],
-    description: "fff",
+    id: "",
+    title: "Milk",
+    price: 4.33,
+    qty: 8,
+    media: "https://picsum.photos/200/300",
+  },
+  {
+    id: "1",
+    title: "Doritos",
+    price: 2.33,
+    qty: 4,
+    media: "https://picsum.photos/200/300",
+  },
+  {
+    id: "",
+    title: "Milk",
+    price: 4.33,
+    qty: 8,
+    media: "https://picsum.photos/200/300",
+  },
+  {
+    id: "1",
+    title: "Doritos",
+    price: 2.33,
+    qty: 4,
+    media: "https://picsum.photos/200/300",
+  },
+  {
+    id: "",
+    title: "Milk",
+    price: 4.33,
+    qty: 8,
+    media: "https://picsum.photos/200/300",
+  },
+  {
+    id: "1",
+    title: "Doritos",
+    price: 2.33,
+    qty: 4,
+    media: "https://picsum.photos/200/300",
+  },
+  {
+    id: "",
+    title: "Milk",
+    price: 4.33,
+    qty: 8,
+    media: "https://picsum.photos/200/300",
   },
 ];
 const headings = [
-  { key: "id", title: "CART ID" },
-  { key: "tax", title: "TAX" },
-  { key: "discount", title: "DISCOUNT" },
-  { key: "products", title: "PRODS NO" },
-  { key: "description", title: "DESCRIPTION" },
+  { key: "id", title: "product" },
+  { key: "qty", title: "QTY" },
+  { key: "price", title: "price" },
 ];
 
 interface props {
-  onChoose: (id: string) => void;
+  onClick?: () => void;
+  orderId: string;
 }
 type Selected = {
   key: string;
   status: "descending" | "ascending" | "";
 };
-const CartTable: FC<props> = ({onChoose}) => {
+const SingleCart: FC<props> = ({ onClick, orderId }) => {
   const [selectedColumn, setSelectedColumn] = useState<Selected>({
     key: "",
     status: "",
@@ -105,13 +151,21 @@ const CartTable: FC<props> = ({onChoose}) => {
   const onSearchHandler = (value: string) => {
     let data = [...DATA_FROM_MOCK_API];
     setItems(
-      data.filter(
-        (item) => item.description.startsWith(value) || item.id === value
-      )
+      data.filter((item) => item.title.startsWith(value) || item.id === value)
     );
   };
   return (
-    <>
+    <div className={style.single}>
+      <div className={style.orderHead}>
+        <h1 style={{ color: theme.palette.textPrimary }}>Order : #{orderId}</h1>
+        <FontAwesomeIcon
+          className={style.arrowRight}
+          icon={faArrowRight}
+          color={theme.palette.textPrimary}
+          cursor={"pointer"}
+          onClick={onClick}
+        />
+      </div>
       <SearchField width="95%" color="#66666622" onChange={onSearchHandler} />
 
       <div className={style.table}>
@@ -143,26 +197,32 @@ const CartTable: FC<props> = ({onChoose}) => {
           ))}
         </div>
         {items.map((item) => (
-          <div
-            onClick={()=>onChoose(item.id)}
-            data-testid="cart-item"
-            key={item.id}
-            className={style.row}
-            style={{ color: theme.palette.textSecondary }}
-          >
-            <p>#{item.id}</p>
-            <p>{item.tax}</p>
-            <p>{item.discount}</p>
-            <p>{item.products.length}</p>
-            <p>
-              {item.description.length > 15
-                ? item.description.slice(0, 15) + "..."
-                : item.description}
-            </p>
-          </div>
+          <Row
+            title={item.title}
+            media={item.media}
+            price={item.price}
+            qty={item.qty}
+          />
         ))}
       </div>
-    </>
+      <div className={style.orderData} style={{color:theme.palette.textPrimary}}>
+        <div className={style.row}>
+          <p>Discount</p>
+          <p>0</p>
+        </div>
+        <div className={style.row}>
+          <p>Tax</p>
+          <p>0</p>
+        </div>
+        <div className={style.row}>
+          <p>Total</p>
+          <p>0</p>
+        </div>
+        <Button variant="error" fullWidth>
+          Continue Payment
+        </Button>
+      </div>
+    </div>
   );
 };
-export default CartTable;
+export default SingleCart;

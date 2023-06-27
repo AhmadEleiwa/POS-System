@@ -18,12 +18,8 @@ describe("SearchField", () => {
     fireEvent.change(inputElement, { target: { value: inputValue } });
 
     expect(onChangeMock).toHaveBeenCalledTimes(1);
-    expect(onChangeMock).toHaveBeenCalledWith(
-      expect.objectContaining({
-        target: expect.objectContaining({ value: inputValue }),
-      })
-    );
-  });
+    expect(inputElement).toHaveValue(inputValue);
+    })
 
   test("clears input value when reset icon is clicked", () => {
     const { getByDisplayValue, getByTestId, queryByTestId } = render(

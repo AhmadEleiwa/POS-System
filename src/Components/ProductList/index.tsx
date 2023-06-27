@@ -142,7 +142,7 @@ const ProductList: FC = () => {
     <div className={style.container}>
       <div className={style.head}>
         <h1 style={{ color: theme.palette.textPrimary }}>EMMARKET</h1>
-        <SearchField onChange={searchHandler} />
+        <SearchField className={style.searchBar} onChange={searchHandler} />
       </div>
       <div className={style.controls}>
         <FontAwesomeIcon

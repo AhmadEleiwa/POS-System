@@ -8,6 +8,7 @@
     border: 1px solid #66666644;
     cursor: pointer;
     box-sizing: border-box;
+    align-items: center;
 }
 .row:hover{
     opacity: 0.8;
