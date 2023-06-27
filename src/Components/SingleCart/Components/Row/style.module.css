@@ -1,0 +1,37 @@
+.row {
+  display: grid;
+
+
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr ;
+  align-items: center;
+  height: 4em;
+  box-sizing: border-box;
+  padding: 0 1em;
+  border-bottom: 1px solid #66666622;
+}
+.row img {
+  width: 3em;
+  height: 3em;
+  border-radius: 4px;
+}
+
+.row:hover {
+  background-color: rgba(128, 128, 128, 0.095);
+}
+.title{
+  display: flex;
+  flex-direction: column;
+  
+}
+.title p{
+margin: 0;
+}
+.input{
+    width: 3em;
+    border-radius: 4px;
+    height: 3em;
+    outline: none;
+    margin-left: 2.9em;
+    text-align: center;
+}
+
