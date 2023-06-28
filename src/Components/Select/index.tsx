@@ -3,6 +3,7 @@ import style from "./style.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import useTheme from "../../context/Theme/useTheme";
+import Button from "../Button";
 interface props {
   options: { key: string; value: string }[];
   onChange?: (value: string) => void;
@@ -31,6 +32,7 @@ const Select: FC<props> = ({ options, onChange }) => {
       >
         {options.map((op) => (
           <option
+            key={op.key}
             value={op.key}
             style={{ backgroundColor: theme.palette.paper }}
           >
