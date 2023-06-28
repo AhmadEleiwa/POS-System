@@ -7,10 +7,9 @@ import Select from "../Select";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTableCells, faTableList } from "@fortawesome/free-solid-svg-icons";
 import ProductRow from "../ProductRow";
-import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../store/Reducers";
-import { addProduct } from "../../store/Actions";
-import Button from "../Button";
+
 
 const ProductList: FC = () => {
   const productsReducer = useSelector<RootState>(
