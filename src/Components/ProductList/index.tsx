@@ -7,137 +7,55 @@ import Select from "../Select";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTableCells, faTableList } from "@fortawesome/free-solid-svg-icons";
 import ProductRow from "../ProductRow";
-let products = [
-  {
-    title: "burgur",
-    id: "1",
-    media: "https://picsum.photos/200/300",
-    unitOfMeasure: "0.5kg",
-    category: "Meat",
-  },
-  {
-    title: "coco cola",
-    id: "2",
-    media: "https://picsum.photos/200/301",
-    unitOfMeasure: "350ml",
-    category: "Drink",
-  },
-  {
-    title: "doritos",
-    id: "3",
-    media: "https://picsum.photos/200/306",
-    unitOfMeasure: "200g",
-    category: "Snack",
-  },
-  {
-    title: "milk",
-    id: "4",
-    media: "https://picsum.photos/200/302",
-    unitOfMeasure: "350ml",
-    category: "Drink",
-  },
-  {
-    title: "pepsi",
-    id: "5",
-    media: "https://picsum.photos/200/303",
-    unitOfMeasure: "350ml",
-    category: "Drink",
-  },
-  {
-    title: "hi",
-    id: "6",
-    media: "https://picsum.photos/200/300",
-    unitOfMeasure: "0.5kg",
-    category: "Drink",
-  },
-  {
-    title: "hi",
-    id: "7",
-    media: "https://picsum.photos/200/300",
-    unitOfMeasure: "0.5kg",
-    category: "Drink",
-  },
-  {
-    title: "hi",
-    id: "8",
-    media: "https://picsum.photos/200/300",
-    unitOfMeasure: "0.5kg",
-    category: "Drink",
-  },
-  {
-    title: "hi",
-    id: "9",
-    media: "https://picsum.photos/200/300",
-    unitOfMeasure: "0.5kg",
-    category: "Drink",
-  },
-  {
-    title: "hi",
-    id: "10",
-    media: "https://picsum.photos/200/300",
-    unitOfMeasure: "0.5kg",
-    category: "Drink",
-  },
-];
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store/Reducers";
+import { addProduct } from "../../store/Actions";
+import Button from "../Button";
+
 const ProductList: FC = () => {
+  const productsReducer = useSelector<RootState>(
+    (state) => state.productsReducer
+  ) as Product[];
+
   const theme = useTheme();
-  const [items, setItems] = useState([...products]);
+  const [searchValue, setSearcchValue] = useState("");
   const [displayWay, setDisplayWay] = useState<string>("grid");
   const [filters, setFilters] = useState({
     category: "all",
     unitOfMeasure: "all",
   });
-
+  // Search filters applied when the search value changed or the filtersValues changed
+  let items = [...productsReducer].filter(
+    (p) =>
+      (filters.category === "all"
+        ? true
+        : p.category.categoryName === filters.category) &&
+      (filters.unitOfMeasure === "all"
+        ? true
+        : p.unitOfMeasure.unitOfMeasureName === filters.unitOfMeasure) &&
+      (p.category.categoryName === searchValue ||
+        p.title.startsWith(searchValue) ||
+        (p.title + " " + p.unitOfMeasure).startsWith(searchValue) ||
+        p.unitOfMeasure.unitOfMeasureName.startsWith(searchValue))
+  );
   const searchHandler = (value: string) => {
-    setItems([
-      ...products.filter(
-        (p) =>
-          (filters.category === "all"
-            ? true
-            : p.category === filters.category) &&
-          (filters.unitOfMeasure === "all"
-            ? true
-            : p.unitOfMeasure === filters.unitOfMeasure) &&
-          (p.category === value ||
-            p.title.startsWith(value) ||
-            (p.title + " " + p.unitOfMeasure).startsWith(value) ||
-            p.unitOfMeasure.startsWith(value))
-      ),
-    ]);
+    setSearcchValue(value);
   };
   const onChangeCategoryFilterHandler = (value: string) => {
     setFilters((p) => {
       return { ...p, category: value };
     });
-    setItems([
-      ...products.filter(
-        (p) =>
-          (filters.unitOfMeasure === "all"
-            ? true
-            : p.unitOfMeasure === filters.unitOfMeasure) &&
-          (value === "all" ? true : p.category === value)
-      ),
-    ]);
   };
 
   const onChangeUnitOfMeasureFilterHandler = (value: string) => {
     setFilters((p) => {
       return { ...p, unitOfMeasure: value };
     });
-    setItems([
-      ...products.filter(
-        (p) =>
-          (filters.category === "all"
-            ? true
-            : p.category === filters.category) &&
-          (value === "all" ? true : p.unitOfMeasure === value)
-      ),
-    ]);
   };
 
-  const displayWayHandler = (status:string) =>{
-    setDisplayWay(status)
-  }
+  const displayWayHandler = (status: string) => {
+    setDisplayWay(status);
+  };
   return (
     <div className={style.container}>
       <div className={style.head}>
@@ -146,14 +64,14 @@ const ProductList: FC = () => {
       </div>
       <div className={style.controls}>
         <FontAwesomeIcon
-          onClick={()=>displayWayHandler("grid")}
+          onClick={() => displayWayHandler("grid")}
           icon={faTableCells}
           cursor={"pointer"}
           color={theme.palette.textSecondary}
           fontSize={30}
         />
         <FontAwesomeIcon
-          onClick={()=>displayWayHandler("list")}
+          onClick={() => displayWayHandler("list")}
           icon={faTableList}
           cursor={"pointer"}
           color={theme.palette.textSecondary}
@@ -185,16 +103,16 @@ const ProductList: FC = () => {
               key={p.id}
               title={p.title}
               media={p.media}
-              unitOfMeasure={p.unitOfMeasure}
-              category={p.category}
+              unitOfMeasure={p.unitOfMeasure.unitOfMeasureName}
+              category={p.category.categoryName}
             />
           ) : (
             <ProductRow
               key={p.id}
               title={p.title}
               media={p.media}
-              unitOfMeasure={p.unitOfMeasure}
-              category={p.category}
+              unitOfMeasure={p.unitOfMeasure.unitOfMeasureName}
+              category={p.category.categoryName}
             />
           );
         })}
