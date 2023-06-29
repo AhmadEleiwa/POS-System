@@ -5,10 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBars,
   faCube,
-  faGauge,
   faGears,
   faRuler,
-  faTable,
   faTag,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
@@ -34,7 +32,7 @@ const Navbar: FC = () => {
       <Link to={"/category"}>
         <FontAwesomeIcon className={style.link} icon={faTag} color="white" />
       </Link>
-      <Link to={"/"}>
+      <Link to={"/unitofmeasure"}>
         <FontAwesomeIcon className={style.link} icon={faRuler} color="white" />
       </Link>
       <Link to={"/"}>

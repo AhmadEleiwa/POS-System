@@ -38,9 +38,9 @@ let initialData = [
 ];
 const productsReducer = (state: Product[] = initialData, action: Action) => {
   switch (action.type) {
-    case "ADD":
+    case "ADD_PRODUCT":
       return [...state, action.data];
-    case "REMOVE":
+    case "REMOVE_PRODUCT":
       return state.filter(p => p.id !== action.data)
     default:
       return state;

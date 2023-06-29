@@ -1,23 +1,20 @@
-let initialData:Category[] = [
-   {categoryName:'Drink'},
-   {categoryName:'Meat'},
-   {categoryName:'Snack'},
+import Categoris from '../../Static/Categories.json'
 
-  ];
-  const categoriessReducer = (state: Category[] = initialData, action: Action) => {
+  const categoriessReducer = (state: Category[] = Categoris, action: Action) => {
     switch (action.type) {
-      case "ADD":
+      case "ADD_CATEGORY":
         return [...state, {categoryName: action.data}];
-      case "UPDATE":{
+      case "UPDATE_CATEGORY":{
         let dd =state.find(p => p.categoryName === action.data.name) 
         dd!.categoryName = action.data.newName
         return [...state]
       }
-      case "REMOVE":return state.filter(p => p.categoryName!== action.data)
+      case "REMOVE_CATEGORY":return state.filter(p => p.categoryName!== action.data)
       default:
         return state;
     }
   };
+
   
   export default categoriessReducer;
   
