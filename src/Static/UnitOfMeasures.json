@@ -1,0 +1,5 @@
+[
+    {"unitOfMeasureName" : "0.5kg", "baseUnitOfMeasure" :"g", "conversionFactor":500},
+    {"unitOfMeasureName" : "330ml", "baseUnitOfMeasure" :"liter", "conversionFactor":0.33},
+    {"unitOfMeasureName" : "1.5l", "baseUnitOfMeasure" :"liter", "conversionFactor":1.5}
+]
