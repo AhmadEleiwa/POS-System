@@ -40,17 +40,18 @@ const Router: FC = () => {
           element={
             <Guard>
               <Layout>
-
-              <CategoryPage />
+                <CategoryPage />
               </Layout>
             </Guard>
           }
         ></Route>
         <Route
-          path="/unit-of-measure"
+          path="/unit-measure"
           element={
             <Guard>
-              <UnitOfMeasurePage />
+              <Layout>
+                <UnitOfMeasurePage />
+              </Layout>
             </Guard>
           }
         ></Route>
