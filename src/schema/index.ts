@@ -13,3 +13,8 @@ export const unitOfMeasureSchema = yup.object().shape({
     baseOfUnitOfMeasure:yup.string().required("Base Unit of measure is required field"),
     CFB:yup.number().required("Conversion Factor base is required field"),
 })
+
+
+export const testSchema = yup.object().shape({
+    testField:yup.string().required("TEST ERROR")
+})
