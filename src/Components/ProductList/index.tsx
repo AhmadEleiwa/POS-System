@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { ChangeEvent, FC, useState } from "react";
 import Card from "../Card";
 import style from "./style.module.css";
 import SearchField from "../SearchField";
@@ -40,15 +40,15 @@ const ProductList: FC = () => {
   const searchHandler = (value: string) => {
     setSearcchValue(value);
   };
-  const onChangeCategoryFilterHandler = (value: string) => {
+  const onChangeCategoryFilterHandler = (event: ChangeEvent<HTMLSelectElement>) => {
     setFilters((p) => {
-      return { ...p, category: value };
+      return { ...p, category: event.target.value };
     });
   };
 
-  const onChangeUnitOfMeasureFilterHandler = (value: string) => {
+  const onChangeUnitOfMeasureFilterHandler = (event: ChangeEvent<HTMLSelectElement>) => {
     setFilters((p) => {
-      return { ...p, unitOfMeasure: value };
+      return { ...p, unitOfMeasure: event.target.value };
     });
   };
 

@@ -39,7 +39,10 @@ const Router: FC = () => {
           path="/category"
           element={
             <Guard>
+              <Layout>
+
               <CategoryPage />
+              </Layout>
             </Guard>
           }
         ></Route>

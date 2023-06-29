@@ -3,14 +3,17 @@ import style from "./style.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import useTheme from "../../context/Theme/useTheme";
+import Button from "../Button";
+import { useField } from "formik";
 interface props {
   options: { key: string; value: string }[];
-  onChange?: ChangeEventHandler<HTMLSelectElement>;
   width?:string;
+  name:string;
 }
-const Select: FC<props> = ({ options, onChange,width }) => {
+const SelectField: FC<props> = ({ options,width ,name}) => {
+  const [field, meta] = useField(name)
   const theme = useTheme();
-
+  // console.log(field.value)
   return (
     <div
       className={style.select}
@@ -21,9 +24,9 @@ const Select: FC<props> = ({ options, onChange,width }) => {
       }}
     >
       <select
-        name=""
-        id=""
-        onChange={onChange}
+        name={field.name}
+        value={field.value}
+        onChange={field.onChange}
         className={style.select}
         style={{ color: theme.palette.textPrimary }}
       >
@@ -46,4 +49,4 @@ const Select: FC<props> = ({ options, onChange,width }) => {
   );
 };
 
-export default Select;
+export default SelectField;

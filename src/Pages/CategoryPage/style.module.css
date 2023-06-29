@@ -1,0 +1,57 @@
+.container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    
+    justify-content: center;
+}
+.cate{
+    width: 40%;
+    height: 80%;
+    box-sizing: border-box;
+    padding-top: 4em;
+    display: flex;
+    gap: 4em;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 4px;
+
+}
+.cate form{
+    width: 90%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 1em;
+}
+.switcher{
+    width: 90%;
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+    background-color: #66666601;
+    border-radius: 6px;
+    border: 1px solid #66666688;
+}
+
+.switcher > *{
+   width: 100%;
+   padding: 0.5em;
+   box-sizing: border-box;
+   
+}
+.switcher > *:hover{
+    background-color: #66666622;
+ }
+.table{
+    width: 100%;
+    height: 95%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 2em;
+    box-sizing: border-box;
+    align-items: center;
+    margin-right: 1em;
+    border-radius: 4px;
+}

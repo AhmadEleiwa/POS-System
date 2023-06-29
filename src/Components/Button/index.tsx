@@ -7,12 +7,14 @@ interface props extends PropsWithChildren {
   onClick?: MouseEventHandler<HTMLButtonElement>;
   fullWidth?: boolean;
   className?:string;
+  type?:"reset" | 'button' | 'submit'
 }
 const Button: FC<props> = ({
   children,
   variant = "primary",
   size = "normal",
   onClick,
+  type= 'button',
   fullWidth = false,
   className
 }) => {
@@ -35,7 +37,7 @@ const Button: FC<props> = ({
   else styles.padding = "0.7em 1em";
   if (fullWidth) styles.width = "100%";
   return (
-    <button className={style.btn +" " + className} onClick={onClick} style={styles}>
+    <button type={type} className={style.btn +" " + className} onClick={onClick} style={styles}>
       {children}
     </button>
   );
