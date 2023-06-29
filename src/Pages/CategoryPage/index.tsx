@@ -8,7 +8,6 @@ import useTheme from "../../context/Theme/useTheme";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAdd,
-  faDeleteLeft,
   faEdit,
   faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
@@ -72,7 +71,7 @@ const CategoryPage: FC = () => {
               dispatch(addCategory(values.category))
             }}
             initialValues={{ category: "" }}
-            // validationSchema={schema}
+            validationSchema={schema}
           >
             <Form>
               <TextField
@@ -89,11 +88,12 @@ const CategoryPage: FC = () => {
         )}
         {status === "update" && (
           <Formik
-            onSubmit={(values) => {
+            onSubmit={(values,actions) => {
               console.log(values)
               dispatch(updateCategory(values.selectedCategory, values.category))
             }}
             initialValues={{ category: "", selectedCategory: categories[0].categoryName }}
+            validationSchema={schema}
           >
             <Form>
               <SelectField
