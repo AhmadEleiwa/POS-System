@@ -10,12 +10,16 @@ import ProductRow from "../ProductRow";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/Reducers";
 
-
 const ProductList: FC = () => {
   const productsReducer = useSelector<RootState>(
     (state) => state.productsReducer
   ) as Product[];
-
+  const categories = useSelector<RootState>(
+    (state) => state.categoriessReducer
+  ) as Category[];
+  const unitOfMeasures = useSelector<RootState>(
+    (state) => state.unitOfMeasureReducer
+  ) as UnitOfMeasure[];
   const theme = useTheme();
   const [searchValue, setSearcchValue] = useState("");
   const [displayWay, setDisplayWay] = useState<string>("grid");
@@ -23,8 +27,9 @@ const ProductList: FC = () => {
     category: "all",
     unitOfMeasure: "all",
   });
+
   // Search filters applied when the search value changed or the filtersValues changed
-  let items = [...productsReducer].filter(
+  let items: Product[] = [...productsReducer].filter(
     (p) =>
       (filters.category === "all"
         ? true
@@ -40,13 +45,17 @@ const ProductList: FC = () => {
   const searchHandler = (value: string) => {
     setSearcchValue(value);
   };
-  const onChangeCategoryFilterHandler = (event: ChangeEvent<HTMLSelectElement>) => {
+  const onChangeCategoryFilterHandler = (
+    event: ChangeEvent<HTMLSelectElement>
+  ) => {
     setFilters((p) => {
       return { ...p, category: event.target.value };
     });
   };
 
-  const onChangeUnitOfMeasureFilterHandler = (event: ChangeEvent<HTMLSelectElement>) => {
+  const onChangeUnitOfMeasureFilterHandler = (
+    event: ChangeEvent<HTMLSelectElement>
+  ) => {
     setFilters((p) => {
       return { ...p, unitOfMeasure: event.target.value };
     });
@@ -78,21 +87,17 @@ const ProductList: FC = () => {
         />
         <Select
           onChange={onChangeCategoryFilterHandler}
-          options={[
-            { key: "all", value: "All" },
-            { key: "Drink", value: "Drink" },
-            { key: "Snack", value: "Snack" },
-            { key: "Meat", value: "Meat" },
-          ]}
+          options={categories.map((cate) => {
+            if (cate.categoryName)
+              return { key: cate.categoryName, value: cate.categoryName };
+            return { key: "", value: "" };
+          })}
         />
         <Select
           onChange={onChangeUnitOfMeasureFilterHandler}
-          options={[
-            { key: "all", value: "All" },
-            { key: "350ml", value: "350ml" },
-            { key: "0.5kg", value: "0.5kg" },
-            { key: "200g", value: "200g" },
-          ]}
+          options={unitOfMeasures.map(p => {
+            return {key:p.unitOfMeasureName, value:p.unitOfMeasureName}
+          })}
         />
       </div>
       <div className={style.productList}>
