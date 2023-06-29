@@ -5,14 +5,18 @@
   min-width: 4em;
   display: flex;
   flex-direction: column;
-  gap: 2em;
+  /* gap: 0.5em; */
 }
 .link {
   transition: all 0.12s ease;
   font-size: 1.3em;
+  box-sizing: border-box;
   cursor: pointer;
+  padding: 0.8em 0;
   width: 100%;
 }
 .link:hover {
-  scale: 1.2;
+  /* scale: 1.2; */
+  font-size: 26px;
+  background-color: #66666622;
 }

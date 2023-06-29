@@ -4,8 +4,12 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBars,
+  faCube,
   faGauge,
+  faGears,
+  faRuler,
   faTable,
+  faTag,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import style from "./style.module.css";
@@ -27,11 +31,17 @@ const Navbar: FC = () => {
       <Link to={"/"}>
         <FontAwesomeIcon className={style.link} icon={faUser} color="white" />
       </Link>
-      <Link to={"/"}>
-        <FontAwesomeIcon className={style.link} icon={faTable} color="white" />
+      <Link to={"/category"}>
+        <FontAwesomeIcon className={style.link} icon={faTag} color="white" />
       </Link>
       <Link to={"/"}>
-        <FontAwesomeIcon className={style.link} icon={faGauge} color="white" />
+        <FontAwesomeIcon className={style.link} icon={faRuler} color="white" />
+      </Link>
+      <Link to={"/"}>
+        <FontAwesomeIcon className={style.link} icon={faCube} color="white" />
+      </Link>
+      <Link to={"/"}>
+        <FontAwesomeIcon className={style.link} icon={faGears} color="white" />
       </Link>
     </header>
   );
