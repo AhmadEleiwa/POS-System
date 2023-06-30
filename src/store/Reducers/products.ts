@@ -40,8 +40,13 @@ const productsReducer = (state: Product[] = initialData, action: Action) => {
   switch (action.type) {
     case "ADD_PRODUCT":
       return [...state, action.data];
+      case "UPDATE_PRODUCT":{
+        let dd =state.find(p => p.id === action.data.id) 
+        dd = action.data.newProduct
+        return [...state]
+      }
     case "REMOVE_PRODUCT":
-      return state.filter(p => p.id !== action.data)
+      return state.filter((p) => p.id !== action.data);
     default:
       return state;
   }
