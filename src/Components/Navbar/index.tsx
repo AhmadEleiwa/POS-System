@@ -32,10 +32,10 @@ const Navbar: FC = () => {
       <Link to={"/category"}>
         <FontAwesomeIcon className={style.link} icon={faTag} color="white" />
       </Link>
-      <Link to={"/unitofmeasure"}>
+      <Link to={"/unit-measure"}>
         <FontAwesomeIcon className={style.link} icon={faRuler} color="white" />
       </Link>
-      <Link to={"/"}>
+      <Link to={"/product"}>
         <FontAwesomeIcon className={style.link} icon={faCube} color="white" />
       </Link>
       <Link to={"/"}>

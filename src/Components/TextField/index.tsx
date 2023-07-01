@@ -3,23 +3,17 @@ import style from "./style.module.css";
 import useTheme from "../../context/Theme/useTheme";
 import { useField } from "formik";
 interface props {
-  onChange?: ChangeEventHandler<HTMLInputElement>;
   placeholder?: string;
   width?: string;
   color?: string;
-  value?: string;
   type?: string;
   id?: string;
   name: string;
-  className?: string;
 }
 const TextField: FC<props> = ({
-  onChange,
   placeholder,
-  className,
   width,
   color,
-  value,
   type = "text",
   id,
   name,

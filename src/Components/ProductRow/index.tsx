@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, MouseEventHandler } from "react";
 import style from "./style.module.css";
 import useTheme from "../../context/Theme/useTheme";
 interface props {
@@ -7,6 +7,9 @@ interface props {
   category: string;
   media: string;
   className?: string;
+  onClick?: MouseEventHandler;
+  width?: string;
+  borderRadius?: string;
 }
 const ProductRow: FC<props> = ({
   title,
@@ -14,16 +17,20 @@ const ProductRow: FC<props> = ({
   category,
   media,
   className,
+  width,
+  onClick,
+  borderRadius = "4px",
 }) => {
   const theme = useTheme();
-  const addHandler = () => {
-    // some logic to handle the adding to order
-  };
   return (
     <div
-      className={style.row}
-      style={{ backgroundColor: theme.palette.paper }}
-      onClick={addHandler}
+      className={style.row + " " + className}
+      style={{
+        backgroundColor: theme.palette.paper,
+        width: width,
+        borderRadius: borderRadius,
+      }}
+      onClick={onClick}
     >
       <img src={media} alt="" />
       <p style={{ color: theme.palette.textPrimary }}>{title}</p>

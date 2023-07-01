@@ -1,0 +1,40 @@
+.container {
+  width: 100%;
+  display: flex;
+  gap: 1em;
+}
+.table {
+  width: 100%;
+  height: 80%;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 1em;
+  box-sizing: border-box;
+  overflow-y: auto;
+  padding: 0.5em;
+  gap: 5px;
+
+}
+.info {
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+}
+.form h1{
+    width: 100%;
+    border-bottom: 1px solid #66666622;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+}
+.controls{
+  width: 100%;
+    display: flex;
+    gap: 1em;
+}

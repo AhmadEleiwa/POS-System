@@ -31,7 +31,9 @@ const Router: FC = () => {
           path="/product"
           element={
             <Guard>
-              <ProductPage />
+              <Layout>
+                <ProductPage />
+              </Layout>
             </Guard>
           }
         ></Route>

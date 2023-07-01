@@ -1,9 +1,9 @@
-import React, { ChangeEvent, ChangeEventHandler, FC } from "react";
+import React, { FC } from "react";
 import style from "./style.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import useTheme from "../../context/Theme/useTheme";
-import Button from "../Button";
+
 import { useField } from "formik";
 interface props {
   options: { key: string; value: string }[];
@@ -13,7 +13,6 @@ interface props {
 const SelectField: FC<props> = ({ options,width ,name}) => {
   const [field, meta] = useField(name)
   const theme = useTheme();
-  // console.log(field.value)
   return (
     <div
       className={style.select}
