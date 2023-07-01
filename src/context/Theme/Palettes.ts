@@ -31,7 +31,7 @@ const darkTheme: Palette = {
   secondary: "#2f2f2f",
   error: "#B00020",
   paper: "#121212",
-  warning: "#FFCC00",
+  warning: "#CC9900",
   textPrimary: "#fff",
   textSecondary: "#afafaf",
   textAction: "white",
