@@ -5,9 +5,9 @@ let initialData = [
     id: "1",
     media: "https://picsum.photos/200/300",
     unitOfMeasure: {
-      unitOfMeasureName: "150g",
+      unitOfMeasureName: "0.5kg",
       baseUnitOfMeasure: "g",
-      conversionFactor: 150,
+      conversionFactor: 500,
     },
     category: { categoryName: "Meat" },
   },
@@ -17,9 +17,9 @@ let initialData = [
     id: "2",
     media: "https://picsum.photos/200/301",
     unitOfMeasure: {
-      unitOfMeasureName: "350ml",
+      unitOfMeasureName: "330ml",
       baseUnitOfMeasure: "l",
-      conversionFactor: 0.35,
+      conversionFactor: 0.33,
     },
     category: { categoryName: "Drink" },
   },
@@ -29,7 +29,7 @@ let initialData = [
     id: "3",
     media: "https://picsum.photos/200/302",
     unitOfMeasure: {
-      unitOfMeasureName: "1.5 liter",
+      unitOfMeasureName: "1.5l",
       baseUnitOfMeasure: "l",
       conversionFactor: 1.5,
     },
@@ -40,11 +40,15 @@ const productsReducer = (state: Product[] = initialData, action: Action) => {
   switch (action.type) {
     case "ADD_PRODUCT":
       return [...state, action.data];
-      case "UPDATE_PRODUCT":{
-        let dd =state.find(p => p.id === action.data.id) 
-        dd = action.data.newProduct
-        return [...state]
-      }
+    case "UPDATE_PRODUCT": {
+      let dd = state.map((p) => {
+        if(p.id === action.data.id)
+          return {...p, ...action.data.newProduct}
+        return p
+      });
+  
+      return [...dd];
+    }
     case "REMOVE_PRODUCT":
       return state.filter((p) => p.id !== action.data);
     default:
