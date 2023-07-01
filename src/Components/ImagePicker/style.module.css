@@ -1,0 +1,21 @@
+.imagePicker{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.imageInput{
+    display: none;
+}
+
+.image{
+     margin: 0;  
+     cursor: pointer;
+     overflow: hidden;
+}
+.image img{
+    max-width: 20em;
+    max-height: 10em;
+    border-radius: 4px;
+    
+}
