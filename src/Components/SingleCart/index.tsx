@@ -4,85 +4,24 @@ import {
   faArrowUp,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { FC, useState } from "react";
+import React, { ChangeEvent, FC, useState } from "react";
 import style from "./style.module.css";
 import useTheme from "../../context/Theme/useTheme";
 import SearchField from "../SearchField";
 import Row from "./Components/Row";
 import Button from "../Button";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store/Reducers";
+import TextField from "../TextField";
+import { Formik, Form } from "formik";
+import {
+  deleteCartProduct,
+  updateCart,
+  updateCartProduct,
+} from "../../store/Actions";
+import Input from "../Input";
+// import { Form } from "react-router-dom";
 
-const DATA_FROM_MOCK_API = [
-  {
-    id: "1",
-    title: "Doritos",
-    price: 2.33,
-    qty: 4,
-    media: "https://picsum.photos/200/300",
-  },
-  {
-    id: "",
-    title: "Milk",
-    price: 4.33,
-    qty: 8,
-    media: "https://picsum.photos/200/300",
-  },
-  {
-    id: "1",
-    title: "Doritos",
-    price: 2.33,
-    qty: 4,
-    media: "https://picsum.photos/200/300",
-  },
-  {
-    id: "",
-    title: "Milk",
-    price: 4.33,
-    qty: 8,
-    media: "https://picsum.photos/200/300",
-  },
-  {
-    id: "1",
-    title: "Doritos",
-    price: 2.33,
-    qty: 4,
-    media: "https://picsum.photos/200/300",
-  },
-  {
-    id: "",
-    title: "Milk",
-    price: 4.33,
-    qty: 8,
-    media: "https://picsum.photos/200/300",
-  },
-  {
-    id: "1",
-    title: "Doritos",
-    price: 2.33,
-    qty: 4,
-    media: "https://picsum.photos/200/300",
-  },
-  {
-    id: "",
-    title: "Milk",
-    price: 4.33,
-    qty: 8,
-    media: "https://picsum.photos/200/300",
-  },
-  {
-    id: "1",
-    title: "Doritos",
-    price: 2.33,
-    qty: 4,
-    media: "https://picsum.photos/200/300",
-  },
-  {
-    id: "",
-    title: "Milk",
-    price: 4.33,
-    qty: 8,
-    media: "https://picsum.photos/200/300",
-  },
-];
 const headings = [
   { key: "id", title: "product" },
   { key: "qty", title: "QTY" },
@@ -102,21 +41,46 @@ const SingleCart: FC<props> = ({ onClick, orderId }) => {
     key: "",
     status: "",
   });
+  const [searchValue, setSearchValue] = useState<string>("");
+
+  const dispatch = useDispatch();
   const theme = useTheme();
+  const cart = (
+    useSelector<RootState>((state) => state.cartsReducer) as Cart[]
+  ).find((p) => p.cartId === orderId) as Cart;
 
-  const [items, setItems] = useState([...DATA_FROM_MOCK_API]);
-
+  let items = cart.products;
+  const qtyChangeHandler = (value: string, id: string) => {
+    let val = value  === "" ? "1" : value;
+    // logic to change the quantity for this product in the cart
+    dispatch(updateCartProduct(orderId, id, { qty: parseInt(val) }));
+  };
+  const descriptionChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    // logic to change the description for this product in the cart
+    dispatch(updateCart(orderId, { description: event.target.value }));
+  };
+  const onDeleteProduct = (id: string) => {
+    dispatch(deleteCartProduct(orderId, id));
+  };
+  const updateDiscount = (event: ChangeEvent<HTMLInputElement>) => {
+    let val = event.target.value === "" ? "0" : event.target.value;
+    dispatch(
+      updateCart(orderId, {
+        discount: parseInt(val) / 100,
+      })
+    );
+  };
+  const updateTax = (event: ChangeEvent<HTMLInputElement>) => {
+    let val = event.target.value === "" ? "0" : event.target.value;
+    dispatch(updateCart(orderId, { tax: parseInt(val) / 100 }));
+  };
+  const onSearchHandler = (value: string) => {
+    setSearchValue(value);
+  };
   const filterHandler = (id: string) => {
     if (selectedColumn.key === id && selectedColumn.status === "ascending") {
       // logic to sort the items descending ; becouse the previous status is ascending
       // set the status to descending
-      setItems([
-        ...items.sort((prev: any, curr: any) => {
-          if (prev[id] < curr[id]) return -1;
-          else if (prev[id] > curr[id]) return 1;
-          return 0;
-        }),
-      ]);
       setSelectedColumn({
         key: id,
         status: "descending",
@@ -127,7 +91,6 @@ const SingleCart: FC<props> = ({ onClick, orderId }) => {
     ) {
       // logic to back the items order as the default
       // set the status to ""
-      setItems([...DATA_FROM_MOCK_API]);
       setSelectedColumn({
         key: "",
         status: "",
@@ -135,25 +98,34 @@ const SingleCart: FC<props> = ({ onClick, orderId }) => {
     } else {
       // logic to sort the items ascending
       // set the status to ascending
-      setItems([
-        ...items.sort((prev: any, curr: any) => {
-          if (prev[id] > curr[id]) return -1;
-          else if (prev[id] < curr[id]) return 1;
-          return 0;
-        }),
-      ]);
       setSelectedColumn({
         key: id,
         status: "ascending",
       });
     }
   };
-  const onSearchHandler = (value: string) => {
-    let data = [...DATA_FROM_MOCK_API];
-    setItems(
-      data.filter((item) => item.title.startsWith(value) || item.id === value)
-    );
-  };
+  if (selectedColumn.status === "ascending") {
+    items.sort((prev: any, curr: any) => {
+      if (prev[selectedColumn.key] < curr[selectedColumn.key]) return -1;
+      else if (prev[selectedColumn.key] > curr[selectedColumn.key]) return 1;
+      return 0;
+    });
+  } else if (selectedColumn.status === "descending") {
+    items.sort((prev: any, curr: any) => {
+      if (prev[selectedColumn.key] > curr[selectedColumn.key]) return -1;
+      else if (prev[selectedColumn.key] < curr[selectedColumn.key]) return 1;
+      return 0;
+    });
+  } else {
+    items = cart.products;
+  }
+  items = items.filter((p) => p.title.startsWith(searchValue));
+  let totalPrice = 0;
+  for (let val of items) {
+    totalPrice += val.qty * val.price;
+  }
+  totalPrice += -totalPrice * cart.discount + totalPrice * cart.tax;
+  console.log(totalPrice);
   return (
     <div className={style.single}>
       <div className={style.orderHead}>
@@ -166,62 +138,112 @@ const SingleCart: FC<props> = ({ onClick, orderId }) => {
           onClick={onClick}
         />
       </div>
-      <SearchField width="95%" color="#66666622" onChange={onSearchHandler} />
-
-      <div className={style.table}>
-        <div className={style.head}>
-          {headings.map((item) => (
-            <div
-              className={style.heading}
-              key={item.key}
-              onClick={() => filterHandler(item.key)}
-            >
-              <p style={{ color: theme.palette.textPrimary }}>{item.title}</p>
-              {selectedColumn.key === item.key &&
-                selectedColumn.status === "ascending" && (
-                  <FontAwesomeIcon
-                    fontSize={14}
-                    color={theme.palette.textSecondary}
-                    icon={faArrowDown}
-                  />
-                )}
-              {selectedColumn.key === item.key &&
-                selectedColumn.status === "descending" && (
-                  <FontAwesomeIcon
-                    fontSize={14}
-                    color={theme.palette.textSecondary}
-                    icon={faArrowUp}
-                  />
-                )}
-            </div>
-          ))}
-        </div>
-        {items.map((item) => (
-          <Row
-            title={item.title}
-            media={item.media}
-            price={item.price}
-            qty={item.qty}
+      <Formik
+        onSubmit={() => {}}
+        initialValues={{ description: cart.description }}
+      >
+        <Form
+          style={{
+            width: "95%",
+            margin: "0 auto",
+            display: "flex",
+            flexDirection: "column",
+            gap: "1em",
+          }}
+        >
+          <SearchField
+            width="100%"
+            color="#66666622"
+            onChange={onSearchHandler}
           />
-        ))}
-      </div>
-      <div className={style.orderData} style={{color:theme.palette.textPrimary}}>
-        <div className={style.row}>
-          <p>Discount</p>
-          <p>0</p>
-        </div>
-        <div className={style.row}>
-          <p>Tax</p>
-          <p>0</p>
-        </div>
-        <div className={style.row}>
-          <p>Total</p>
-          <p>0</p>
-        </div>
-        <Button variant="error" fullWidth>
-          Continue Payment
-        </Button>
-      </div>
+          <Input
+            name="description"
+            value={cart.description}
+            onChange={descriptionChangeHandler}
+            width="100%"
+          />
+          <div className={style.table}>
+            <div className={style.head}>
+              {headings.map((item) => (
+                <div
+                  className={style.heading}
+                  key={item.key}
+                  onClick={() => filterHandler(item.key)}
+                >
+                  <p style={{ color: theme.palette.textPrimary }}>
+                    {item.title}
+                  </p>
+                  {selectedColumn.key === item.key &&
+                    selectedColumn.status === "ascending" && (
+                      <FontAwesomeIcon
+                        fontSize={14}
+                        color={theme.palette.textSecondary}
+                        icon={faArrowDown}
+                      />
+                    )}
+                  {selectedColumn.key === item.key &&
+                    selectedColumn.status === "descending" && (
+                      <FontAwesomeIcon
+                        fontSize={14}
+                        color={theme.palette.textSecondary}
+                        icon={faArrowUp}
+                      />
+                    )}
+                </div>
+              ))}
+            </div>
+            {items.map((item) => (
+              <Row
+                key={item.id}
+                unitOfMeasure={item.unitOfMeasure.unitOfMeasureName}
+                onDelete={onDeleteProduct}
+                onQTYChange={qtyChangeHandler}
+                id={item.id}
+                title={item.title}
+                media={item.media}
+                price={item.price}
+                qty={item.qty}
+              />
+            ))}
+          </div>
+          <div
+            className={style.orderData}
+            style={{ color: theme.palette.textPrimary }}
+          >
+            <div className={style.row}>
+              <p>Discount</p>
+              <div className={style.rowValue}>
+                <p>-%{(cart.discount * 100).toFixed(2)}</p>
+                <Input
+                  onChange={updateDiscount}
+                  width="8em"
+                  type="number"
+                  value={(cart.discount * 100).toFixed(0)}
+                />
+              </div>
+            </div>
+            <div className={style.row}>
+              <p>Tax</p>
+              <div className={style.rowValue}>
+                <p>+%{(cart.tax * 100).toFixed(2)}</p>
+                <Input
+                  onChange={updateTax}
+                  width="8em"
+                  type="number"
+                  value={(cart.tax * 100).toFixed(0)}
+                />
+              </div>
+            </div>
+            <div className={style.row}>
+              <p>Total</p>
+              <p>$ {totalPrice.toFixed(2)}</p>
+            </div>
+            <Button variant="error" fullWidth>
+              Continue Payment
+            </Button>
+          </div>
+        </Form>
+      </Formik>
     </div>
   );
 };
