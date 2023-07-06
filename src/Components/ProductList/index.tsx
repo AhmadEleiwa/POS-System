@@ -105,11 +105,12 @@ const ProductList: FC = () => {
           return displayWay === "grid" ? (
             <Card
               key={p.id}
+              id={p.id}
               title={p.title}
               media={p.media}
               unitOfMeasure={p.unitOfMeasure.unitOfMeasureName}
               category={p.category.categoryName}
-            />
+            />  
           ) : (
             <ProductRow
               key={p.id}

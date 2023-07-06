@@ -6,9 +6,10 @@ import SingleCart from "../SingleCart";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeftLong,
-  faArrowLeftRotate,
   faArrowRightLong,
 } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch } from "react-redux";
+import { chooseCart } from "../../store/Actions";
 interface props {
   width?: string;
 }
@@ -16,9 +17,15 @@ const Aside: FC<props> = ({ width }) => {
   const [show, setShow] = useState<string>("");
   const [showContainer, setShowContainer] = useState<boolean>(true)
   const theme = useTheme();
+  const dispatch = useDispatch()
   const chooseOrderHandler = (id: string) => {
+    dispatch(chooseCart(id))
     setShow(id);
   };
+  const removeOrderHandler = () => {
+    setShow("")
+    dispatch(chooseCart(""))
+  }
   return (
     <div
       className={style.container}
@@ -45,7 +52,7 @@ const Aside: FC<props> = ({ width }) => {
       {show === "" ? (
         <CartTable onChoose={chooseOrderHandler} />
       ) : (
-        <SingleCart orderId={show} onClick={() => setShow("")} />
+        <SingleCart onRemoveOrder={removeOrderHandler} orderId={show} onClick={() => setShow("")} />
       )}
     </div>
   );

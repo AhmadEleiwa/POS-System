@@ -4,25 +4,26 @@ import useTheme from "../../../../context/Theme/useTheme";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 interface props {
+  id: string;
   media: string;
   price: number;
   title: string;
   qty: number;
+  unitOfMeasure: string;
+  onQTYChange: (value: string, id: string) => void;
+  onDelete: (id: string) => void;
 }
-const Row: FC<props> = ({ media, price, title, qty }) => {
+const Row: FC<props> = ({ id, media, price, title, qty,unitOfMeasure, onQTYChange,onDelete }) => {
   const theme = useTheme();
-  const qtyChangeHandler = (event: ChangeEvent) => {
-    // logic to change the quantity for this product in the cart
+  const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    onQTYChange(event.target.value, id);
   };
-  const deleteHandler = () => {
-    // logic to delete the product from this cart
-  }
   return (
     <div className={style.row} style={{ color: theme.palette.textSecondary }}>
       <img src={media} alt={title} />
       <div className={style.title}>
-        <p>{title}</p>
-        <p>$ {price}</p>
+        <p>{title } <small>{unitOfMeasure}</small></p>
+        <small>$ {price}</small>
       </div>
       <input
         style={{
@@ -31,13 +32,15 @@ const Row: FC<props> = ({ media, price, title, qty }) => {
           color: theme.palette.textPrimary,
         }}
         className={style.input}
-        type="text"
+        type="number"
+        min={1}
+        max={99}
         value={qty}
-        onChange={qtyChangeHandler}
+        onChange={onChangeHandler}
       />
-      <p>$ {price * qty}</p>
+      <p>$ {(price * qty).toFixed(2)}</p>
       <FontAwesomeIcon
-        onClick={deleteHandler}
+        onClick={()=>onDelete(id)}
         icon={faTrashCan}
         cursor={"pointer"}
         color={theme.palette.error}
