@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/Reducers";
 import { Formik, Form } from "formik";
 import {
+  checkCart,
   deleteCartProduct,
   updateCart,
   updateCartProduct,
@@ -29,12 +30,13 @@ const headings = [
 interface props {
   onClick?: () => void;
   orderId: string;
+  onRemoveOrder: () =>void;
 }
 type Selected = {
   key: string;
   status: "descending" | "ascending" | "";
 };
-const SingleCart: FC<props> = ({ onClick, orderId }) => {
+const SingleCart: FC<props> = ({ onClick, orderId,onRemoveOrder }) => {
   const [selectedColumn, setSelectedColumn] = useState<Selected>({
     key: "",
     status: "",
@@ -46,7 +48,6 @@ const SingleCart: FC<props> = ({ onClick, orderId }) => {
   const cart = (
     useSelector<RootState>((state) => state.cartsReducer) as Cart[]
   ).find((p) => p.cartId === orderId) as Cart;
-
   let items = [...cart.products];
   const qtyChangeHandler = (value: string, id: string) => {
     let val = value === "" ? "1" : value;
@@ -123,7 +124,7 @@ const SingleCart: FC<props> = ({ onClick, orderId }) => {
     totalPrice += val.qty * val.price;
   }
   totalPrice += -totalPrice * cart.discount + totalPrice * cart.tax;
-  console.log(totalPrice);
+
   return (
     <div className={style.single}>
       <div className={style.orderHead}>
@@ -137,7 +138,10 @@ const SingleCart: FC<props> = ({ onClick, orderId }) => {
         />
       </div>
       <Formik
-        onSubmit={() => {}}
+        onSubmit={() => {
+          dispatch(checkCart(orderId))
+          onRemoveOrder()
+        }}
         initialValues={{ description: cart.description }}
       >
         <Form
@@ -236,7 +240,7 @@ const SingleCart: FC<props> = ({ onClick, orderId }) => {
               <p>Total</p>
               <p>$ {totalPrice.toFixed(2)}</p>
             </div>
-            <Button variant="error" fullWidth>
+            <Button type="submit" variant="error" fullWidth>
               Continue Payment
             </Button>
           </div>
