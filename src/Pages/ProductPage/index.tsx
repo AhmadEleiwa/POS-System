@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { ChangeEvent, FC, useState } from "react";
 import style from "./style.module.css";
 import useTheme from "../../context/Theme/useTheme";
 
@@ -12,6 +12,11 @@ import SelectField from "../../Components/SelectFeild";
 import ImagePicker from "../../Components/ImagePicker";
 import { addProduct, removeProduct, updateProduct } from "../../store/Actions";
 import { productShcema } from "../../schema";
+import { faTableCells, faTableList } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Select from "../../Components/Select";
+import productsReducer from "../../store/Reducers/products";
+import SearchField from "../../Components/SearchField";
 /**
  * ## Product Page
  * Product page the page that allow to handle the Product itself in the system.
@@ -51,7 +56,37 @@ const ProductPage: FC = () => {
   // after selecting the product id we have to find the correct item
   let selectedItem = products.find((p) => p.id === selectedProduct) as Product;
   let submitAction: "add" | "update" | "delete" | undefined = undefined;
+  const [searchValue, setSearcchValue] = useState("");
+  const [displayWay, setDisplayWay] = useState<string>("grid");
+  const [filters, setFilters] = useState({
+    category: "all",
+    unitOfMeasure: "all",
+  });
 
+  // Search filters applied when the search value changed or the filtersValues changed
+  let items: Product[] = [...products].filter(
+    (p) =>
+      (filters.category === "all"
+        ? true
+        : p.category.categoryName === filters.category) &&
+      (filters.unitOfMeasure === "all"
+        ? true
+        : p.unitOfMeasure.unitOfMeasureName === filters.unitOfMeasure) &&
+      (p.category.categoryName === searchValue ||
+        p.title.startsWith(searchValue) ||
+        (p.title + " " + p.unitOfMeasure).startsWith(searchValue) ||
+        p.unitOfMeasure.unitOfMeasureName.startsWith(searchValue))
+  );
+  const searchHandler = (value: string) => {
+    setSearcchValue(value);
+  };
+  const onChangeCategoryFilterHandler = (
+    event: ChangeEvent<HTMLSelectElement>
+  ) => {
+    setFilters((p) => {
+      return { ...p, category: event.target.value };
+    });
+  };
   const onSubmitHandler = (values: any) => {
     if (submitAction === "add") {
       dispatch(
@@ -81,32 +116,60 @@ const ProductPage: FC = () => {
       dispatch(removeProduct(values.id));
     }
   };
+  const onChangeUnitOfMeasureFilterHandler = (
+    event: ChangeEvent<HTMLSelectElement>
+  ) => {
+    setFilters((p) => {
+      return { ...p, unitOfMeasure: event.target.value };
+    });
+  };
+
   return (
     <div
       // container of the entire page excpt navbar
       className={style.container}
     >
-      <div
-        className={style.table}
-        onClick={(e) => {
-          e.stopPropagation();
-          setSlectedProduct("");
-        }}
-      >
-        {products.map((product) => (
-          <ProductRow
-            key={product.id}
-            width="100%"
-            onClick={(e) => {
-              e.stopPropagation();
-              selectProductHandler(product.id);
-            }}
-            title={product.title}
-            media={product.media}
-            unitOfMeasure={product.unitOfMeasure.unitOfMeasureName}
-            category={product.category.categoryName}
+      <div className={style.list}>
+        <div className={style.filterControls}>
+          <h1 style={{ color: theme.palette.textPrimary }}>EMMARKET</h1>
+          <SearchField className={style.searchBar} onChange={searchHandler} />
+          <Select
+            onChange={onChangeCategoryFilterHandler}
+            options={categories.map((cate) => {
+              if (cate.categoryName)
+                return { key: cate.categoryName, value: cate.categoryName };
+              return { key: "", value: "" };
+            })}
           />
-        ))}
+          <Select
+            onChange={onChangeUnitOfMeasureFilterHandler}
+            options={unitOfMeasures.map((p) => {
+              return { key: p.unitOfMeasureName, value: p.unitOfMeasureName };
+            })}
+          />
+        </div>
+        <div
+          className={style.table}
+          onClick={(e) => {
+            e.stopPropagation();
+            setSlectedProduct("");
+          }}
+        >
+          {items.map((product) => (
+            <ProductRow
+              key={product.id}
+              width="100%"
+              onClick={(e) => {
+                e.stopPropagation();
+                selectProductHandler(product.id);
+              }}
+              title={product.title}
+              media={product.media}
+              unitOfMeasure={product.unitOfMeasure.unitOfMeasureName}
+              category={product.category.categoryName}
+            />
+          ))}
+        </div>
       </div>
       <div
         // the right side drawer witch have the main to handle the product functionalities
