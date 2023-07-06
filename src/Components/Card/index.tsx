@@ -32,7 +32,7 @@ const Card: FC<props> = ({
   const dispatch = useDispatch();
   const addHandler = () => {
     // some logic to handle the adding to order
-    let isFound = products.find((p) => p.id == id);
+    let isFound = products.find((p) => p.id === id);
     if (isFound) dispatch(addProductToCart(cartId, isFound));
   };
   return (
@@ -44,7 +44,7 @@ const Card: FC<props> = ({
       }}
     >
       <div className={style.cardMedia}>
-        <img src={media} />
+        <img src={media} alt={title} />
         <Button
           variant="primary"
           size="large"
