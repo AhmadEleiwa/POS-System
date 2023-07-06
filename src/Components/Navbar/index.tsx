@@ -6,6 +6,7 @@ import {
   faBars,
   faCube,
   faGears,
+  faHome,
   faRuler,
   faTag,
   faUser,
@@ -18,14 +19,9 @@ const Navbar: FC = () => {
       className={style.header}
       style={{ backgroundColor: theme.palette.primary }}
     >
-      <FontAwesomeIcon
-        onClick={() => {
-          theme.changePalette("primary");
-        }}
-        className={style.link}
-        icon={faBars}
-        color="white"
-      />
+      <Link to={"/"}>
+        <FontAwesomeIcon className={style.link} icon={faHome} color="white" />
+      </Link>
       <Link to={"/"}>
         <FontAwesomeIcon className={style.link} icon={faUser} color="white" />
       </Link>
