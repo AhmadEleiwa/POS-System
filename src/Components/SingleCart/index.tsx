@@ -4,7 +4,7 @@ import {
   faArrowUp,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { ChangeEvent, FC, useState } from "react";
+import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import style from "./style.module.css";
 import useTheme from "../../context/Theme/useTheme";
 import SearchField from "../SearchField";
@@ -30,13 +30,13 @@ const headings = [
 interface props {
   onClick?: () => void;
   orderId: string;
-  onRemoveOrder: () =>void;
+  onRemoveOrder: () => void;
 }
 type Selected = {
   key: string;
   status: "descending" | "ascending" | "";
 };
-const SingleCart: FC<props> = ({ onClick, orderId,onRemoveOrder }) => {
+const SingleCart: FC<props> = ({ onClick, orderId, onRemoveOrder }) => {
   const [selectedColumn, setSelectedColumn] = useState<Selected>({
     key: "",
     status: "",
@@ -103,38 +103,42 @@ const SingleCart: FC<props> = ({ onClick, orderId,onRemoveOrder }) => {
       });
     }
   };
-
   if (selectedColumn.status === "ascending") {
-    if(selectedColumn.key === 'price'){
+    if (selectedColumn.key === "price") {
       items.sort((prev: any, curr: any) => {
-        if (prev[selectedColumn.key] * prev['qty'] < curr[selectedColumn.key] * curr['qty']) return -1;
+        if (
+          prev[selectedColumn.key] * prev["qty"] <
+          curr[selectedColumn.key] * curr["qty"]
+        )
+          return -1;
         else if (prev[selectedColumn.key] > curr[selectedColumn.key]) return 1;
         return 0;
       });
-    }
-    else{
+    } else {
       items.sort((prev: any, curr: any) => {
         if (prev[selectedColumn.key] < curr[selectedColumn.key]) return -1;
         else if (prev[selectedColumn.key] > curr[selectedColumn.key]) return 1;
         return 0;
       });
     }
-
   } else if (selectedColumn.status === "descending") {
-    if(selectedColumn.key === 'price'){
+    if (selectedColumn.key === "price") {
       items.sort((prev: any, curr: any) => {
-        if (prev[selectedColumn.key] * prev['qty'] > curr[selectedColumn.key] * curr['qty']) return -1;
+        if (
+          prev[selectedColumn.key] * prev["qty"] >
+          curr[selectedColumn.key] * curr["qty"]
+        )
+          return -1;
+        else if (prev[selectedColumn.key] < curr[selectedColumn.key]) return 1;
+        return 0;
+      });
+    } else {
+      items.sort((prev: any, curr: any) => {
+        if (prev[selectedColumn.key] > curr[selectedColumn.key]) return -1;
         else if (prev[selectedColumn.key] < curr[selectedColumn.key]) return 1;
         return 0;
       });
     }
-    else{
-    items.sort((prev: any, curr: any) => {
-      if (prev[selectedColumn.key] > curr[selectedColumn.key]) return -1;
-      else if (prev[selectedColumn.key] < curr[selectedColumn.key]) return 1;
-      return 0;
-    });
-  }
   } else {
     items = cart.products;
   }
@@ -159,8 +163,8 @@ const SingleCart: FC<props> = ({ onClick, orderId,onRemoveOrder }) => {
       </div>
       <Formik
         onSubmit={() => {
-          dispatch(checkCart(orderId))
-          onRemoveOrder()
+          dispatch(checkCart(orderId));
+          onRemoveOrder();
         }}
         initialValues={{ description: cart.description }}
       >
