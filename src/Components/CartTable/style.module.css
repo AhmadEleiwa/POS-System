@@ -1,7 +1,12 @@
-
+.container{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+}
 
 .table {
-  margin-top: 1em;
   width: 95%;
   display: grid;
   overflow-y: auto;
