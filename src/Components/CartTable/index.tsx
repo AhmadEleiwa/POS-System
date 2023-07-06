@@ -1,43 +1,14 @@
 import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { ChangeEvent, FC, useState } from "react";
+import React, { FC, useState } from "react";
 import style from "./style.module.css";
 import useTheme from "../../context/Theme/useTheme";
 import SearchField from "../SearchField";
-import { type } from "os";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/Reducers";
 
-const DATA_FROM_MOCK_API = [
-  {
-    id: "1",
-    tax: 4,
-    discount: 10,
-    products: [, , , ,],
-    description: "arder one",
-  },
-  {
-    id: "2",
-    tax: 8,
-    discount: 14,
-    products: [, , , ,],
-    description: "aa   one",
-  },
-  {
-    id: "3",
-    tax: 4,
-    discount: 18,
-    products: [, , , , ,],
-    description: "order one s sss sda asd order one s sss sda asd",
-  },
-  {
-    id: "4",
-    tax: 3,
-    discount: 10,
-    products: [, , , , , ,],
-    description: "fff",
-  },
-];
 const headings = [
-  { key: "id", title: "CART ID" },
+  { key: "cartId", title: "CART ID" },
   { key: "tax", title: "TAX" },
   { key: "discount", title: "DISCOUNT" },
   { key: "products", title: "PRODS NO" },
@@ -56,9 +27,10 @@ const CartTable: FC<props> = ({onChoose}) => {
     key: "",
     status: "",
   });
+  const carts = useSelector<RootState>( state => state.cartsReducer) as Cart[]
   const theme = useTheme();
 
-  const [items, setItems] = useState([...DATA_FROM_MOCK_API]);
+  const [items, setItems] = useState([...carts]);
 
   const filterHandler = (id: string) => {
     if (selectedColumn.key === id && selectedColumn.status === "ascending") {
@@ -81,7 +53,7 @@ const CartTable: FC<props> = ({onChoose}) => {
     ) {
       // logic to back the items order as the default
       // set the status to ""
-      setItems([...DATA_FROM_MOCK_API]);
+      setItems([...carts]);
       setSelectedColumn({
         key: "",
         status: "",
@@ -103,10 +75,10 @@ const CartTable: FC<props> = ({onChoose}) => {
     }
   };
   const onSearchHandler = (value: string) => {
-    let data = [...DATA_FROM_MOCK_API];
+    let data = [...carts];
     setItems(
       data.filter(
-        (item) => item.description.startsWith(value) || item.id === value
+        (item) => item.description.startsWith(value) || item.cartId === value
       )
     );
   };
@@ -144,13 +116,13 @@ const CartTable: FC<props> = ({onChoose}) => {
         </div>
         {items.map((item) => (
           <div
-            onClick={()=>onChoose(item.id)}
+            onClick={()=>onChoose(item.cartId)}
             data-testid="cart-item"
-            key={item.id}
+            key={item.cartId}
             className={style.row}
             style={{ color: theme.palette.textSecondary }}
           >
-            <p>#{item.id}</p>
+            <p>#{item.cartId}</p>
             <p>{item.tax}</p>
             <p>{item.discount}</p>
             <p>{item.products.length}</p>
