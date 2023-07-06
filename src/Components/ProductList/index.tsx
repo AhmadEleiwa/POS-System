@@ -114,6 +114,7 @@ const ProductList: FC = () => {
           ) : (
             <ProductRow
               key={p.id}
+              id={p.id}
               title={p.title}
               media={p.media}
               unitOfMeasure={p.unitOfMeasure.unitOfMeasureName}
