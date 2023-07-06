@@ -76,7 +76,6 @@ const CartTable: FC<props> = ({onChoose}) => {
       return 0;
     });
   } else {
-    console.log(...carts)
     items = [...carts];
   }
   items = items.filter((p) => p.description.startsWith(searchValue));
