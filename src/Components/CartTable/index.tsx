@@ -4,8 +4,10 @@ import React, { FC, useState } from "react";
 import style from "./style.module.css";
 import useTheme from "../../context/Theme/useTheme";
 import SearchField from "../SearchField";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/Reducers";
+import Button from "../Button";
+import { createCart } from "../../store/Actions";
 
 const headings = [
   { key: "cartId", title: "CART ID" },
@@ -22,17 +24,23 @@ type Selected = {
   key: string;
   status: "descending" | "ascending" | "";
 };
-const CartTable: FC<props> = ({onChoose}) => {
+const CartTable: FC<props> = ({ onChoose }) => {
   const [selectedColumn, setSelectedColumn] = useState<Selected>({
     key: "",
     status: "",
   });
   const [searchValue, setSearchValue] = useState<string>("");
 
-  const carts = useSelector<RootState>( state => state.cartsReducer) as Cart[]
+  const carts = useSelector<RootState>((state) => state.cartsReducer) as Cart[];
   const theme = useTheme();
 
   let items = [...carts];
+
+  const dispatch = useDispatch()
+  const newCartHandler = () =>{
+    const newCart = dispatch(createCart('4'))
+    onChoose(newCart.data.cartId)
+  }
   const onSearchHandler = (value: string) => {
     setSearchValue(value);
   };
@@ -80,7 +88,7 @@ const CartTable: FC<props> = ({onChoose}) => {
   }
   items = items.filter((p) => p.description.startsWith(searchValue));
   return (
-    <>
+    <div className={style.container}>
       <SearchField width="95%" color="#66666622" onChange={onSearchHandler} />
 
       <div className={style.table}>
@@ -113,7 +121,7 @@ const CartTable: FC<props> = ({onChoose}) => {
         </div>
         {items.map((item) => (
           <div
-            onClick={()=>onChoose(item.cartId)}
+            onClick={() => onChoose(item.cartId)}
             data-testid="cart-item"
             key={item.cartId}
             className={style.row}
@@ -131,7 +139,8 @@ const CartTable: FC<props> = ({onChoose}) => {
           </div>
         ))}
       </div>
-    </>
+      <Button variant="error" onClick={newCartHandler}>New Cart</Button>
+    </div>
   );
 };
 export default CartTable;
