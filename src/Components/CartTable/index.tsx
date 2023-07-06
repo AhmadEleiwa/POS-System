@@ -27,22 +27,19 @@ const CartTable: FC<props> = ({onChoose}) => {
     key: "",
     status: "",
   });
+  const [searchValue, setSearchValue] = useState<string>("");
+
   const carts = useSelector<RootState>( state => state.cartsReducer) as Cart[]
   const theme = useTheme();
 
-  const [items, setItems] = useState([...carts]);
-
+  let items = [...carts];
+  const onSearchHandler = (value: string) => {
+    setSearchValue(value);
+  };
   const filterHandler = (id: string) => {
     if (selectedColumn.key === id && selectedColumn.status === "ascending") {
       // logic to sort the items descending ; becouse the previous status is ascending
       // set the status to descending
-      setItems([
-        ...items.sort((prev: any, curr: any) => {
-          if (prev[id] < curr[id]) return -1;
-          else if (prev[id] > curr[id]) return 1;
-          return 0;
-        }),
-      ]);
       setSelectedColumn({
         key: id,
         status: "descending",
@@ -53,7 +50,6 @@ const CartTable: FC<props> = ({onChoose}) => {
     ) {
       // logic to back the items order as the default
       // set the status to ""
-      setItems([...carts]);
       setSelectedColumn({
         key: "",
         status: "",
@@ -61,27 +57,29 @@ const CartTable: FC<props> = ({onChoose}) => {
     } else {
       // logic to sort the items ascending
       // set the status to ascending
-      setItems([
-        ...items.sort((prev: any, curr: any) => {
-          if (prev[id] > curr[id]) return -1;
-          else if (prev[id] < curr[id]) return 1;
-          return 0;
-        }),
-      ]);
       setSelectedColumn({
         key: id,
         status: "ascending",
       });
     }
   };
-  const onSearchHandler = (value: string) => {
-    let data = [...carts];
-    setItems(
-      data.filter(
-        (item) => item.description.startsWith(value) || item.cartId === value
-      )
-    );
-  };
+  if (selectedColumn.status === "ascending") {
+    items.sort((prev: any, curr: any) => {
+      if (prev[selectedColumn.key] < curr[selectedColumn.key]) return -1;
+      else if (prev[selectedColumn.key] > curr[selectedColumn.key]) return 1;
+      return 0;
+    });
+  } else if (selectedColumn.status === "descending") {
+    items.sort((prev: any, curr: any) => {
+      if (prev[selectedColumn.key] > curr[selectedColumn.key]) return -1;
+      else if (prev[selectedColumn.key] < curr[selectedColumn.key]) return 1;
+      return 0;
+    });
+  } else {
+    console.log(...carts)
+    items = [...carts];
+  }
+  items = items.filter((p) => p.description.startsWith(searchValue));
   return (
     <>
       <SearchField width="95%" color="#66666622" onChange={onSearchHandler} />
