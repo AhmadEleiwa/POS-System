@@ -103,18 +103,38 @@ const SingleCart: FC<props> = ({ onClick, orderId,onRemoveOrder }) => {
       });
     }
   };
+
   if (selectedColumn.status === "ascending") {
-    items.sort((prev: any, curr: any) => {
-      if (prev[selectedColumn.key] < curr[selectedColumn.key]) return -1;
-      else if (prev[selectedColumn.key] > curr[selectedColumn.key]) return 1;
-      return 0;
-    });
+    if(selectedColumn.key === 'price'){
+      items.sort((prev: any, curr: any) => {
+        if (prev[selectedColumn.key] * prev['qty'] < curr[selectedColumn.key] * curr['qty']) return -1;
+        else if (prev[selectedColumn.key] > curr[selectedColumn.key]) return 1;
+        return 0;
+      });
+    }
+    else{
+      items.sort((prev: any, curr: any) => {
+        if (prev[selectedColumn.key] < curr[selectedColumn.key]) return -1;
+        else if (prev[selectedColumn.key] > curr[selectedColumn.key]) return 1;
+        return 0;
+      });
+    }
+
   } else if (selectedColumn.status === "descending") {
+    if(selectedColumn.key === 'price'){
+      items.sort((prev: any, curr: any) => {
+        if (prev[selectedColumn.key] * prev['qty'] > curr[selectedColumn.key] * curr['qty']) return -1;
+        else if (prev[selectedColumn.key] < curr[selectedColumn.key]) return 1;
+        return 0;
+      });
+    }
+    else{
     items.sort((prev: any, curr: any) => {
       if (prev[selectedColumn.key] > curr[selectedColumn.key]) return -1;
       else if (prev[selectedColumn.key] < curr[selectedColumn.key]) return 1;
       return 0;
     });
+  }
   } else {
     items = cart.products;
   }
