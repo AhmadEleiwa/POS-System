@@ -14,12 +14,15 @@ interface Product {
   category: Category;
   unitOfMeasure: UnitOfMeasure;
 }
+interface CartCeil extends Product{
+  qty:number;
+}
 interface Cart {
   cartId: string;
   description: string;
   tax: number;
   discount: number;
-  products: Product[];
+  products: CartCeil[];
 }
 interface Action{
     type:string;
