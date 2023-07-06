@@ -1,10 +1,11 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import Card from "./index";
+import { renderWithProviders } from "../../utils/test-utils";
 
 describe("Card component", () => {
   test("renders with default props", () => {
-    const { getByText } = render(
+    const { getByText } = renderWithProviders(
       <Card
         id="1"
         title="Product"
@@ -29,7 +30,7 @@ describe("Card component", () => {
   });
 
   test("renders with custom className", () => {
-    const { container } = render(
+    const { container } = renderWithProviders(
       <Card
         id="1"
         title="Product"
