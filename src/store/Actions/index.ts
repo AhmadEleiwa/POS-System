@@ -1,3 +1,5 @@
+import { Dispatch } from "redux"
+
 export const chooseCart = (cartId:string) =>{
   return {
     type:"CHOOSE_CART",
@@ -18,11 +20,11 @@ export const  deleteCartProduct = (cartId:string, productId:string) =>{
     data:{cartId, productId}
   }
 }
-export const createCart = () => {
+export const createCart = (id:string) => {
   return {
     type: "CREATE_CART",
     data: {
-      cartId: "2",
+      cartId: id,
       products: [],
       description: "",
       tax: 0,
