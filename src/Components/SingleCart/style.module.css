@@ -22,15 +22,17 @@
 }
 .table {
   margin-top: 1em;
-  width: 95%;
-  height: 45%;
+  width: 100%;
+  max-height: 45%;
   overflow-y: scroll;
   display: grid;
   overflow-y: auto;
   border-radius: 4px;
   border: 1px solid #66666622;
+  align-items: center;
 }
 .head {
+  max-height: 4em;
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -52,11 +54,17 @@ a {
   text-decoration: none;
 }
 .orderData {
-  width: 95%;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  
 }
 .row{
   display: flex;
   justify-content: space-between;
+  align-items: center ;
+}
+.rowValue{
+  display: flex;
+  gap: 1em;
 }
