@@ -1,6 +1,6 @@
 import carts from "../../Static/Carts.json";
 
-const selectedCartReducer = (state: string = carts[0].cartId, action: Action) => {
+const selectedCartReducer = (state: string ="", action: Action) => {
   switch (action.type) {
     case "CHOOSE_CART":
       return action.data;
