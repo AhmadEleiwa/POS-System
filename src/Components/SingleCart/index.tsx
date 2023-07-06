@@ -12,7 +12,6 @@ import Row from "./Components/Row";
 import Button from "../Button";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/Reducers";
-import TextField from "../TextField";
 import { Formik, Form } from "formik";
 import {
   deleteCartProduct,
@@ -20,7 +19,6 @@ import {
   updateCartProduct,
 } from "../../store/Actions";
 import Input from "../Input";
-// import { Form } from "react-router-dom";
 
 const headings = [
   { key: "id", title: "product" },
@@ -49,9 +47,9 @@ const SingleCart: FC<props> = ({ onClick, orderId }) => {
     useSelector<RootState>((state) => state.cartsReducer) as Cart[]
   ).find((p) => p.cartId === orderId) as Cart;
 
-  let items = cart.products;
+  let items = [...cart.products];
   const qtyChangeHandler = (value: string, id: string) => {
-    let val = value  === "" ? "1" : value;
+    let val = value === "" ? "1" : value;
     // logic to change the quantity for this product in the cart
     dispatch(updateCartProduct(orderId, id, { qty: parseInt(val) }));
   };

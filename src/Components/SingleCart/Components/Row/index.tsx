@@ -1,9 +1,8 @@
-import { ChangeEvent, ChangeEventHandler, FC } from "react";
+import { ChangeEvent, FC } from "react";
 import style from "./style.module.css";
 import useTheme from "../../../../context/Theme/useTheme";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
-import { RootState } from "../../../../store/Reducers";
 interface props {
   id: string;
   media: string;
