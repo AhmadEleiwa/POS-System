@@ -4,7 +4,7 @@ import useTheme from "../../context/Theme/useTheme";
 import Button from "../Button";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/Reducers";
-import { addProduct, addProductToCart } from "../../store/Actions";
+import { addProductToCart } from "../../store/Actions";
 interface props {
   title: string;
   unitOfMeasure: string;
@@ -25,14 +25,15 @@ const Card: FC<props> = ({
   const cartId = useSelector<RootState>(
     (state) => state.selectedCartReducer
   ) as string;
-  const products =   useSelector<RootState>((state) => state.productsReducer) as Product[]
-  
+  const products = useSelector<RootState>(
+    (state) => state.productsReducer
+  ) as Product[];
+
   const dispatch = useDispatch();
   const addHandler = () => {
     // some logic to handle the adding to order
-    let isFound = products.find(p => p.id == id)
-    if(isFound)
-      dispatch(addProductToCart(cartId, isFound));
+    let isFound = products.find((p) => p.id == id);
+    if (isFound) dispatch(addProductToCart(cartId, isFound));
   };
   return (
     <div
