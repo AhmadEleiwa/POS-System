@@ -6,7 +6,6 @@ import SingleCart from "../SingleCart";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeftLong,
-  faArrowLeftRotate,
   faArrowRightLong,
 } from "@fortawesome/free-solid-svg-icons";
 interface props {
@@ -19,6 +18,9 @@ const Aside: FC<props> = ({ width }) => {
   const chooseOrderHandler = (id: string) => {
     setShow(id);
   };
+  const removeOrderHandler = () => {
+    setShow("")
+  }
   return (
     <div
       className={style.container}
@@ -45,7 +47,7 @@ const Aside: FC<props> = ({ width }) => {
       {show === "" ? (
         <CartTable onChoose={chooseOrderHandler} />
       ) : (
-        <SingleCart orderId={show} onClick={() => setShow("")} />
+        <SingleCart onRemoveOrder={removeOrderHandler} orderId={show} onClick={() => setShow("")} />
       )}
     </div>
   );
