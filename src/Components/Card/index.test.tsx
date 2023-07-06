@@ -6,6 +6,7 @@ describe("Card component", () => {
   test("renders with default props", () => {
     const { getByText } = render(
       <Card
+        id="1"
         title="Product"
         unitOfMeasure="kg"
         category="Category"
@@ -30,6 +31,7 @@ describe("Card component", () => {
   test("renders with custom className", () => {
     const { container } = render(
       <Card
+        id="1"
         title="Product"
         unitOfMeasure="kg"
         category="Category"
