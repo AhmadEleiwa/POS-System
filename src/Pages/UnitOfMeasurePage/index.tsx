@@ -9,9 +9,14 @@ import { Formik, Form } from "formik";
 import TextField from "../../Components/TextField";
 import Button from "../../Components/Button";
 import SelectField from "../../Components/SelectFeild";
-import { schema, unitOfMeasureSchema } from "../../schema";
+import {
+  schema,
+  unitOfMeasureSchema,
+  unitOfMeasureUpdateSchema,
+} from "../../schema";
 import { addUnit, removeUnit, updateUnit } from "../../store/Actions";
-type Props = {};
+import SearchField from "../../Components/SearchField";
+import Row from "./components/Row";
 /**
  * ## Unit OF Measure
  * Unit of Measure the page that allow the use to manage the system units.
@@ -27,11 +32,21 @@ type Props = {};
  */
 const UnitOfMeasurePage: FC = () => {
   const [status, setStatus] = useState<string>("add");
+  const [selectedUnit, setSelectedUnit] = useState<string>("");
   const ufms = useSelector<RootState>(
     (state) => state.unitOfMeasureReducer
   ) as UnitOfMeasure[];
+  const [searchValue, setSearcchValue] = useState<string>("");
   const dispatch = useDispatch();
   const theme = useTheme();
+
+  const onChangeHandler = (value: string) => {
+    setSearcchValue(value);
+  };
+  let items = [...ufms];
+
+  items = items.filter((p) => p.unitOfMeasureName.startsWith(searchValue));
+  let selectedItem = items.find((p) => p.unitOfMeasureName === selectedUnit);
   return (
     <div className={style.container}>
       <div
@@ -119,17 +134,23 @@ const UnitOfMeasurePage: FC = () => {
                 })
               );
             }}
+            enableReinitialize
             initialValues={{
-              unitOfMeasureName: "",
-              baseOfUnitOfMeasure: "",
-              CFB: 0,
+              unitOfMeasureName: selectedItem
+                ? selectedItem.unitOfMeasureName
+                : "",
+              baseOfUnitOfMeasure: selectedItem
+                ? selectedItem.baseUnitOfMeasure
+                : "",
+              CFB: selectedItem ? selectedItem.conversionFactor : 0,
               selectedUnit: ufms[0].unitOfMeasureName,
             }}
-            validationSchema={unitOfMeasureSchema}
+            validationSchema={unitOfMeasureUpdateSchema}
           >
             <Form>
+              <SearchField width="100%" onChange={onChangeHandler} />
               <SelectField
-                name="selectedUnit"
+                name="unitOfMeasureName"
                 width="100%"
                 options={ufms.map((p) => {
                   return {
@@ -138,6 +159,21 @@ const UnitOfMeasurePage: FC = () => {
                   };
                 })}
               />
+              <div className={style.list}>
+                {items.map((p) => {
+                  return (
+                    <Row
+                      key={p.unitOfMeasureName}
+                      onClick={() => {
+                        setSelectedUnit(p.unitOfMeasureName);
+                      }}
+                      unitOfMeasureName={p.unitOfMeasureName}
+                      conversionFactor={p.conversionFactor}
+                      baseUnitOfMeasure={p.baseUnitOfMeasure}
+                    />
+                  );
+                })}
+              </div>
               <TextField
                 id="unitOfMeasureName"
                 name="unitOfMeasureName"
@@ -168,10 +204,32 @@ const UnitOfMeasurePage: FC = () => {
               console.log("ha?");
               dispatch(removeUnit(values.unitOfMeasureName));
             }}
-            initialValues={{ unitOfMeasureName: ufms[0].unitOfMeasureName }}
+            enableReinitialize
+            initialValues={{
+              unitOfMeasureName: selectedItem
+                ? selectedItem.unitOfMeasureName
+                : "",
+            }}
             validationSchema={schema}
           >
             <Form>
+              <SearchField width="100%" onChange={onChangeHandler} />
+
+              <div className={style.list}>
+                {items.map((p) => {
+                  return (
+                    <Row
+                      key={p.unitOfMeasureName}
+                      onClick={() => {
+                        setSelectedUnit(p.unitOfMeasureName);
+                      }}
+                      unitOfMeasureName={p.unitOfMeasureName}
+                      conversionFactor={p.conversionFactor}
+                      baseUnitOfMeasure={p.baseUnitOfMeasure}
+                    />
+                  );
+                })}
+              </div>
               <SelectField
                 name="unitOfMeasureName"
                 width="100%"

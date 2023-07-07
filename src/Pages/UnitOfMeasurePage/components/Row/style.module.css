@@ -1,0 +1,12 @@
+.row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #66666644;
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: 0 1em;
+}
+.row:hover{
+  opacity: 0.4;
+}
