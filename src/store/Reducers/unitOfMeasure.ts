@@ -8,9 +8,11 @@ const unitOfMeasureReducer = (
     case "ADD_UNIT":
       return [...state, {...action.data}]
     case "UPDATE_UNIT": {
-      let dd = state.find((p) => p.unitOfMeasureName === action.data.name);
-      dd = action.data.newUnit;
-      return [...state];
+      return state.map(p => {
+        if(p.unitOfMeasureName === action.data.name)
+          return action.data.newUnit
+        return p
+      });
     }
     case "REMOVE_UNIT":
       return state.filter((p) => p.unitOfMeasureName !== action.data);
