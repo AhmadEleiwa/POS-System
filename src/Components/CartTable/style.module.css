@@ -4,6 +4,7 @@
   flex-direction: column;
   align-items: center;
   gap: 1em;
+  left: 0;
 }
 
 .table {
@@ -46,4 +47,11 @@
 }
 a {
   text-decoration: none;
+}
+
+
+@media screen and (max-width: 1080px) {
+  .table{
+    width: 100%;
+  }
 }
