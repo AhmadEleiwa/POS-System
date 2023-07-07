@@ -15,45 +15,51 @@ interface props {
 }
 const Aside: FC<props> = ({ width }) => {
   const [show, setShow] = useState<string>("");
-  const [showContainer, setShowContainer] = useState<boolean>(true)
+  const [showContainer, setShowContainer] = useState<boolean>(true);
   const theme = useTheme();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const chooseOrderHandler = (id: string) => {
-    dispatch(chooseCart(id))
+    dispatch(chooseCart(id));
     setShow(id);
   };
   const removeOrderHandler = () => {
-    setShow("")
-    dispatch(chooseCart(""))
-  }
+    setShow("");
+    dispatch(chooseCart(""));
+  };
+  console.log(showContainer);
   return (
-    <div
-      className={style.container}
-      style={{
-        backgroundColor: theme.palette.paper,
-        width: width,
-        boxShadow: " 0 2px 4px" + theme.palette.shadow,
-        right:showContainer ? 0: '-100%' 
-      }}
-      onBlur={()=>setShowContainer(false)}
-    >
+    <div className={style.main}>
       <FontAwesomeIcon
         className={style.arrowLeft}
         icon={faArrowLeftLong}
         color={theme.palette.textPrimary}
-        onClick={()=>setShowContainer(true)}
+        onClick={() => setShowContainer(true)}
       />
+      <div
+        className={style.container}
+        style={{
+          backgroundColor: theme.palette.paper,
+          boxShadow: " 0 2px 4px" + theme.palette.shadow,
+          width: showContainer ? "100%" : "0%",
+        }}
+        onBlur={() => setShowContainer(false)}
+      >
         <FontAwesomeIcon
-        className={style.arrowRight}
-        icon={faArrowRightLong}
-        color={theme.palette.textPrimary}
-        onClick={()=>setShowContainer(false)}
-      />
-      {show === "" ? (
-        <CartTable onChoose={chooseOrderHandler} />
-      ) : (
-        <SingleCart onRemoveOrder={removeOrderHandler} orderId={show} onClick={() => setShow("")} />
-      )}
+          className={style.arrowRight}
+          icon={faArrowRightLong}
+          color={theme.palette.textPrimary}
+          onClick={() => setShowContainer(false)}
+        />
+        {show === "" ? (
+          <CartTable onChoose={chooseOrderHandler} />
+        ) : (
+          <SingleCart
+            onRemoveOrder={removeOrderHandler}
+            orderId={show}
+            onClick={() => setShow("")}
+          />
+        )}
+      </div>
     </div>
   );
 };
