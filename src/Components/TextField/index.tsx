@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FC } from "react";
+import { FC } from "react";
 import style from "./style.module.css";
 import useTheme from "../../context/Theme/useTheme";
 import { useField } from "formik";
