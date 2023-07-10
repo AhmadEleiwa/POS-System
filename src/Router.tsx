@@ -7,11 +7,7 @@ import CategoryPage from "./Pages/CategoryPage";
 import UnitOfMeasurePage from "./Pages/UnitOfMeasurePage";
 import AuthenticationGuard from "./Guards/AuthenticationGuard";
 import AuthenticationPage from "./Pages/AuthenticationPage";
-import Navbar from "./Components/Navbar";
 import Layout from "./Layout";
-import CartTable from "./Components/CartTable";
-import ProductList from "./Components/ProductList";
-import Aside from "./Components/Aside";
 
 const Router: FC = () => {
   return (
