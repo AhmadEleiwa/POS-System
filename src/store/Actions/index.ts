@@ -1,26 +1,28 @@
-import { Dispatch } from "redux"
-
-export const chooseCart = (cartId:string) =>{
+export const chooseCart = (cartId: string) => {
   return {
-    type:"CHOOSE_CART",
-    data:cartId
-  }
-}
+    type: "CHOOSE_CART",
+    data: cartId,
+  };
+};
 //////////////////////////////
 
-export const updateCartProduct = (cartId:string, productId:string, payload:any) =>{
+export const updateCartProduct = (
+  cartId: string,
+  productId: string,
+  payload: any
+) => {
   return {
-    type:'UPDATE_CART_PRODUCT',
-    data:{cartId,productId,payload}
-  }
-}
-export const  deleteCartProduct = (cartId:string, productId:string) =>{
+    type: "UPDATE_CART_PRODUCT",
+    data: { cartId, productId, payload },
+  };
+};
+export const deleteCartProduct = (cartId: string, productId: string) => {
   return {
-    type:"DELETE_CART_PRODUCT",
-    data:{cartId, productId}
-  }
-}
-export const createCart = (id:string) => {
+    type: "DELETE_CART_PRODUCT",
+    data: { cartId, productId },
+  };
+};
+export const createCart = (id: string) => {
   return {
     type: "CREATE_CART",
     data: {
@@ -32,7 +34,7 @@ export const createCart = (id:string) => {
     } as Cart,
   };
 };
-export const updateCart = (cartId: string, payload:any) => {
+export const updateCart = (cartId: string, payload: any) => {
   return {
     type: "UPDATE_CART",
     data: { cartId, payload },
@@ -53,6 +55,7 @@ export const checkCart = (cartId: string) => {
 };
 ////////////////////////////////////////
 export const addProduct = (product: Product) => {
+  console.log(product);
   return {
     type: "ADD_PRODUCT",
     data: product,
@@ -110,5 +113,47 @@ export const removeUnit = (name: string) => {
   return {
     type: "REMOVE_UNIT",
     data: name,
+  };
+};
+
+///////////////////////// api ///////////////////////////
+
+export const set_categories = (data: any) => {
+  return {
+    type: "SET_CATEGORIES",
+    data,
+  };
+};
+
+export const set_products = (data: any[]) => {
+  let products: Product[] = data.map((p) => {
+    console.log(p);
+    return {
+      id: p.id,
+      title: p.productName,
+      media: "http://localhost:5500/" + p.productImage,
+      category: p.productCategory,
+      unitOfMeasure: p.unitOfMeasure,
+      price: p.productPrice,
+    } as Product;
+  });
+  console.log(products);
+  return {
+    type: "SET_PRODUCTS",
+    data: products,
+  };
+};
+export const set_units = (data: any[]) => {
+  let units: UnitOfMeasure[] = data.map((p) => {
+    return {
+      unitOfMeasureName: p.unitOfMeasureName,
+      baseUnitOfMeasure: p.baseUnitOfMeasure,
+      conversionFactor: p.conversionFactor,
+    } as UnitOfMeasure;
+  });
+  console.log(units);
+  return {
+    type: "SET_UNITS",
+    data: units,
   };
 };
