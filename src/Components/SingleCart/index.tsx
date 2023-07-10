@@ -4,7 +4,7 @@ import {
   faArrowUp,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { ChangeEvent, FC, useEffect, useState } from "react";
+import React, { ChangeEvent, FC, useState } from "react";
 import style from "./style.module.css";
 import useTheme from "../../context/Theme/useTheme";
 import SearchField from "../SearchField";
