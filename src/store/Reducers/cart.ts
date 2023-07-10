@@ -1,6 +1,4 @@
-import carts from "../../Static/Carts.json";
-
-const cartsReducer = (state: Cart[] = carts, action: Action) => {
+const cartsReducer = (state: Cart[] = [], action: Action) => {
   switch (action.type) {
     case "CREATE_CART":
       return [...state, action.data];
