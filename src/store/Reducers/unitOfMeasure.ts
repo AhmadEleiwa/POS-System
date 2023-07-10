@@ -1,17 +1,14 @@
-import UnitOfMeasures from "../../Static/UnitOfMeasures.json";
-
-const unitOfMeasureReducer = (
-  state: UnitOfMeasure[] = UnitOfMeasures,
-  action: Action
-) => {
+const unitOfMeasureReducer = (state: UnitOfMeasure[] = [], action: Action) => {
   switch (action.type) {
+    case "SET_UNITS":
+      return action.data;
     case "ADD_UNIT":
-      return [...state, {...action.data}]
+      return [...state, { ...action.data }];
     case "UPDATE_UNIT": {
-      return state.map(p => {
-        if(p.unitOfMeasureName === action.data.name)
-          return action.data.newUnit
-        return p
+      return state.map((p) => {
+        if (p.unitOfMeasureName === action.data.name)
+          return action.data.newUnit;
+        return p;
       });
     }
     case "REMOVE_UNIT":
