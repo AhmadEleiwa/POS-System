@@ -87,21 +87,22 @@ const ProductList: FC = () => {
         />
         <Select
           onChange={onChangeCategoryFilterHandler}
-          options={categories.map((cate) => {
+          options={[{key:'all',value:'all'},...categories.map((cate) => {
             if (cate.categoryName)
               return { key: cate.categoryName, value: cate.categoryName };
             return { key: "", value: "" };
-          })}
+          })]}
         />
         <Select
           onChange={onChangeUnitOfMeasureFilterHandler}
-          options={unitOfMeasures.map(p => {
+          options={[{key:'all',value:'all'},...unitOfMeasures.map(p => {
             return {key:p.unitOfMeasureName, value:p.unitOfMeasureName}
-          })}
+          })]}
         />
       </div>
       <div className={style.productList}>
         {items.map((p) => {
+          console.log("XZX",p.category)
           return displayWay === "grid" ? (
             <Card
               key={p.id}
@@ -115,6 +116,7 @@ const ProductList: FC = () => {
             <ProductRow
               key={p.id}
               id={p.id}
+              price={p.price}
               title={p.title}
               media={p.media}
               unitOfMeasure={p.unitOfMeasure.unitOfMeasureName}
