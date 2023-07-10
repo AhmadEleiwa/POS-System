@@ -1,10 +1,9 @@
-import React, { FC, createRef, useRef, useState } from "react";
+import React, { FC, useState } from "react";
 import useTheme from "../../context/Theme/useTheme";
 import style from "./style.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { ChangeEvent } from "react";
-import { ChangeEventHandler } from "react";
 
 interface props {
   onChange?: (x: string) => void;

@@ -1,16 +1,16 @@
 import { ChangeEventHandler, FC } from "react";
 import style from "./style.module.css";
 import useTheme from "../../context/Theme/useTheme";
-import { useField } from "formik";
+
 interface props {
   placeholder?: string;
   width?: string;
   color?: string;
   type?: string;
   id?: string;
-  value?:string | number;
+  value?: string | number;
   name?: string;
-  onChange:ChangeEventHandler;
+  onChange: ChangeEventHandler;
 }
 const Input: FC<props> = ({
   placeholder,
@@ -20,18 +20,17 @@ const Input: FC<props> = ({
   id,
   name,
   value,
-  onChange
+  onChange,
 }) => {
   const theme = useTheme();
   return (
     <input
       style={{
         width: width ? width : "18em",
-        border:`1px solid ${color ? color : theme.palette.secondary}`,
-        backgroundColor:theme.palette.paper,
+        border: `1px solid ${color ? color : theme.palette.secondary}`,
+        backgroundColor: theme.palette.paper,
         color: theme.palette.textPrimary,
       }}
-      
       name={name}
       id={id}
       type={type}

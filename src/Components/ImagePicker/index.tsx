@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useState } from "react";
+import { ChangeEvent, FC } from "react";
 import style from "./style.module.css";
 import { useField } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,7 +8,7 @@ interface props {
   name: string;
 }
 const ImagePicker: FC<props> = ({ name }) => {
-  const [field, meta, helpers] = useField(name);
+  const [field, , helpers] = useField(name);
   const clickHandler = () => {
     const doc = document.getElementsByName(name);
     doc[0].click();

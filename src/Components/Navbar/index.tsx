@@ -3,7 +3,6 @@ import useTheme from "../../context/Theme/useTheme";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faBars,
   faCube,
   faGears,
   faHome,
