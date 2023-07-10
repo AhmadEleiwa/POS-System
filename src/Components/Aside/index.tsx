@@ -32,6 +32,7 @@ const Aside: FC<props> = ({ width }) => {
       <FontAwesomeIcon
         className={style.arrowLeft}
         icon={faArrowLeftLong}
+        cursor={"pointer"}
         color={theme.palette.textPrimary}
         onClick={() => setShowContainer(true)}
       />
@@ -42,9 +43,9 @@ const Aside: FC<props> = ({ width }) => {
           boxShadow: " 0 2px 4px" + theme.palette.shadow,
           width: showContainer ? "100%" : "0%",
         }}
-        onBlur={() => setShowContainer(false)}
       >
         <FontAwesomeIcon
+          cursor={"pointer"}
           className={style.arrowRight}
           icon={faArrowRightLong}
           color={theme.palette.textPrimary}
