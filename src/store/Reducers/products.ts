@@ -1,15 +1,15 @@
-import initialData from '../../Static/Products.json'
-const productsReducer = (state: Product[] = initialData, action: Action) => {
+const productsReducer = (state: Product[] = [], action: Action) => {
   switch (action.type) {
+    case "SET_PRODUCTS":
+      return action.data
     case "ADD_PRODUCT":
       return [...state, action.data];
     case "UPDATE_PRODUCT": {
       let dd = state.map((p) => {
-        if(p.id === action.data.id)
-          return {...p, ...action.data.newProduct}
-        return p
+        if (p.id === action.data.id) return { ...p, ...action.data.newProduct };
+        return p;
       });
-  
+
       return [...dd];
     }
     case "REMOVE_PRODUCT":
