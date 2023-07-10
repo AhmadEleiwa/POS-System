@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ChangeEventHandler, FC } from "react";
+import React, { ChangeEventHandler, FC } from "react";
 import style from "./style.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
@@ -6,9 +6,9 @@ import useTheme from "../../context/Theme/useTheme";
 interface props {
   options: { key: string; value: string }[];
   onChange?: ChangeEventHandler<HTMLSelectElement>;
-  width?:string;
+  width?: string;
 }
-const Select: FC<props> = ({ options, onChange,width }) => {
+const Select: FC<props> = ({ options, onChange, width }) => {
   const theme = useTheme();
 
   return (
@@ -17,7 +17,7 @@ const Select: FC<props> = ({ options, onChange,width }) => {
       style={{
         border: "1px solid" + theme.palette.secondary,
         backgroundColor: theme.palette.paper,
-        width:width
+        width: width,
       }}
     >
       <select
