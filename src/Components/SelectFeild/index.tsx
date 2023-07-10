@@ -11,7 +11,7 @@ interface props {
   name:string;
 }
 const SelectField: FC<props> = ({ options,width ,name}) => {
-  const [field, meta] = useField(name)
+  const [field] = useField(name)
   const theme = useTheme();
   return (
     <div
