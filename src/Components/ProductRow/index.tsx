@@ -10,6 +10,7 @@ interface props {
   unitOfMeasure: string;
   category: string;
   media: string;
+  price:number;
   className?: string;
   onClick?: MouseEventHandler;
   width?: string;
@@ -21,6 +22,7 @@ const ProductRow: FC<props> = ({
   unitOfMeasure,
   category,
   media,
+  price,
   className,
   width,
   onClick,
@@ -51,6 +53,7 @@ const ProductRow: FC<props> = ({
       onClick={onClick ? onClick : addHandler}
     >
       <img src={media} alt="" />
+      <p style={{ color: theme.palette.textPrimary }}>{price}</p>
       <p style={{ color: theme.palette.textPrimary }}>{title}</p>
       <p style={{ color: theme.palette.textSecondary }}>{unitOfMeasure}</p>
       <p style={{ color: theme.palette.textSecondary }}>{category}</p>

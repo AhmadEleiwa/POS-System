@@ -2,7 +2,7 @@
     width: 90%;
     height: 4em;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     padding: 0 1em;
     border-radius: 4px;
     border: 1px solid #66666644;
