@@ -33,7 +33,7 @@ const Navbar: FC = () => {
       <Link to={"/product"}>
         <FontAwesomeIcon className={style.link} icon={faCube} color="white" />
       </Link>
-      <Link to={"/"}>
+      <Link to={"/dashboard"}>
         <FontAwesomeIcon className={style.link} icon={faGears} color="white" />
       </Link>
     </header>
