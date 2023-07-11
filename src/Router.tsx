@@ -8,6 +8,7 @@ import UnitOfMeasurePage from "./Pages/UnitOfMeasurePage";
 import AuthenticationGuard from "./Guards/AuthenticationGuard";
 import AuthenticationPage from "./Pages/AuthenticationPage";
 import Layout from "./Layout";
+import Dashboard from "./Pages/Dashboard";
 
 const Router: FC = () => {
   return (
@@ -59,6 +60,16 @@ const Router: FC = () => {
           element={
             <AuthenticationGuard>
               <AuthenticationPage />
+            </AuthenticationGuard>
+          }
+        ></Route>
+        <Route
+          path="/dashboard"
+          element={
+            <AuthenticationGuard>
+              <Layout>
+                <Dashboard />
+              </Layout>
             </AuthenticationGuard>
           }
         ></Route>
