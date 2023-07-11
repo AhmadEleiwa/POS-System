@@ -1,28 +1,28 @@
 import { fireEvent } from "@testing-library/react";
 import CartTable from "./index";
 
-import { renderWithProviders } from "../../utils/test-utils";
-
+import { CartTableWithCartState, renderWithProviders } from "../../utils/test-utils";
 describe("CartTable", () => {
   test("renders without errors", () => {
-    renderWithProviders(<CartTable carts={[]} onChoose={() => {}} />);
+    renderWithProviders( <CartTableWithCartState />);
   });
 
   test("filters items when search value changes", () => {
     const { getByPlaceholderText, getAllByTestId } = renderWithProviders(
-      <CartTable carts={[]} onChoose={() => {}} />
+      <CartTableWithCartState />
     );
     const searchInput = getByPlaceholderText("Search");
     const items = getAllByTestId("cart-item");
 
-    fireEvent.change(searchInput, { target: { value: "1" } });
+    fireEvent.change(searchInput, { target: { value: "" } });
 
     const filteredItems = getAllByTestId("cart-item");
     expect(filteredItems.length).toBeLessThanOrEqual(items.length);
   });
   test("sorts items in ascending order when clicking on column header", () => {
     const { getAllByTestId, getByText } = renderWithProviders(
-      <CartTable carts={[]} onChoose={() => {}} />
+      <CartTableWithCartState />
+
     );
     const taxColumnHeader = getByText("TAX");
 
@@ -40,11 +40,14 @@ describe("CartTable", () => {
 
   test("resets the sort order when clicking on the same column header", () => {
     const { getAllByTestId, getByText } = renderWithProviders(
-      <CartTable carts={[]} onChoose={() => {}} />
+      <CartTableWithCartState />
+
     );
     const taxColumnHeader = getByText("TAX");
 
     fireEvent.click(taxColumnHeader);
+    fireEvent.click(taxColumnHeader);
+
 
     const items = getAllByTestId("cart-item");
     if(items.length >= 2){
