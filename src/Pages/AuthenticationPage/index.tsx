@@ -27,6 +27,8 @@ const AuthenticationPage: FC = () => {
             })
             .then((res) => {
               setCookies("auth", res.data);
+              axios.defaults.headers.post.Authorization= "barear " + res.data.token
+              console.log(axios.defaults.headers.post.Authorization)
               navigate("/");
             })
             .catch((err) => {
