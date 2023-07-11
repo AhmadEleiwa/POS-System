@@ -7,6 +7,7 @@ import {
   faGears,
   faHome,
   faRuler,
+  faSignOut,
   faTag,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
@@ -18,23 +19,26 @@ const Navbar: FC = () => {
       className={style.header}
       style={{ backgroundColor: theme.palette.primary }}
     >
-      <Link to={"/"}>
+      <Link to={"/"} title="home">
         <FontAwesomeIcon className={style.link} icon={faHome} color="white" />
       </Link>
-      <Link to={"/"}>
+      <Link to={"/auth"} title="login">
         <FontAwesomeIcon className={style.link} icon={faUser} color="white" />
       </Link>
-      <Link to={"/category"}>
+      <Link to={"/category"}  title="category">
         <FontAwesomeIcon className={style.link} icon={faTag} color="white" />
       </Link>
-      <Link to={"/unit-measure"}>
+      <Link to={"/unit-measure"}  title="unit of measure">
         <FontAwesomeIcon className={style.link} icon={faRuler} color="white" />
       </Link>
-      <Link to={"/product"}>
+      <Link to={"/product"}  title="product">
         <FontAwesomeIcon className={style.link} icon={faCube} color="white" />
       </Link>
-      <Link to={"/dashboard"}>
+      <Link to={"/dashboard"} title="dashboard">
         <FontAwesomeIcon className={style.link} icon={faGears} color="white" />
+      </Link>
+      <Link to={"/logout"} title="logout">
+        <FontAwesomeIcon className={style.link} icon={faSignOut} color="white" />
       </Link>
     </header>
   );

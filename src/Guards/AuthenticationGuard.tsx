@@ -1,4 +1,6 @@
 import React, { FC, PropsWithChildren } from "react";
+import { useCookies } from "react-cookie";
+import { Navigate } from "react-router-dom";
 
 /**
  * ## Guard
@@ -7,7 +9,12 @@ import React, { FC, PropsWithChildren } from "react";
  */
 const AuthenticationGuard: FC<PropsWithChildren> = ({ children }) => {
     // some logic to handle the validation
-  return <>{children}</>;
+    const [cookies] = useCookies();
+    const auth = cookies.auth;
+    if (auth) {
+      return <Navigate to={'/'} />
+    }
+    return <>{children}</>;
 };
 
 export default AuthenticationGuard;

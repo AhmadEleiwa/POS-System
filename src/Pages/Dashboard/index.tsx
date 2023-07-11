@@ -1,4 +1,4 @@
-import React, { FC, Key } from "react";
+import React, { FC } from "react";
 import Select from "../../Components/Select";
 import useTheme from "../../context/Theme/useTheme";
 import { keys } from "../../context/Theme/Palettes";
