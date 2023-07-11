@@ -28,3 +28,8 @@ interface Action{
     type:string;
     data?:any;
 }
+interface User{
+  username:string;
+  password:string;
+  admin:boolean;
+}
