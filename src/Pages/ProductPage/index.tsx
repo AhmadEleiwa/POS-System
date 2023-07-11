@@ -12,11 +12,9 @@ import SelectField from "../../Components/SelectFeild";
 import ImagePicker from "../../Components/ImagePicker";
 import { addProduct, removeProduct, updateProduct } from "../../store/Actions";
 import { productShcema } from "../../schema";
-import { faTableCells, faTableList } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Select from "../../Components/Select";
-import productsReducer from "../../store/Reducers/products";
 import SearchField from "../../Components/SearchField";
+import axios from "axios";
 /**
  * ## Product Page
  * Product page the page that allow to handle the Product itself in the system.
@@ -57,7 +55,6 @@ const ProductPage: FC = () => {
   let selectedItem = products.find((p) => p.id === selectedProduct) as Product;
   let submitAction: "add" | "update" | "delete" | undefined = undefined;
   const [searchValue, setSearcchValue] = useState("");
-  const [displayWay, setDisplayWay] = useState<string>("grid");
   const [filters, setFilters] = useState({
     category: "all",
     unitOfMeasure: "all",
@@ -88,32 +85,62 @@ const ProductPage: FC = () => {
     });
   };
   const onSubmitHandler = (values: any) => {
+    let formData = new FormData();
+    formData.append("productName", values.title);
+    formData.append("productCategory", values.category);
+    formData.append("unitOfMeasure", values.unit);
+    formData.append("productPrice", values.price);
+    formData.append("image", values.image.img);
+
     if (submitAction === "add") {
-      dispatch(
-        addProduct({
-          id: "4554",
-          title: values.title,
-          category: { categoryName: values.category } as Category,
-          media: values.image.preview,
-          unitOfMeasure: unitOfMeasures.find(
-            (p) => p.unitOfMeasureName === values.unit
-          ) as UnitOfMeasure,
-        } as Product)
-      );
+      axios
+        .post("http://localhost:5500/product/new", formData)
+        .then((res) => {
+          dispatch(
+            addProduct({
+              id: res.data.id,
+              title: values.title,
+              price:values.price,
+              category: { categoryName: values.category } as Category,
+              media: values.image.preview,
+              unitOfMeasure: unitOfMeasures.find(
+                (p) => p.unitOfMeasureName === values.unit
+              ) as UnitOfMeasure,
+            } as Product)
+          );
+        })
+        .catch((err) => {
+          alert(err.response.data.message);
+        });
     } else if (submitAction === "update") {
-      dispatch(
-        updateProduct(values.id, {
-          id: values.id,
-          title: values.title,
-          category: { categoryName: values.category } as Category,
-          media: values.image.preview,
-          unitOfMeasure: unitOfMeasures.find(
-            (p) => p.unitOfMeasureName === values.unit
-          ) as UnitOfMeasure,
-        } as Product)
-      );
+      axios
+        .post("http://localhost:5500/product/update/" + values.id, formData)
+        .then((res) => {
+          dispatch(
+            updateProduct(values.id, {
+              id: values.id,
+              title: values.title,
+              price:values.price,
+              category: { categoryName: values.category } as Category,
+              media: values.image.preview,
+              unitOfMeasure: unitOfMeasures.find(
+                (p) => p.unitOfMeasureName === values.unit
+              ) as UnitOfMeasure,
+            } as Product)
+          );
+        })
+        .catch((err) => {
+          alert(err.message);
+        });
     } else if (submitAction === "delete") {
-      dispatch(removeProduct(values.id));
+      axios
+        .delete("http://localhost:5500/product/delete/" + values.id)
+        .then((res) => {
+          dispatch(removeProduct(values.id));
+        })
+        .catch((err) => {
+          alert(err.message);
+        });
     }
   };
   const onChangeUnitOfMeasureFilterHandler = (
@@ -158,6 +185,7 @@ const ProductPage: FC = () => {
           {items.map((product) => (
             <ProductRow
               key={product.id}
+              price={product.price}
               width="100%"
               onClick={(e) => {
                 e.stopPropagation();
@@ -188,11 +216,15 @@ const ProductPage: FC = () => {
             title: selectedItem?.title,
             category: selectedItem
               ? selectedItem.category.categoryName
-              : categories[0].categoryName,
+              : categories[0]
+              ? categories[0].categoryName
+              : "",
             unit: selectedItem
               ? selectedItem.unitOfMeasure.unitOfMeasureName
-              : unitOfMeasures[0].unitOfMeasureName,
-            price: selectedItem?.price,
+              : unitOfMeasures[0]
+              ? unitOfMeasures[0].unitOfMeasureName
+              : "",
+            price: selectedItem? selectedItem.price : 0.99,
             image: { preview: selectedItem?.media, img: selectedItem?.media },
           }}
         >
