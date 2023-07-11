@@ -8,14 +8,16 @@ import {
   faArrowLeftLong,
   faArrowRightLong,
 } from "@fortawesome/free-solid-svg-icons";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { chooseCart } from "../../store/Actions";
+import { RootState } from "../../store/Reducers";
 interface props {
   width?: string;
 }
 const Aside: FC<props> = ({ width }) => {
   const [show, setShow] = useState<string>("");
   const [showContainer, setShowContainer] = useState<boolean>(true);
+  const carts = useSelector<RootState>((state) => state.cartsReducer) as Cart[];
   const theme = useTheme();
   const dispatch = useDispatch();
   const chooseOrderHandler = (id: string) => {
@@ -52,7 +54,7 @@ const Aside: FC<props> = ({ width }) => {
           onClick={() => setShowContainer(false)}
         />
         {show === "" ? (
-          <CartTable onChoose={chooseOrderHandler} />
+          <CartTable carts={carts} onChoose={chooseOrderHandler} />
         ) : (
           <SingleCart
             onRemoveOrder={removeOrderHandler}
