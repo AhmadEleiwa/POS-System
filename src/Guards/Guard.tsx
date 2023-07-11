@@ -1,4 +1,6 @@
 import React, { FC, PropsWithChildren } from "react";
+import { useCookies } from "react-cookie";
+import { Navigate } from "react-router-dom";
 
 /**
  * ## Guard
@@ -7,7 +9,12 @@ import React, { FC, PropsWithChildren } from "react";
  * if the user authorized will render the children components
  */
 const Guard: FC<PropsWithChildren> = ({ children }) => {
-    // some logic to handle the validation
+  // some logic to handle the validation
+  const [cookies] = useCookies();
+  const auth = cookies.auth;
+  if (!auth) {
+    return <Navigate to={'/auth'} />
+  }
   return <>{children}</>;
 };
 
