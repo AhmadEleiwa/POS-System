@@ -5,12 +5,12 @@ import { renderWithProviders } from "../../utils/test-utils";
 
 describe("CartTable", () => {
   test("renders without errors", () => {
-    renderWithProviders(<CartTable onChoose={() => {}} />);
+    renderWithProviders(<CartTable carts={[]} onChoose={() => {}} />);
   });
 
   test("filters items when search value changes", () => {
     const { getByPlaceholderText, getAllByTestId } = renderWithProviders(
-      <CartTable onChoose={() => {}} />
+      <CartTable carts={[]} onChoose={() => {}} />
     );
     const searchInput = getByPlaceholderText("Search");
     const items = getAllByTestId("cart-item");
@@ -22,7 +22,7 @@ describe("CartTable", () => {
   });
   test("sorts items in ascending order when clicking on column header", () => {
     const { getAllByTestId, getByText } = renderWithProviders(
-      <CartTable onChoose={() => {}} />
+      <CartTable carts={[]} onChoose={() => {}} />
     );
     const taxColumnHeader = getByText("TAX");
 
@@ -40,7 +40,7 @@ describe("CartTable", () => {
 
   test("resets the sort order when clicking on the same column header", () => {
     const { getAllByTestId, getByText } = renderWithProviders(
-      <CartTable onChoose={() => {}} />
+      <CartTable carts={[]} onChoose={() => {}} />
     );
     const taxColumnHeader = getByText("TAX");
 
