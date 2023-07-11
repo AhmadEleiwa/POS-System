@@ -17,6 +17,7 @@ import {
 import { addUnit, removeUnit, updateUnit } from "../../store/Actions";
 import SearchField from "../../Components/SearchField";
 import Row from "./components/Row";
+import axios from "axios";
 /**
  * ## Unit OF Measure
  * Unit of Measure the page that allow the use to manage the system units.
@@ -82,13 +83,24 @@ const UnitOfMeasurePage: FC = () => {
         {status === "add" && (
           <Formik
             onSubmit={(values) => {
-              dispatch(
-                addUnit({
+              axios
+                .post("http://localhost:5500/unit/new", {
                   unitOfMeasureName: values.unitOfMeasureName,
                   baseUnitOfMeasure: values.baseOfUnitOfMeasure,
                   conversionFactor: values.CFB,
                 })
-              );
+                .then((res) => {
+                  dispatch(
+                    addUnit({
+                      unitOfMeasureName: values.unitOfMeasureName,
+                      baseUnitOfMeasure: values.baseOfUnitOfMeasure,
+                      conversionFactor: values.CFB,
+                    })
+                  );
+                })
+                .catch((err) => {
+                  alert(err);
+                });
             }}
             initialValues={{
               unitOfMeasureName: "",
@@ -126,13 +138,30 @@ const UnitOfMeasurePage: FC = () => {
           <Formik
             onSubmit={(values) => {
               console.log(values);
-              dispatch(
-                updateUnit(values.selectedUnit, {
-                  unitOfMeasureName: values.unitOfMeasureName,
-                  baseUnitOfMeasure: values.baseOfUnitOfMeasure,
-                  conversionFactor: values.CFB,
+              axios
+                .post(
+                  "http://localhost:5500/unit/update/" + values.selectedUnit,
+                  {
+                    unitOfMeasureName: values.unitOfMeasureName,
+                    baseUnitOfMeasure: values.baseOfUnitOfMeasure,
+                    conversionFactor: values.CFB,
+                  }
+                )
+                .then((res) => {
+                  alert(res.data.message);
+                  dispatch(
+                    dispatch(
+                      updateUnit(values.selectedUnit, {
+                        unitOfMeasureName: values.unitOfMeasureName,
+                        baseUnitOfMeasure: values.baseOfUnitOfMeasure,
+                        conversionFactor: values.CFB,
+                      })
+                    )
+                  );
                 })
-              );
+                .catch((err) => {
+                  alert(err);
+                });
             }}
             enableReinitialize
             initialValues={{
@@ -201,8 +230,18 @@ const UnitOfMeasurePage: FC = () => {
         {status === "delete" && (
           <Formik
             onSubmit={(values) => {
-              console.log("ha?");
-              dispatch(removeUnit(values.unitOfMeasureName));
+              console.log(values.unitOfMeasureName)
+              axios
+                .delete(
+                  "http://localhost:5500/unit/delete/" +
+                    values.unitOfMeasureName
+                )
+                .then((res) => {
+                  dispatch(removeUnit(values.unitOfMeasureName));
+                })
+                .catch((err) => {
+                  alert(err);
+                });
             }}
             enableReinitialize
             initialValues={{
