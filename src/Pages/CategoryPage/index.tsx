@@ -1,4 +1,4 @@
-import { Form, Formik, useFormik } from "formik";
+import { Form, Formik } from "formik";
 import React, { FC, useState } from "react";
 import TextField from "../../Components/TextField";
 import { schema } from "../../schema";
@@ -6,15 +6,16 @@ import Button from "../../Components/Button";
 import style from "./style.module.css";
 import useTheme from "../../context/Theme/useTheme";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faAdd,
-  faEdit,
-  faTrashCan,
-} from "@fortawesome/free-solid-svg-icons";
+import { faAdd, faEdit, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import SelectField from "../../Components/SelectFeild";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/Reducers";
-import { addCategory, removeCategory, updateCategory } from "../../store/Actions";
+import {
+  addCategory,
+  removeCategory,
+  updateCategory,
+} from "../../store/Actions";
+import axios from "axios";
 /**
  * ## Product Category
  * Category page the page that allow the user to manipulate the different categories
@@ -30,7 +31,7 @@ const CategoryPage: FC = () => {
   const categories = useSelector<RootState>(
     (state) => state.categoriessReducer
   ) as Category[];
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const theme = useTheme();
 
   return (
@@ -68,7 +69,17 @@ const CategoryPage: FC = () => {
         {status === "add" && (
           <Formik
             onSubmit={(values) => {
-              dispatch(addCategory(values.category))
+              axios
+                .post("http://localhost:5500/category/new/", {
+                  categoryName: values.category,
+                })
+                .then((res) => {
+                  dispatch(addCategory(values.category));
+                  alert(res.data.message);
+                })
+                .catch((err) => {
+                  alert(err);
+                });
             }}
             initialValues={{ category: "" }}
             validationSchema={schema}
@@ -88,11 +99,26 @@ const CategoryPage: FC = () => {
         )}
         {status === "update" && (
           <Formik
-            onSubmit={(values,actions) => {
-              console.log(values)
-              dispatch(updateCategory(values.selectedCategory, values.category))
+            onSubmit={(values, actions) => {
+              axios
+                .post(
+                  "http://localhost:5500/category/update/" +
+                    values.selectedCategory,
+                  { categoryName: values.category }
+                )
+                .then((res) => {
+                  dispatch(
+                    updateCategory(values.selectedCategory, values.category)
+                  );
+                })
+                .catch((err) => {
+                  alert(err);
+                });
             }}
-            initialValues={{ category: "", selectedCategory: categories[0].categoryName }}
+            initialValues={{
+              category: "",
+              selectedCategory: categories[0].categoryName,
+            }}
             validationSchema={schema}
           >
             <Form>
@@ -118,8 +144,18 @@ const CategoryPage: FC = () => {
         {status === "delete" && (
           <Formik
             onSubmit={(values) => {
-              console.log('ha?')
-              dispatch(removeCategory(values.selectedCategory))
+              axios
+                .delete(
+                  "http://localhost:5500/category/delete/" +
+                    values.selectedCategory
+                )
+                .then((res) => {
+                  dispatch(removeCategory(values.selectedCategory));
+                  alert(res.data.message);
+                })
+                .catch((err) => {
+                  alert(err);
+                });
             }}
             initialValues={{ selectedCategory: categories[0].categoryName }}
             validationSchema={schema}
