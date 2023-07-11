@@ -20,21 +20,26 @@ import { useDispatch } from "react-redux";
  * ```
  */
 const PosPage: FC = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   useEffect(() => {
     axios
       .get("http://localhost:5500/category/categories")
       .then((res) => dispatch(set_categories(res.data)))
-      .catch();
-
+      .catch((err) => {
+        alert(err.response.message);
+      });
     axios
       .get("http://localhost:5500/product/products")
       .then((res) => dispatch(set_products(res.data)))
-      .catch();
+      .catch((err) => {
+        alert(err.response.message);
+      });
     axios
       .get("http://localhost:5500/unit/units")
       .then((res) => dispatch(set_units(res.data)))
-      .catch();
+      .catch((err) => {
+        alert(err.response.message);
+      });
   }, [dispatch]);
   return (
     <>
