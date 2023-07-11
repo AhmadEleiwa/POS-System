@@ -22,8 +22,9 @@ const ImagePicker: FC<props> = ({ name }) => {
     fileReader.readAsDataURL(image);
   };
   return (
-    <div className={style.imagePicker}>
+    <div className={style.imagePicker} data-testid="image-picker">
       <input
+        data-testid="select-input"
         type="file"
         onChange={onChangeHandler}
         className={style.imageInput}
@@ -31,7 +32,7 @@ const ImagePicker: FC<props> = ({ name }) => {
       />
       <div onClick={clickHandler} className={style.image}>
         {field.value.preview ? (
-          <img src={field.value.preview} alt="" />
+          <img src={field.value.preview} alt="Selected" />
         ) : (
           <FontAwesomeIcon cursor={"pointer"} fontSize={80} icon={faImage} />
         )}
