@@ -9,6 +9,7 @@ import AuthenticationGuard from "./Guards/AuthenticationGuard";
 import AuthenticationPage from "./Pages/AuthenticationPage";
 import Layout from "./Layout";
 import Dashboard from "./Pages/Dashboard";
+import Logout from "./Pages/Logout";
 
 const Router: FC = () => {
   return (
@@ -59,18 +60,30 @@ const Router: FC = () => {
           path="/auth"
           element={
             <AuthenticationGuard>
-              <AuthenticationPage />
+              <Layout>
+                <AuthenticationPage />
+              </Layout>
             </AuthenticationGuard>
           }
         ></Route>
         <Route
           path="/dashboard"
           element={
-            <AuthenticationGuard>
+            <Guard>
               <Layout>
                 <Dashboard />
               </Layout>
-            </AuthenticationGuard>
+            </Guard>
+          }
+        ></Route>
+        <Route
+          path="/logout"
+          element={
+            <Guard>
+              <Layout>
+                <Logout />
+              </Layout>
+            </Guard>
           }
         ></Route>
       </Routes>
