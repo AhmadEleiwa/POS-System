@@ -1,6 +1,9 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import ProductList from "../../Components/ProductList";
 import Aside from "../../Components/Aside";
+import axios from "axios";
+import { set_categories, set_products, set_units } from "../../store/Actions";
+import { useDispatch } from "react-redux";
 
 /**
  * ## POS Page
@@ -17,6 +20,22 @@ import Aside from "../../Components/Aside";
  * ```
  */
 const PosPage: FC = () => {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    axios
+      .get("http://localhost:5500/category/categories")
+      .then((res) => dispatch(set_categories(res.data)))
+      .catch();
+
+    axios
+      .get("http://localhost:5500/product/products")
+      .then((res) => dispatch(set_products(res.data)))
+      .catch();
+    axios
+      .get("http://localhost:5500/unit/units")
+      .then((res) => dispatch(set_units(res.data)))
+      .catch();
+  }, [dispatch]);
   return (
     <>
       <ProductList />
