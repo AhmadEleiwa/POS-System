@@ -2,9 +2,14 @@
 A web application for supermarkets to manage products and carts, including the ability to handle multiple carts and calculate the total amount for each order. Each cart can be added a description for more details.
 
 ---
-1. [Features](#features)
-2. [Installation](#installation)
-3. [Usage](#usage)
+- [EMMARKET](#emmarket)
+  - [Features](#features)
+  - [Installation](#installation)
+    - [Run](#run)
+    - [Backend \& API](#backend--api)
+      - [Backend Installation](#backend-installation)
+      - [Backend Run](#backend-run)
+  - [Usage](#usage)
 
 ## Features
 > Product Manpluation page
