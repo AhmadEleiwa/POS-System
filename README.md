@@ -15,7 +15,7 @@ Point of sale (POS)
 > 
 > Authentication system
 > 
-> Authorization to let the admin create and delete users into the system
+> Authorization (let the admin create and delete users into the system)
 ## How To Run
 
 First of all you need to install node.js. After installing node.js, you have to run client app as the command below.
