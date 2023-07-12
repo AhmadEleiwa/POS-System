@@ -64,5 +64,12 @@ After installing and configure our app. The main page once we starting the page 
 
 <img src='assets/loginpage.png' />
 
-Nowway to navigate to any page without login to the page.There's no users yet. excpt only the admin. 
+Noway to navigate to any page without login to the page.There's no users yet. excpt only the admin. 
 > Note: That once you configure MongoDB the system will not create the admin user. you have to Create one manually.
+```ts
+interface User{
+    username:string;
+    password:string;
+    admin:boolean;
+}
+```
