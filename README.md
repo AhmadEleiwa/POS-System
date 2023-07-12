@@ -75,3 +75,5 @@ interface User{
 }
 ```
 ### POS Page (home page)
+
+<img src='assets/pospage.png' />
