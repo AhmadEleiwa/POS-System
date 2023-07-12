@@ -1,5 +1,6 @@
 .container {
   width: 100%;
+  margin-left: 1em;
   height: 90vh;
   display: flex;
   flex-direction: column;
@@ -20,7 +21,8 @@
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
-  min-height: 50%;
+  min-height: 10%;
+  padding: 1em 0.1em;
   gap: 0.5em;
   margin-top: 1em;
   overflow-y: auto;
