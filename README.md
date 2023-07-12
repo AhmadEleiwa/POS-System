@@ -31,4 +31,4 @@ npm start
 ```
 ### Backend & API 
 The system are connected with backend that i build **Without the backend the system fail or even you cant use its own features**. Now lets installing and setup the backed to use the API's. Through this Link 
-*** (POS-BACKEND)[https://github.com/AhmadEleiwa/POS-Backend] ***
+**(POS-BACKEND)[https://github.com/AhmadEleiwa/POS-Backend]**
