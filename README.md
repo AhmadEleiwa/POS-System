@@ -11,6 +11,7 @@ A web application for supermarkets to manage products and carts, including the a
       - [Backend Run](#backend-run)
   - [Usage](#usage)
 
+---
 ## Features
 > Product Manpluation page
 >
