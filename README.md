@@ -11,6 +11,7 @@ Table Of Content
       - [Backend Installation](#backend-installation)
       - [Backend Run](#backend-run)
   - [Usage](#usage)
+    - [POS Page (home page)](#pos-page-home-page)
 
 ---
 ## Features
@@ -73,3 +74,4 @@ interface User{
     admin:boolean;
 }
 ```
+### POS Page (home page)
