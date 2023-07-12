@@ -2,7 +2,8 @@
 A web application for supermarkets to manage products and carts, including the ability to handle multiple carts and calculate the total amount for each order. Each cart can be added a description for more details.
 
 ---
-[Features](#features)
+1. [Features](#features)
+2. [Usage](#usage)
 
 ## Features
 > Product Manpluation page
