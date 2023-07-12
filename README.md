@@ -18,6 +18,8 @@ Point of sale (POS)
 > Authentication System
 > 
 > User Authorization 
+>
+> Switch Between Themes 
 
 ## Installation
 
@@ -41,3 +43,5 @@ npm i
 ```bash
 npm start
 ```
+
+## Usage
