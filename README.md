@@ -16,6 +16,7 @@ Table Of Content
     - [Change the display way](#change-the-display-way)
       - [Display as Cards](#display-as-cards)
       - [Display as List](#display-as-list)
+    - [Carts \& filterations](#carts--filterations)
 
 ---
 ## Features
@@ -96,3 +97,5 @@ Also You can change the display way of products list from Cards to list as shown
 #### Display as List
 <img src='assets/listshow.png' />
 
+
+### Carts & filterations
