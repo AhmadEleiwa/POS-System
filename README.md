@@ -4,11 +4,17 @@ Point of sale (POS)
 
 ## Features
 > Product manpluation page
+> 
 > Search & filteration system
+> 
 > Category manpluation page
+> 
 > Unit of measure manpluation page
+> 
 > Dashbaord for the users
+> 
 > Authentication system
+> 
 > Authorization to let the admin create and delete users into the system
 ## How To Run
 
