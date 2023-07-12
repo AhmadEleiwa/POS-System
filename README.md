@@ -84,10 +84,11 @@ A page for the cashier to manage customer's carts. This includes the ability to 
 
 ### Filteration and Searching the products
 The Search bar and select inputs used for apply the filteration and the search result to the list of products
+<img src='assets/filterproducts.png' />
+
 ### Change the display way
 Also You can change the display way of products list from Cards to list as shown
 
-<img src='assets/filterproducts.png' />
 
 #### Display as Cards
 <img src='assets/cardshow.png' />
