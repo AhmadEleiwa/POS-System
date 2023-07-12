@@ -3,19 +3,22 @@ A web application for supermarkets to manage products and carts, including the a
 Point of sale (POS)
 
 ## Features
-> Product manpluation page
+> Product Manpluation page
+>
+> Muli-Cart Manpluation or POS page
 > 
-> Search & filteration system
+> Search & Filteration system
 > 
-> Category manpluation page
+> Category Manpluation page
 > 
-> Unit of measure manpluation page
+> Unit of measure Manpluation page
 > 
-> Dashbaord for the users
+> Dashbaord for Users
 > 
-> Authentication system
+> Authentication System
 > 
-> Authorization (let the admin create and delete users into the system)
+> User Authorization 
+
 ## How To Run
 
 First of all you need to install node.js. After installing node.js, you have to run client app as the command below.
