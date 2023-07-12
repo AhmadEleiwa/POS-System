@@ -7,6 +7,7 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import style from "./style.module.css";
 import useTheme from "../../context/Theme/useTheme";
+import { userSchema } from "../../schema";
 /**
  * ## Authentication Page
  * Authentication page the page that allow the exist user to login into the site.
@@ -26,7 +27,7 @@ const AuthenticationPage: FC = () => {
               password: values.password,
             })
             .then((res) => {
-              setCookies("auth", res.data);
+              setCookies("auth", res.data, {expires:new Date(Date.now() +7200*1000)});
               axios.defaults.headers.post.Authorization= "barear " + res.data.token
               console.log(axios.defaults.headers.post.Authorization)
               navigate("/");
@@ -39,6 +40,7 @@ const AuthenticationPage: FC = () => {
           username: "",
           password: "",
         }}
+        validationSchema={userSchema}
       >
         <Form
           className={style.form}
