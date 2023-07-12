@@ -7,11 +7,10 @@ interface props {
   response: ResponseResult;
   onClose: () => void;
 }
-let id = 0;
 const Snackbar: FC<props> = ({ response, onClose }) => {
   const theme = useTheme();
   const snackbar = useRef<HTMLDivElement>(null);
-  let color = theme.palette.secondary;
+  let color = theme.palette.success;
   if (response.status >= 300 && response.status < 400) {
     color = theme.palette.warning;
   } else if (response.status >= 400) {
@@ -21,18 +20,7 @@ const Snackbar: FC<props> = ({ response, onClose }) => {
     setTimeout(() => {
       if (snackbar.current) snackbar.current.style.opacity = "0.9";
     }, 0);
-    setTimeout(
-      (i: number) => {
-        // The id to identify the last snackbar are running (Last massage)
-        if (i + 1 === id) {
-          id = 0;
-          onClose();
-        }
-      },
-      5000,
-      id++
-    );
-  }, [response, onClose]);
+  }, [response]);
 
   return (
     <>
@@ -43,7 +31,7 @@ const Snackbar: FC<props> = ({ response, onClose }) => {
           style={{
             backgroundColor: theme.palette.paper,
             boxShadow: "0 2px 8px" + theme.palette.shadow,
-            opacity: "0",
+            color:theme.palette.textPrimary
           }}
         >
           <FontAwesomeIcon

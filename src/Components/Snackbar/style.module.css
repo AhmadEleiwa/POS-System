@@ -1,30 +1,31 @@
-.snackbar{
-    width: 30em;
-    height: 4em;
-    position: absolute;
-    right: 5%;
-    bottom: 5px;
-    display: flex;
-    align-items: center ;
-    border-radius: 4px;
-    overflow: hidden;
-    z-index: 10;
-    transition: all 0.17s linear;
+.snackbar {
+  width: 30em;
+  height: 4em;
+  position: absolute;
+  right: 5%;
+  bottom: 3em;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  overflow: hidden;
+  opacity: 0;
+  z-index: 10;
+  transition: all 0.2s ease-in;
 }
-.message{
-    width: 70%;
-    height: 100%;
-    display: flex;
-    align-items: center ;
-    justify-content: center;
+.message {
+  width: 70%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.status{
-    width: 20%;
-    height: 100%;
-    display: flex;
-    align-items: center ;
-    justify-content: center;
+.status {
+  width: 20%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.xIcon{
-    width: 10%;
+.xIcon {
+  width: 10%;
 }
