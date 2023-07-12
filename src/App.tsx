@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import Router from "./Router";
-import ThemeProvider from "./context/Theme/ThemeProvider";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { set_categories, set_products, set_units } from "./store/Actions";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -25,9 +25,7 @@ function App() {
   }, [dispatch]);
   return (
     <div className="App">
-      <ThemeProvider>
-        <Router />
-      </ThemeProvider>
+      <Router />
     </div>
   );
 }
