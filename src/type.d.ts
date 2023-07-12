@@ -33,3 +33,7 @@ interface User{
   password:string;
   admin:boolean;
 }
+interface ResponseResult {
+  message: string;
+  status: number;
+}
