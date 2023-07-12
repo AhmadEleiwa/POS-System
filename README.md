@@ -48,6 +48,8 @@ The system are connected with backend that i build **Without the backend the sys
 The backend also built in node environment with express api. To install the backend you should follow the same steps witch we discover before.
 
 > **NOTE:** The system database is MongoDB and the uri of the database connection is hidden in .env file. To Setup mongodb configuration correctly you have add .env file with line below
+>
+> MONGOPATH = "mongodb+srv://(username):ixrwZDUrxf6qcTei@cluster0.tubw4as.mongodb.net/(collection name)?retryWrites=true&w=majority"
 #### Backend Installation 
 ```bash
 npm i
