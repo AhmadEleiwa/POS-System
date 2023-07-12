@@ -19,9 +19,13 @@ Point of sale (POS)
 > 
 > User Authorization 
 
-## How To Run
+## Installation
 
-First of all you need to install node.js. After installing node.js, you have to run client app as the command below.
+The application build in node environment in react.js. To install the project you can clone it or install it as Zip file. After downloading project, You have to install the dependencies by this command
+```bash
+npm i
+```
+### Run
 ```bash
 npm start
 ```
