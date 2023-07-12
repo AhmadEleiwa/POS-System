@@ -62,7 +62,7 @@ const matrialTheme: Palette = {
   textPrimary: "#ffffff",
   textSecondary: "#cfcfcf",
   background: "#2D4356",
-  shadow:'#33333388'
+  shadow:'#12121288'
 };
 export type keys = "primary" | "green" | "dark" | "matrial";
 
