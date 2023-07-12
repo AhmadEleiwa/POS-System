@@ -15,6 +15,7 @@ import { productShcema } from "../../schema";
 import Select from "../../Components/Select";
 import SearchField from "../../Components/SearchField";
 import axios from "axios";
+import useSnackbar from "../../context/Snackbar/useSnackbar";
 /**
  * ## Product Page
  * Product page the page that allow to handle the Product itself in the system.
@@ -32,6 +33,7 @@ import axios from "axios";
  * Each Product can have one category and one unitOfMeasure.
  */
 const ProductPage: FC = () => {
+  const snack = useSnackbar()
   const theme = useTheme();
   // selectedProduct select the product id
   const [selectedProduct, setSlectedProduct] = useState<string>("");
@@ -96,6 +98,10 @@ const ProductPage: FC = () => {
       axios
         .post("http://localhost:5500/product/new", formData)
         .then((res) => {
+          snack.onResponse({
+            message:res.data.message,
+            status:res.status
+          })
           dispatch(
             addProduct({
               id: res.data.id,
@@ -110,12 +116,19 @@ const ProductPage: FC = () => {
           );
         })
         .catch((err) => {
-          alert(err.response.data.message);
+          snack.onResponse({
+            message:err.response.data.message,
+            status:err.response.status
+          })
         });
     } else if (submitAction === "update") {
       axios
         .post("http://localhost:5500/product/update/" + values.id, formData)
         .then((res) => {
+          snack.onResponse({
+            message:res.data.message,
+            status:res.status
+          })
           dispatch(
             updateProduct(values.id, {
               id: values.id,

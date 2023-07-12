@@ -16,6 +16,7 @@ import {
   updateCategory,
 } from "../../store/Actions";
 import axios from "axios";
+import useSnackbar from "../../context/Snackbar/useSnackbar";
 /**
  * ## Product Category
  * Category page the page that allow the user to manipulate the different categories
@@ -31,6 +32,7 @@ const CategoryPage: FC = () => {
   const categories = useSelector<RootState>(
     (state) => state.categoriessReducer
   ) as Category[];
+  const snack = useSnackbar()
   const dispatch = useDispatch();
   const theme = useTheme();
 
@@ -78,7 +80,10 @@ const CategoryPage: FC = () => {
                   alert(res.data.message);
                 })
                 .catch((err) => {
-                  alert(err);
+                  snack.onResponse({
+                    message:err.response.data.message,
+                    status: err.response.status
+                  })
                 });
             }}
             initialValues={{ category: "" }}
