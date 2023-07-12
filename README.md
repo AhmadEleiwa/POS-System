@@ -60,4 +60,6 @@ npm start
 ```
 
 ## Usage
-After installing and configure our app. The main page once start at localhost at port 3000 the page run this url [https::/localhost:3000](http://localhost:3000/)
+After installing and configure our app. The main page once we starting the page at localhost at port 3000 the page run this url [https::/localhost:3000](http://localhost:3000/) will shown as the figure below
+
+<img src='assets/loginpage.png' />
