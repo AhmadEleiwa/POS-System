@@ -3,7 +3,8 @@ A web application for supermarkets to manage products and carts, including the a
 
 ---
 1. [Features](#features)
-2. [Usage](#usage)
+2. [Installation](#installation)
+3. [Usage](#usage)
 
 ## Features
 > Product Manpluation page
