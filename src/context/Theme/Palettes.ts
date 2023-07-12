@@ -12,6 +12,7 @@ type Palette = {
   textSecondary: string;
   background: string;
   shadow:string;
+  success:string;
 };
 
 const primaryTheme: Palette = {
@@ -24,7 +25,8 @@ const primaryTheme: Palette = {
   textSecondary: "#414141",
   textAction: "white",
   background: "#f1f1f1",
-  shadow:'#66666666'
+  shadow:'#66666666',
+  success:'#4BB543'
 };
 const darkTheme: Palette = {
   primary: "#121212",
@@ -36,7 +38,8 @@ const darkTheme: Palette = {
   textSecondary: "#afafaf",
   textAction: "white",
   background: "#1f1f1f",
-  shadow:'#01010166'
+  shadow:'#01010166',
+  success:'#4BB543'
 };
 
 const greenTheme: Palette = {
@@ -49,7 +52,8 @@ const greenTheme: Palette = {
   textPrimary: "#000000",
   textSecondary: "#414141",
   background: "#EBFDEE",
-  shadow:'#66666666'
+  shadow:'#66666666',
+  success:'#4BB543'
 };
 
 const matrialTheme: Palette = {
@@ -62,7 +66,8 @@ const matrialTheme: Palette = {
   textPrimary: "#ffffff",
   textSecondary: "#cfcfcf",
   background: "#2D4356",
-  shadow:'#12121288'
+  shadow:'#12121288',
+  success:'#4BB543'
 };
 export type keys = "primary" | "green" | "dark" | "matrial";
 
