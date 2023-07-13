@@ -3,6 +3,7 @@ Table Of Content
 - [EMMARKET](#emmarket)
   - [Features](#features)
   - [Installation](#installation)
+    - [Run](#run)
     - [Backend \& API](#backend--api)
       - [Backend Installation](#backend-installation)
       - [Backend Run](#backend-run)
@@ -69,6 +70,27 @@ cd [project_directory]
 npm install
 ``` 
 
+Downloading as a ZIP file:
+
+1. Download the ZIP file from the repository.
+2. Extract the contents of the ZIP file to a desired location on your computer.
+3. Open your terminal or command prompt.
+4. Navigate to the extracted project directory:
+cd [project_directory]
+```bash
+cd [project_directory]
+```
+2. Install the project dependencies by running:
+```bash
+npm install
+``` 
+After completing the installation process, you can proceed with running and using the application
+
+### Run
+
+```bash
+npm start
+``` 
 ### Backend & API 
 The system are connected with backend that i build **Without the backend the system fail or even you cant use its own features**. Now lets installing and setup the backed to use the API's. Through this Link 
 **[POS-BACKEND](https://github.com/AhmadEleiwa/POS-Backend)**.
