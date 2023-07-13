@@ -85,7 +85,7 @@ interface User{
 A page for the cashier to manage customer's carts. This includes the ability to create and manage multiple carts and add descriptions to them for additional information. This page can handle these functionlites:
 
 ### Products Filteration and Searching 
-The Search bar and select inputs used for apply the filteration on the list of products
+The search bar and select inputs are utilized to apply filters to the list of products. You can enter search terms in the search bar to find specific products based on their names or other relevant information. The select inputs allow you to choose specific criteria for filtering the products, such as category or unit of measure. By selecting the desired options, you can refine the list and view only the products that meet the specified filter criteria.
 
 <img src='assets/filterproducts.png' />
 
