@@ -92,9 +92,22 @@ After completing the installation process, you can proceed with running and usin
 npm start
 ``` 
 ### Backend & API 
-The system are connected with backend that i build **Without the backend the system fail or even you cant use its own features**. Now lets installing and setup the backed to use the API's. Through this Link 
-**[POS-BACKEND](https://github.com/AhmadEleiwa/POS-Backend)**.
-The backend also built in node environment with express api. To install the backend you should follow the same steps witch we discover before.
+The system is tightly integrated with a backend that I have built. Without the backend, the system will not function properly, and its features will not be accessible. To install and set up the backend, please follow these steps:
+
+1. Access the POS-BACKEND repository through this link: [POS-BACKEND](https://github.com/AhmadEleiwa/POS-Backend).
+2. Clone the repository or download it as a ZIP file.
+3. Open your terminal or command prompt.
+4. Navigate to the backend directory.
+5. Install the necessary dependencies by running the command:
+```bash
+npm install
+```
+1. Configure the backend by setting up the required environment variables, database connections, and any other necessary configurations.
+2. Run the backend server using the command:
+```bash
+npm start
+```
+The backend will now be up and running, providing the APIs required for the system's functionality.
 
 > **NOTE:** The system database is MongoDB and the uri of the database connection is hidden in .env file. To Setup mongodb configuration correctly you have add .env file with line below
 >
