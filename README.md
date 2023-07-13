@@ -5,8 +5,6 @@ Table Of Content
   - [Installation](#installation)
     - [Run](#run)
     - [Backend \& API](#backend--api)
-      - [Backend Installation](#backend-installation)
-      - [Backend Run](#backend-run)
   - [Usage](#usage)
     - [POS Page (home page)](#pos-page-home-page)
     - [Products Filteration and Searching](#products-filteration-and-searching)
@@ -112,14 +110,6 @@ The backend will now be up and running, providing the APIs required for the syst
 > **NOTE:** The system database is MongoDB and the uri of the database connection is hidden in .env file. To Setup mongodb configuration correctly you have add .env file with line below
 >
 > MONGOPATH = "mongodb+srv://(username):ixrwZDUrxf6qcTei@cluster0.tubw4as.mongodb.net/(collection name)?retryWrites=true&w=majority"
-#### Backend Installation 
-```bash
-npm i
-```
-#### Backend Run
-```bash
-npm start
-```
 
 ## Usage
 After installing and configure our app. The main page once we starting the page at localhost at port 3000 the page run this url [https::/localhost:3000](http://localhost:3000/) will shown as the figure below
