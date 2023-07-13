@@ -16,7 +16,7 @@ Table Of Content
     - [Change the display way](#change-the-display-way)
       - [Display as Cards](#display-as-cards)
       - [Display as List](#display-as-list)
-    - [Carts \& filterations](#carts--filterations)
+    - [Carts \& Filterations \& Sorting](#carts--filterations--sorting)
 
 ---
 ## Features
@@ -84,7 +84,7 @@ interface User{
 A page for the cashier to manage customer's carts. This includes the ability to create and manage multiple carts and add descriptions to them for additional information. This page can handle these functionlites:
 
 ### Products Filteration and Searching 
-The Search bar and select inputs used for apply the filteration and the search result to the list of products
+The Search bar and select inputs used for apply the filteration on the list of products
 
 <img src='assets/filterproducts.png' />
 
@@ -99,4 +99,6 @@ Also You can change the display way of products list from Cards to list as shown
 <img src='assets/listshow.png' />
 
 
-### Carts & filterations
+### Carts & Filterations & Sorting
+By Clicking on the headers of the tables, the sort will be applied on the entire list 
+<img src='assets/carttabel.png' />
