@@ -32,15 +32,15 @@ The web application is specifically designed for supermarkets to effectively man
 By utilizing this web application, supermarkets can streamline their product and cart management processes, enhance customer service, and ensure accurate calculation of order totals for a seamless shopping experience.
 
 ## Features
-> Product Manpluation page
+> Product Management
 >
-> Muli-Cart Manpluation or POS page
+> Multi-Cart Management
 > 
 > Search & Filteration system
 > 
 > Category Manpluation page
 > 
-> Unit of measure Manpluation page
+> Unit of measure Management
 > 
 > Dashbaord for Users
 > 
