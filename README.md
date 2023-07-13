@@ -101,12 +101,12 @@ Also You can change the display way of products list from Cards to list as shown
 
 
 ### Carts & Filterations & Sorting
-By Clicking on the headers of the tables, the sort will be applied on the entire list. With Search you can search about the cart description.
+By clicking on the headers of the tables, you can sort the entire list based on the selected column. The sorting will be applied to organize the data in ascending or descending order. Additionally, you can utilize the search functionality to quickly find specific carts based on their descriptions. Enter relevant keywords in the search field to filter the list and narrow down the results.
 
 <img src='assets/carttabel.png' width='100%' />
 
 ### Single Cart Manpluation
-After selecting a cart from the list, you will be directed to the following view. In this view, you have the option to modify the description or quantity of individual products within the cart. You can also delete products from the list or add new products by selecting from the available product list. Additionally, each cart has taxes and discounts associated with it. Similar to the cart table, you can apply sorting and filtering options to refine the displayed data
+After selecting a cart from the list, you will be directed to the following view. In this view, you have the option to modify the description or quantity of individual products within the cart. You can also delete products from the list or add new products by selecting from the available product list. Additionally, each cart has taxes and discounts associated with it. Similar to the cart table, you can apply sorting and filtering options to refine the displayed data.
 ```ts
 interface Cart {
   cartId: string;
