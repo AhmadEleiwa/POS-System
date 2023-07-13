@@ -17,6 +17,7 @@ Table Of Content
       - [Display as Cards](#display-as-cards)
       - [Display as List](#display-as-list)
     - [Carts \& Filterations \& Sorting](#carts--filterations--sorting)
+    - [Single Cart Manpluation](#single-cart-manpluation)
 
 ---
 ## Features
@@ -103,3 +104,17 @@ Also You can change the display way of products list from Cards to list as shown
 By Clicking on the headers of the tables, the sort will be applied on the entire list. With Search you can search about the cart description.
 
 <img src='assets/carttabel.png' width='100%' />
+
+### Single Cart Manpluation
+After choosing to any cart from the list. It navigate you to this cart as shown below. For each cart you can change the description or the QTY for the single product or Deleting Product from the list or adding new product by clicking on producin porduct list. Also, There's Tax and discount for each cart
+```ts
+interface Cart {
+  cartId: string;
+  description: string;
+  tax: number;
+  discount: number;
+  products: Product[];
+}
+```
+
+<img src='assets/singelcart.png' />
