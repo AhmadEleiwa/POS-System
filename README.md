@@ -106,7 +106,7 @@ By Clicking on the headers of the tables, the sort will be applied on the entire
 <img src='assets/carttabel.png' width='100%' />
 
 ### Single Cart Manpluation
-After choosing to any cart from the list. It navigate you to this cart as shown below. For each cart you can change the description or the QTY for the single product or Deleting Product from the list or adding new product by clicking on producin porduct list. Also, There's Tax and discount for each cart
+After choosing to any cart from the list. It navigate you to this cart as shown below. For each cart you can change the description or the QTY for the single product or Deleting Product from the list or adding new product by clicking on producin porduct list. Also, There's Tax and discount for each cart. As shown nd as the carts table, sort and the filteration could be applied. 
 ```ts
 interface Cart {
   cartId: string;
