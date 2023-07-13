@@ -3,7 +3,6 @@ Table Of Content
 - [EMMARKET](#emmarket)
   - [Features](#features)
   - [Installation](#installation)
-    - [Run](#run)
     - [Backend \& API](#backend--api)
       - [Backend Installation](#backend-installation)
       - [Backend Run](#backend-run)
@@ -52,14 +51,24 @@ By utilizing this web application, supermarkets can streamline their product and
 
 ## Installation
 
-The application built in node environment in react.js. To install the project you can clone it or install it as Zip file. After downloading project, You have to install the dependencies by this command:
+The application is developed using the Node environment with React.js. To install the project, you have two options: cloning the repository or downloading it as a ZIP file.
+
+Cloning the repository:
+
+Open your terminal or command prompt.
+Run the following command:
 ```bash
-npm i
+git clone [repository_url]
 ```
-### Run
+1. Navigate to the project directory:
 ```bash
-npm start
+cd [project_directory]
 ```
+2. Install the project dependencies by running:
+```bash
+npm install
+``` 
+
 ### Backend & API 
 The system are connected with backend that i build **Without the backend the system fail or even you cant use its own features**. Now lets installing and setup the backed to use the API's. Through this Link 
 **[POS-BACKEND](https://github.com/AhmadEleiwa/POS-Backend)**.
