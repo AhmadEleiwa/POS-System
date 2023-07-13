@@ -12,7 +12,7 @@ Table Of Content
       - [Backend Run](#backend-run)
   - [Usage](#usage)
     - [POS Page (home page)](#pos-page-home-page)
-    - [Filteration and Searching the products](#filteration-and-searching-the-products)
+    - [Products Filteration and Searching](#products-filteration-and-searching)
     - [Change the display way](#change-the-display-way)
       - [Display as Cards](#display-as-cards)
       - [Display as List](#display-as-list)
@@ -83,8 +83,9 @@ interface User{
 <img src='assets/pospage.png' />
 A page for the cashier to manage customer's carts. This includes the ability to create and manage multiple carts and add descriptions to theme for additional information. This page can handle these functionlites:
 
-### Filteration and Searching the products
+### Products Filteration and Searching 
 The Search bar and select inputs used for apply the filteration and the search result to the list of products
+
 <img src='assets/filterproducts.png' />
 
 ### Change the display way
