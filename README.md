@@ -81,7 +81,7 @@ interface User{
 ```
 ### POS Page (home page)
 <img src='assets/pospage.png' />
-A page for the cashier to manage customer's carts. This includes the ability to create and manage multiple carts and add descriptions to theme for additional information. This page can handle these functionlites:
+A page for the cashier to manage customer's carts. This includes the ability to create and manage multiple carts and add descriptions to them for additional information. This page can handle these functionlites:
 
 ### Products Filteration and Searching 
 The Search bar and select inputs used for apply the filteration and the search result to the list of products
