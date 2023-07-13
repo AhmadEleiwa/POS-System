@@ -101,4 +101,4 @@ Also You can change the display way of products list from Cards to list as shown
 
 ### Carts & Filterations & Sorting
 By Clicking on the headers of the tables, the sort will be applied on the entire list 
-<img src='assets/carttabel.png' />
+<img src='assets/carttabel.png' width='100%' />
