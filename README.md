@@ -100,5 +100,6 @@ Also You can change the display way of products list from Cards to list as shown
 
 
 ### Carts & Filterations & Sorting
-By Clicking on the headers of the tables, the sort will be applied on the entire list 
+By Clicking on the headers of the tables, the sort will be applied on the entire list. With Search you can search about the cart description.
+
 <img src='assets/carttabel.png' width='100%' />
