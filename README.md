@@ -175,14 +175,22 @@ interface Cart {
 
 The Category page is designed to provide users with the ability to manage categories effectively. It offers a range of functionalities, including adding, editing, and deleting categories.
 
+<img src='assets/category.png' />
+
 ### Unit of Measure Page
 The Unit of Measure page is designed to provide users with the ability to manage Unit of Measures effectively. It offers a range of functionalities, including adding, editing, and deleting Unit of Measure.
+
+<img src='assets/unit.png' />
 
 ### Product Page
 The Product page is a versatile tool that puts users in control of managing their products effectively. With this page, users have the ability to add new products, make changes to product categories, and modify the unit of measure for each product. Additionally, the page offers powerful filtering and searching capabilities to help users navigate through their product inventory effortlessly.
 
+<img src='assets/product.png' />
+
 ### Dashboard Page
 The Dashboard is a central hub provided to all users, offering essential functionalities for efficient navigation and personalization. With the Dashboard, users gain access to valuable features such as viewing checked carts and switching themes. Additionally, the administrative role holds exclusive privileges to add or delete users.
+
+<img src='assets/dashboard.png' />
 
 ## Configuration
 In this application, the primary configuration option available is related to theming. All users within the system have the ability to customize the color theme according to their preferences. This can be done by navigating to the dashboard and accessing the theme settings.
