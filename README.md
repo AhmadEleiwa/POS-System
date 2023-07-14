@@ -195,6 +195,8 @@ The Dashboard is a central hub provided to all users, offering essential functio
 ## Configuration
 In this application, the primary configuration option available is related to theming. All users within the system have the ability to customize the color theme according to their preferences. This can be done by navigating to the dashboard and accessing the theme settings.
 
+<img src='assets/theme' />
+
 The application offers four pre-defined themes for users to choose from:
 
 1. Dark Theme: This theme provides a visually appealing and modern dark color scheme, which is ideal for users who prefer a sleek and immersive interface.
