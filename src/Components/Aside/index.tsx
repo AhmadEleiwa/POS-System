@@ -28,6 +28,10 @@ const Aside: FC<props> = ({ width }) => {
     setShow("");
     dispatch(chooseCart(""));
   };
+  const backwardHandler = () =>{
+    setShow("")
+    dispatch(chooseCart(""));
+  }
   return (
     <div className={style.main}>
       <FontAwesomeIcon
@@ -58,7 +62,7 @@ const Aside: FC<props> = ({ width }) => {
           <SingleCart
             onRemoveOrder={removeOrderHandler}
             orderId={show}
-            onClick={() => setShow("")}
+            onClick={backwardHandler}
           />
         )}
       </div>
