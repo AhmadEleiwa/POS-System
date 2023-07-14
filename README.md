@@ -1,6 +1,7 @@
 # EMMARKET
-Table Of Content
+## Table Of Content
 - [EMMARKET](#emmarket)
+  - [Table Of Content](#table-of-content)
   - [Overview](#overview)
   - [Features](#features)
   - [Installation](#installation)
@@ -22,7 +23,6 @@ Table Of Content
   - [APIs and SDKs](#apis-and-sdks)
   - [License](#license)
 
----
 ## Overview 
 The web application is specifically designed for supermarkets to effectively manage their products and customer carts. It offers a range of features tailored to streamline supermarket operations. Key functionalities of the application include:
 
