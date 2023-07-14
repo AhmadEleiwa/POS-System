@@ -184,8 +184,8 @@ const SingleCart: FC<props> = ({ onClick, orderId, onRemoveOrder }) => {
                 message: res.data.message,
                 status: res.status,
               });
-              dispatch(checkCart(orderId));
               onRemoveOrder();
+              dispatch(checkCart(orderId));
             })
             .catch((err) => {
               snackbar.onResponse({
