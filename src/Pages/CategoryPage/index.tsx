@@ -32,7 +32,7 @@ const CategoryPage: FC = () => {
   const categories = useSelector<RootState>(
     (state) => state.categoriessReducer
   ) as Category[];
-  const snack = useSnackbar()
+  const { onResponse } = useSnackbar();
   const dispatch = useDispatch();
   const theme = useTheme();
 
@@ -76,14 +76,17 @@ const CategoryPage: FC = () => {
                   categoryName: values.category,
                 })
                 .then((res) => {
+                  onResponse({
+                    message: res.data.message,
+                    status: res.status,
+                  });
                   dispatch(addCategory(values.category));
-                  alert(res.data.message);
                 })
                 .catch((err) => {
-                  snack.onResponse({
-                    message:err.response.data.message,
-                    status: err.response.status
-                  })
+                  onResponse({
+                    message: err.response.data.message,
+                    status: err.response.status,
+                  });
                 });
             }}
             initialValues={{ category: "" }}
@@ -112,12 +115,19 @@ const CategoryPage: FC = () => {
                   { categoryName: values.category }
                 )
                 .then((res) => {
+                  onResponse({
+                    message: res.data.message,
+                    status: res.status,
+                  });
                   dispatch(
                     updateCategory(values.selectedCategory, values.category)
                   );
                 })
                 .catch((err) => {
-                  alert(err);
+                  onResponse({
+                    message: err.response.data.message,
+                    status: err.response.status,
+                  });
                 });
             }}
             initialValues={{
@@ -155,11 +165,17 @@ const CategoryPage: FC = () => {
                     values.selectedCategory
                 )
                 .then((res) => {
+                  onResponse({
+                    message: res.data.message,
+                    status: res.status,
+                  });
                   dispatch(removeCategory(values.selectedCategory));
-                  alert(res.data.message);
                 })
                 .catch((err) => {
-                  alert(err);
+                  onResponse({
+                    message: err.response.data.message,
+                    status: err.response.status,
+                  });
                 });
             }}
             initialValues={{ selectedCategory: categories[0].categoryName }}
