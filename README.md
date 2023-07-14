@@ -19,6 +19,7 @@ Table Of Content
     - [Dashboard Page](#dashboard-page)
   - [Configuration](#configuration)
   - [APIs and SDKs](#apis-and-sdks)
+  - [License](#license)
 
 ---
 
@@ -215,3 +216,6 @@ In this project, I have utilized several React libraries to enhance the function
 6. Fontawesome: To enrich the user interface with scalable vector icons, I have integrated Fontawesome. This library offers a vast collection of icons that can be easily incorporated into the application, enhancing its visual appeal and usability.
 
 By incorporating these React libraries, I have enhanced the functionality, state management, UI design, data fetching, data validation, navigation, and visual aspects of the project. These libraries contribute to an improved overall user experience and efficient development process.
+## License
+
+This project is licensed under the [MIT License](LICENSE).
