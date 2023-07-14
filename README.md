@@ -18,6 +18,7 @@ Table Of Content
     - [Product Page](#product-page)
     - [Dashboard Page](#dashboard-page)
   - [Configuration](#configuration)
+  - [APIs and SDKs](#apis-and-sdks)
 
 ---
 
@@ -187,12 +188,30 @@ In this application, the primary configuration option available is related to th
 
 The application offers four pre-defined themes for users to choose from:
 
-Dark Theme: This theme provides a visually appealing and modern dark color scheme, which is ideal for users who prefer a sleek and immersive interface.
+1. Dark Theme: This theme provides a visually appealing and modern dark color scheme, which is ideal for users who prefer a sleek and immersive interface.
 
-White Theme: The white theme offers a clean and minimalist look, utilizing light colors to create a bright and refreshing user experience.
+2. White Theme: The white theme offers a clean and minimalist look, utilizing light colors to create a bright and refreshing user experience.
 
-Material Theme: Inspired by the Material Design principles, this theme incorporates vibrant colors and subtle shadows to provide a visually rich and interactive interface.
+3. Material Theme: Inspired by the Material Design principles, this theme incorporates vibrant colors and subtle shadows to provide a visually rich and interactive interface.
 
-Green Theme: The green theme embraces a color palette centered around shades of green, delivering a nature-inspired and visually calming experience.
+4. Green Theme: The green theme embraces a color palette centered around shades of green, delivering a nature-inspired and visually calming experience.
 
 Users can select their desired theme from the available options within the dashboard, enabling them to personalize the application's appearance to match their preferences. This flexibility in theming enhances the overall user experience, making the application more engaging and enjoyable to use.
+
+
+## APIs and SDKs
+In this project, I have utilized several React libraries to enhance the functionality and user experience. Here are the key libraries that have been employed:
+
+1. React-Redux: I have leveraged React-Redux for efficient state management, enabling seamless data flow and ensuring a consistent application state across components.
+
+2. Storybook: To facilitate system design and component development, I have integrated Storybook. This powerful tool allows for isolated component testing and the creation of a comprehensive UI component library.
+
+3. Axios: For seamless data fetching from APIs, I have utilized Axios. This library simplifies the process of making HTTP requests, providing a convenient and efficient means of retrieving data.
+
+4. Yup: To ensure robust data validation and schema creation, I have incorporated Yup. This library allows for easy and comprehensive validation of form inputs and data objects, ensuring data integrity and consistency.
+
+5. React-Router-DOM: For smooth navigation between pages, I have employed React-Router-DOM. This library facilitates dynamic routing, enabling users to move between different sections of the application with ease.
+
+6. Fontawesome: To enrich the user interface with scalable vector icons, I have integrated Fontawesome. This library offers a vast collection of icons that can be easily incorporated into the application, enhancing its visual appeal and usability.
+
+By incorporating these React libraries, I have enhanced the functionality, state management, UI design, data fetching, data validation, navigation, and visual aspects of the project. These libraries contribute to an improved overall user experience and efficient development process.
