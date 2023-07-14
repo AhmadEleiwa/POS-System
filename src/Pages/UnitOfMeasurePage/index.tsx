@@ -18,6 +18,7 @@ import { addUnit, removeUnit, updateUnit } from "../../store/Actions";
 import SearchField from "../../Components/SearchField";
 import Row from "./components/Row";
 import axios from "axios";
+import useSnackbar from "../../context/Snackbar/useSnackbar";
 /**
  * ## Unit OF Measure
  * Unit of Measure the page that allow the use to manage the system units.
@@ -40,6 +41,7 @@ const UnitOfMeasurePage: FC = () => {
   const [searchValue, setSearcchValue] = useState<string>("");
   const dispatch = useDispatch();
   const theme = useTheme();
+  const { onResponse } = useSnackbar();
 
   const onChangeHandler = (value: string) => {
     setSearcchValue(value);
@@ -90,6 +92,10 @@ const UnitOfMeasurePage: FC = () => {
                   conversionFactor: values.CFB,
                 })
                 .then((res) => {
+                  onResponse({
+                    message: res.data.message,
+                    status: res.status,
+                  });
                   dispatch(
                     addUnit({
                       unitOfMeasureName: values.unitOfMeasureName,
@@ -99,7 +105,10 @@ const UnitOfMeasurePage: FC = () => {
                   );
                 })
                 .catch((err) => {
-                  alert(err);
+                  onResponse({
+                    message: err.response.data.message,
+                    status: err.response.status,
+                  });
                 });
             }}
             initialValues={{
@@ -137,7 +146,6 @@ const UnitOfMeasurePage: FC = () => {
         {status === "update" && (
           <Formik
             onSubmit={(values) => {
-              console.log(values);
               axios
                 .post(
                   "http://localhost:5500/unit/update/" + values.selectedUnit,
@@ -148,7 +156,10 @@ const UnitOfMeasurePage: FC = () => {
                   }
                 )
                 .then((res) => {
-                  alert(res.data.message);
+                  onResponse({
+                    message: res.data.message,
+                    status: res.status,
+                  });
                   dispatch(
                     dispatch(
                       updateUnit(values.selectedUnit, {
@@ -160,7 +171,10 @@ const UnitOfMeasurePage: FC = () => {
                   );
                 })
                 .catch((err) => {
-                  alert(err);
+                  onResponse({
+                    message: err.response.data.message,
+                    status: err.response.status,
+                  });
                 });
             }}
             enableReinitialize
@@ -230,17 +244,23 @@ const UnitOfMeasurePage: FC = () => {
         {status === "delete" && (
           <Formik
             onSubmit={(values) => {
-              console.log(values.unitOfMeasureName)
               axios
                 .delete(
                   "http://localhost:5500/unit/delete/" +
                     values.unitOfMeasureName
                 )
                 .then((res) => {
+                  onResponse({
+                    message: res.data.message,
+                    status: res.status,
+                  });
                   dispatch(removeUnit(values.unitOfMeasureName));
                 })
                 .catch((err) => {
-                  alert(err);
+                  onResponse({
+                    message: err.response.data.message,
+                    status: err.response.status,
+                  });
                 });
             }}
             enableReinitialize
