@@ -33,7 +33,7 @@ import useSnackbar from "../../context/Snackbar/useSnackbar";
  * Each Product can have one category and one unitOfMeasure.
  */
 const ProductPage: FC = () => {
-  const snack = useSnackbar()
+  const snack = useSnackbar();
   const theme = useTheme();
   // selectedProduct select the product id
   const [selectedProduct, setSlectedProduct] = useState<string>("");
@@ -99,14 +99,14 @@ const ProductPage: FC = () => {
         .post("http://localhost:5500/product/new", formData)
         .then((res) => {
           snack.onResponse({
-            message:res.data.message,
-            status:res.status
-          })
+            message: "Product "+ res.data.id+" have been Created",
+            status: res.status,
+          });
           dispatch(
             addProduct({
               id: res.data.id,
               title: values.title,
-              price:values.price,
+              price: values.price,
               category: { categoryName: values.category } as Category,
               media: values.image.preview,
               unitOfMeasure: unitOfMeasures.find(
@@ -117,23 +117,23 @@ const ProductPage: FC = () => {
         })
         .catch((err) => {
           snack.onResponse({
-            message:err.response.data.message,
-            status:err.response.status
-          })
+            message: err.response.data.message,
+            status: err.response.status,
+          });
         });
     } else if (submitAction === "update") {
       axios
         .post("http://localhost:5500/product/update/" + values.id, formData)
         .then((res) => {
           snack.onResponse({
-            message:res.data.message,
-            status:res.status
-          })
+            message: res.data.message,
+            status: res.status,
+          });
           dispatch(
             updateProduct(values.id, {
               id: values.id,
               title: values.title,
-              price:values.price,
+              price: values.price,
               category: { categoryName: values.category } as Category,
               media: values.image.preview,
               unitOfMeasure: unitOfMeasures.find(
@@ -143,16 +143,26 @@ const ProductPage: FC = () => {
           );
         })
         .catch((err) => {
-          alert(err.message);
+          snack.onResponse({
+            message: err.response.data.message,
+            status: err.response.status,
+          });
         });
     } else if (submitAction === "delete") {
       axios
         .delete("http://localhost:5500/product/delete/" + values.id)
         .then((res) => {
+          snack.onResponse({
+            message: res.data.message,
+            status: res.status,
+          });
           dispatch(removeProduct(values.id));
         })
         .catch((err) => {
-          alert(err.message);
+          snack.onResponse({
+            message: err.response.data.message,
+            status: err.response.status,
+          });
         });
     }
   };
@@ -237,7 +247,7 @@ const ProductPage: FC = () => {
               : unitOfMeasures[0]
               ? unitOfMeasures[0].unitOfMeasureName
               : "",
-            price: selectedItem? selectedItem.price : 0.99,
+            price: selectedItem ? selectedItem.price : 0.99,
             image: { preview: selectedItem?.media, img: selectedItem?.media },
           }}
         >
