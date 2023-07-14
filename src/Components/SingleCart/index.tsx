@@ -20,6 +20,8 @@ import {
   updateCartProduct,
 } from "../../store/Actions";
 import Input from "../Input";
+import axios from "axios";
+import useSnackbar from "../../context/Snackbar/useSnackbar";
 
 const headings = [
   { key: "id", title: "product" },
@@ -45,10 +47,15 @@ const SingleCart: FC<props> = ({ onClick, orderId, onRemoveOrder }) => {
 
   const dispatch = useDispatch();
   const theme = useTheme();
-  const cart = (
+  const snackbar = useSnackbar();
+  let cart = (
     useSelector<RootState>((state) => state.cartsReducer) as Cart[]
   ).find((p) => p.cartId === orderId) as Cart;
-  let items = [...cart.products];
+  if(!cart){
+    cart = {description:'', products:[], tax:0, discount:0, cartId:''}
+  }
+
+  let items = cart ? [...cart.products] : [];
   const qtyChangeHandler = (value: string, id: string) => {
     let val = value === "" ? "1" : value;
     // logic to change the quantity for this product in the cart
@@ -140,14 +147,14 @@ const SingleCart: FC<props> = ({ onClick, orderId, onRemoveOrder }) => {
       });
     }
   } else {
-    items = cart.products;
+    items = cart ? cart.products : [];
   }
   items = items.filter((p) => p.title.startsWith(searchValue));
   let totalPrice = 0;
   for (let val of items) {
     totalPrice += val.qty * val.price;
   }
-  totalPrice += -totalPrice * cart.discount + totalPrice * cart.tax;
+  if (cart) totalPrice += -totalPrice * cart.discount + totalPrice * cart.tax;
 
   return (
     <div className={style.single}>
@@ -163,10 +170,31 @@ const SingleCart: FC<props> = ({ onClick, orderId, onRemoveOrder }) => {
       </div>
       <Formik
         onSubmit={() => {
-          dispatch(checkCart(orderId));
-          onRemoveOrder();
+          axios
+            .post("http://localhost:5500/cart/check", {
+              description: cart.description,
+              tax: cart.tax,
+              discount: cart.discount,
+              products: cart.products.map((p) => {
+                return { product: p.id, qty: p.qty };
+              }),
+            })
+            .then((res) => {
+              snackbar.onResponse({
+                message: res.data.message,
+                status: res.status,
+              });
+              dispatch(checkCart(orderId));
+              onRemoveOrder();
+            })
+            .catch((err) => {
+              snackbar.onResponse({
+                message: err.response.data.message,
+                status: err.response.status,
+              });
+            });
         }}
-        initialValues={{ description: cart.description }}
+        initialValues={{ description: cart? cart.description : ""}}
       >
         <Form
           style={{
@@ -184,7 +212,7 @@ const SingleCart: FC<props> = ({ onClick, orderId, onRemoveOrder }) => {
           />
           <Input
             name="description"
-            value={cart.description}
+            value={cart ? cart.description:''}
             onChange={descriptionChangeHandler}
             width="100%"
           />
