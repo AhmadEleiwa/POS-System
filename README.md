@@ -218,4 +218,4 @@ In this project, I have utilized several React libraries to enhance the function
 By incorporating these React libraries, I have enhanced the functionality, state management, UI design, data fetching, data validation, navigation, and visual aspects of the project. These libraries contribute to an improved overall user experience and efficient development process.
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+POS System project is licensed under the [MIT License](LICENSE).
