@@ -102,7 +102,6 @@ const ProductList: FC = () => {
       </div>
       <div className={style.productList}>
         {items.map((p) => {
-          console.log("XZX",p.category)
           return displayWay === "grid" ? (
             <Card
               key={p.id}

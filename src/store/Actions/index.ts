@@ -55,7 +55,6 @@ export const checkCart = (cartId: string) => {
 };
 ////////////////////////////////////////
 export const addProduct = (product: Product) => {
-  console.log(product);
   return {
     type: "ADD_PRODUCT",
     data: product,
@@ -127,7 +126,6 @@ export const set_categories = (data: any) => {
 
 export const set_products = (data: any[]) => {
   let products: Product[] = data.map((p) => {
-    console.log(p);
     return {
       id: p.id,
       title: p.productName,
@@ -137,7 +135,6 @@ export const set_products = (data: any[]) => {
       price: p.productPrice,
     } as Product;
   });
-  console.log(products);
   return {
     type: "SET_PRODUCTS",
     data: products,
@@ -151,7 +148,6 @@ export const set_units = (data: any[]) => {
       conversionFactor: p.conversionFactor,
     } as UnitOfMeasure;
   });
-  console.log(units);
   return {
     type: "SET_UNITS",
     data: units,

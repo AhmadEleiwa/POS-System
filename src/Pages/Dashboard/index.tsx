@@ -11,7 +11,6 @@ import { Form, Formik } from "formik";
 import TextField from "../../Components/TextField";
 import Button from "../../Components/Button";
 import { userSchema } from "../../schema";
-import Snackbar from "../../Components/Snackbar";
 import useSnackbar from "../../context/Snackbar/useSnackbar";
 /**
  * ## Dashboard page
@@ -97,11 +96,15 @@ const Dashboard: FC = () => {
             <div className={style.userList}>
               {users.map((u) => (
                 <UserRow
+                  key={u.username}
                   onClick={(e) => {
                     axios
                       .delete("http://localhost:5500/user/delete/" + u.username)
                       .then((res) => {
-                      snack.onResponse({message:res.data.message, status:res.status})
+                        snack.onResponse({
+                          message: res.data.message,
+                          status: res.status,
+                        });
 
                         setUsers(
                           users.filter((user) => user.username !== u.username)
@@ -126,7 +129,10 @@ const Dashboard: FC = () => {
                       admin: values.isAdmin,
                     })
                     .then((res) => {
-                      snack.onResponse({message:res.data.username, status:res.status})
+                      snack.onResponse({
+                        message: res.data.username,
+                        status: res.status,
+                      });
                       setUsers((p) => {
                         return [...p, res.data];
                       });

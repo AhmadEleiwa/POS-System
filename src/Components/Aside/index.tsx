@@ -28,7 +28,6 @@ const Aside: FC<props> = ({ width }) => {
     setShow("");
     dispatch(chooseCart(""));
   };
-  console.log(showContainer);
   return (
     <div className={style.main}>
       <FontAwesomeIcon

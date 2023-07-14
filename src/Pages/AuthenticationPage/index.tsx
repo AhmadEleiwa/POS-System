@@ -16,7 +16,6 @@ import useSnackbar from "../../context/Snackbar/useSnackbar";
  */
 const AuthenticationPage: FC = () => {
   const snack = useSnackbar();
-
   const [, setCookies] = useCookies();
   const navigate = useNavigate();
   const theme = useTheme();
