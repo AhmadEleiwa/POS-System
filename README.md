@@ -13,6 +13,10 @@ Table Of Content
       - [Display as List](#display-as-list)
     - [Carts \& Filterations \& Sorting](#carts--filterations--sorting)
     - [Single Cart Manpluation](#single-cart-manpluation)
+    - [Category Page](#category-page)
+    - [Unit of Measure Page](#unit-of-measure-page)
+    - [Product Page](#product-page)
+    - [Dashboard Page](#dashboard-page)
 
 ---
 
@@ -163,3 +167,16 @@ interface Cart {
 ```
 
 <img src='assets/singelcart.png' />
+
+### Category Page
+
+The Category page is designed to provide users with the ability to manage categories effectively. It offers a range of functionalities, including adding, editing, and deleting categories.
+
+### Unit of Measure Page
+The Unit of Measure page is designed to provide users with the ability to manage Unit of Measures effectively. It offers a range of functionalities, including adding, editing, and deleting Unit of Measure.
+
+### Product Page
+The Product page is a versatile tool that puts users in control of managing their products effectively. With this page, users have the ability to add new products, make changes to product categories, and modify the unit of measure for each product. Additionally, the page offers powerful filtering and searching capabilities to help users navigate through their product inventory effortlessly.
+
+### Dashboard Page
+The Dashboard is a central hub provided to all users, offering essential functionalities for efficient navigation and personalization. With the Dashboard, users gain access to valuable features such as viewing checked carts and switching themes. Additionally, the administrative role holds exclusive privileges to add or delete users.
