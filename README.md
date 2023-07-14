@@ -17,6 +17,7 @@ Table Of Content
     - [Unit of Measure Page](#unit-of-measure-page)
     - [Product Page](#product-page)
     - [Dashboard Page](#dashboard-page)
+  - [Configuration](#configuration)
 
 ---
 
@@ -180,3 +181,18 @@ The Product page is a versatile tool that puts users in control of managing thei
 
 ### Dashboard Page
 The Dashboard is a central hub provided to all users, offering essential functionalities for efficient navigation and personalization. With the Dashboard, users gain access to valuable features such as viewing checked carts and switching themes. Additionally, the administrative role holds exclusive privileges to add or delete users.
+
+## Configuration
+In this application, the primary configuration option available is related to theming. All users within the system have the ability to customize the color theme according to their preferences. This can be done by navigating to the dashboard and accessing the theme settings.
+
+The application offers four pre-defined themes for users to choose from:
+
+Dark Theme: This theme provides a visually appealing and modern dark color scheme, which is ideal for users who prefer a sleek and immersive interface.
+
+White Theme: The white theme offers a clean and minimalist look, utilizing light colors to create a bright and refreshing user experience.
+
+Material Theme: Inspired by the Material Design principles, this theme incorporates vibrant colors and subtle shadows to provide a visually rich and interactive interface.
+
+Green Theme: The green theme embraces a color palette centered around shades of green, delivering a nature-inspired and visually calming experience.
+
+Users can select their desired theme from the available options within the dashboard, enabling them to personalize the application's appearance to match their preferences. This flexibility in theming enhances the overall user experience, making the application more engaging and enjoyable to use.
