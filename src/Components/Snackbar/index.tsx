@@ -31,10 +31,11 @@ const Snackbar: FC<props> = ({ response, onClose }) => {
           style={{
             backgroundColor: theme.palette.paper,
             boxShadow: "0 2px 8px" + theme.palette.shadow,
-            color:theme.palette.textPrimary
+            color: theme.palette.textPrimary,
           }}
         >
           <FontAwesomeIcon
+            data-testid="close-icon"
             className={style.xIcon}
             icon={faX}
             cursor={"pointer"}
