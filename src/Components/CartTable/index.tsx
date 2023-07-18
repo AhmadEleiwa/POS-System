@@ -19,29 +19,33 @@ const headings = [
 interface props {
   onChoose?: (id: string) => void;
   carts: Cart[];
-  className?:string;
-  noButton?:boolean;
+  className?: string;
+  noButton?: boolean;
 }
 type Selected = {
   key: string;
   status: "descending" | "ascending" | "";
 };
-const CartTable: FC<props> = ({ onChoose,carts ,className, noButton}) => {
+const CartTable: FC<props> = ({ onChoose, carts, className, noButton }) => {
   const [selectedColumn, setSelectedColumn] = useState<Selected>({
     key: "",
     status: "",
   });
   const [searchValue, setSearchValue] = useState<string>("");
+  const [selectedPage, setSelectedPage] = useState<number>(0);
+  const FixdDIV = 10;
+
   const theme = useTheme();
 
   let items = [...carts];
 
-  const dispatch = useDispatch()
-  const newCartHandler = () =>{
-    const newCart = dispatch(createCart('4'))
-    onChoose!(newCart.data.cartId)
-  }
+  const dispatch = useDispatch();
+  const newCartHandler = () => {
+    const newCart = dispatch(createCart("4"));
+    onChoose!(newCart.data.cartId);
+  };
   const onSearchHandler = (value: string) => {
+    setSelectedPage(0);
     setSearchValue(value);
   };
   const filterHandler = (id: string) => {
@@ -87,8 +91,9 @@ const CartTable: FC<props> = ({ onChoose,carts ,className, noButton}) => {
     items = [...carts];
   }
   items = items.filter((p) => p.description.startsWith(searchValue));
+  items = items.slice(selectedPage * FixdDIV, selectedPage * FixdDIV + FixdDIV);
   return (
-    <div className={className + " "+ style.container }>
+    <div className={className + " " + style.container}>
       <SearchField width="95%" color="#66666622" onChange={onSearchHandler} />
 
       <div className={style.table}>
@@ -119,7 +124,7 @@ const CartTable: FC<props> = ({ onChoose,carts ,className, noButton}) => {
             </div>
           ))}
         </div>
-        {items.map((item) => (
+        {items.map((item, index) => (
           <div
             onClick={() => onChoose!(item.cartId)}
             data-testid="cart-item"
@@ -127,7 +132,7 @@ const CartTable: FC<props> = ({ onChoose,carts ,className, noButton}) => {
             className={style.row}
             style={{ color: theme.palette.textSecondary }}
           >
-            <p>#{item.cartId}</p>
+            <p>#{index}</p>
             <p>{item.tax}</p>
             <p>{item.discount}</p>
             <p>{item.products.length}</p>
@@ -139,7 +144,16 @@ const CartTable: FC<props> = ({ onChoose,carts ,className, noButton}) => {
           </div>
         ))}
       </div>
-      {!noButton && <Button variant="error" onClick={newCartHandler}>New Cart</Button>}
+      <input
+        onChange={(e) => setSelectedPage(parseInt(e.target.value))}
+        value={selectedPage}
+        type="number"
+      />
+      {!noButton && (
+        <Button variant="error" onClick={newCartHandler}>
+          New Cart
+        </Button>
+      )}
     </div>
   );
 };

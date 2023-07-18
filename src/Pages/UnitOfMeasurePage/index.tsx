@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import style from "./style.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import useTheme from "../../context/Theme/useTheme";
@@ -14,7 +14,7 @@ import {
   unitOfMeasureSchema,
   unitOfMeasureUpdateSchema,
 } from "../../schema";
-import { addUnit, removeUnit, updateUnit } from "../../store/Actions";
+import { addUnit, removeUnit, set_units, updateUnit } from "../../store/Actions";
 import SearchField from "../../Components/SearchField";
 import Row from "./components/Row";
 import axios from "axios";
@@ -46,6 +46,14 @@ const UnitOfMeasurePage: FC = () => {
   const onChangeHandler = (value: string) => {
     setSearcchValue(value);
   };
+  useEffect(() => {
+    axios
+      .get("http://localhost:5500/unit/units")
+      .then((res) => dispatch(set_units(res.data)))
+      .catch((err) => {
+        alert(err.response.message);
+      });
+  }, [dispatch]);
   let items = [...ufms];
 
   items = items.filter((p) => p.unitOfMeasureName.startsWith(searchValue));

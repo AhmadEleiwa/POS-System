@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import TextField from "../../Components/TextField";
 import { schema } from "../../schema";
 import Button from "../../Components/Button";
@@ -13,6 +13,7 @@ import { RootState } from "../../store/Reducers";
 import {
   addCategory,
   removeCategory,
+  set_categories,
   updateCategory,
 } from "../../store/Actions";
 import axios from "axios";
@@ -35,7 +36,14 @@ const CategoryPage: FC = () => {
   const { onResponse } = useSnackbar();
   const dispatch = useDispatch();
   const theme = useTheme();
-
+  useEffect(() => {
+    axios
+      .get("http://localhost:5500/category/categories")
+      .then((res) => dispatch(set_categories(res.data)))
+      .catch((err) => {
+        alert(err.response.message);
+      })
+  }, [dispatch]);
   return (
     <div className={style.container}>
       <div

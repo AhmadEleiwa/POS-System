@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from "react";
+import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import style from "./style.module.css";
 import useTheme from "../../context/Theme/useTheme";
 
@@ -10,7 +10,7 @@ import TextField from "../../Components/TextField";
 import { Form, Formik } from "formik";
 import SelectField from "../../Components/SelectFeild";
 import ImagePicker from "../../Components/ImagePicker";
-import { addProduct, removeProduct, updateProduct } from "../../store/Actions";
+import { addProduct, removeProduct, set_categories, set_products, set_units, updateProduct } from "../../store/Actions";
 import { productShcema } from "../../schema";
 import Select from "../../Components/Select";
 import SearchField from "../../Components/SearchField";
@@ -54,7 +54,7 @@ const ProductPage: FC = () => {
     setSlectedProduct(id);
   };
   // after selecting the product id we have to find the correct item
-  let selectedItem = products.find((p) => p.id === selectedProduct) as Product;
+  let selectedItem = products.find((p) => p.id === selectedProduct);
   let submitAction: "add" | "update" | "delete" | undefined = undefined;
   const [searchValue, setSearcchValue] = useState("");
   const [filters, setFilters] = useState({
@@ -93,7 +93,27 @@ const ProductPage: FC = () => {
     formData.append("unitOfMeasure", values.unit);
     formData.append("productPrice", values.price);
     formData.append("image", values.image.img);
-
+    const dispatch = useDispatch();
+    useEffect(() => {
+      axios
+        .get("http://localhost:5500/category/categories")
+        .then((res) => dispatch(set_categories(res.data)))
+        .catch((err) => {
+          alert(err.response.message);
+        });
+      axios
+        .get("http://localhost:5500/product/products")
+        .then((res) => dispatch(set_products(res.data)))
+        .catch((err) => {
+          alert(err.response.message);
+        });
+      axios
+        .get("http://localhost:5500/unit/units")
+        .then((res) => dispatch(set_units(res.data)))
+        .catch((err) => {
+          alert(err.response.message);
+        });
+    }, [dispatch]);
     if (submitAction === "add") {
       axios
         .post("http://localhost:5500/product/new", formData)
