@@ -54,7 +54,9 @@ By utilizing this web application, supermarkets can streamline their product and
 > User Authorization 
 >
 > Switch Between Themes 
+## Short Guide Documentation
 
+[**Link to FIRST STEPS GUIDE**](assets/First%20Step%20Guideness.pdf)
 ## Installation
 
 The application is developed using the Node environment with React.js. To install the project, you have two options: cloning the repository or downloading it as a ZIP file.
