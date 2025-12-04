@@ -61,7 +61,6 @@ const ProductPage: FC = () => {
     category: "all",
     unitOfMeasure: "all",
   });
-
   // Search filters applied when the search value changed or the filtersValues changed
   let items: Product[] = [...products].filter(
     (p) =>
@@ -86,15 +85,7 @@ const ProductPage: FC = () => {
       return { ...p, category: event.target.value };
     });
   };
-  const onSubmitHandler = (values: any) => {
-    let formData = new FormData();
-    formData.append("productName", values.title);
-    formData.append("productCategory", values.category);
-    formData.append("unitOfMeasure", values.unit);
-    formData.append("productPrice", values.price);
-    formData.append("image", values.image.img);
-    const dispatch = useDispatch();
-    useEffect(() => {
+     useEffect(() => {
       axios
         .get("http://localhost:5500/category/categories")
         .then((res) => dispatch(set_categories(res.data)))
@@ -114,6 +105,15 @@ const ProductPage: FC = () => {
           alert(err.response.message);
         });
     }, [dispatch]);
+  const onSubmitHandler = (values: any) => {
+    let formData = new FormData();
+    formData.append("productName", values.title);
+    formData.append("productCategory", values.category);
+    formData.append("unitOfMeasure", values.unit);
+    formData.append("productPrice", values.price);
+    formData.append("image", values.image.img);
+    
+ 
     if (submitAction === "add") {
       axios
         .post("http://localhost:5500/product/new", formData)
