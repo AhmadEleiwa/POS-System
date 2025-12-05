@@ -44,6 +44,10 @@
 .switcher > *:hover{
     background-color: #66666622;
  }
+ .switcher > .active {
+    background-color: #66666622;
+
+ }
 .table{
     width: 100%;
     height: 95%;

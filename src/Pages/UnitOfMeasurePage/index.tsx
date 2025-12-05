@@ -187,6 +187,7 @@ const UnitOfMeasurePage: FC = () => {
             }}
             enableReinitialize
             initialValues={{
+              
               unitOfMeasureName: selectedItem
                 ? selectedItem.unitOfMeasureName
                 : "",
@@ -194,7 +195,7 @@ const UnitOfMeasurePage: FC = () => {
                 ? selectedItem.baseUnitOfMeasure
                 : "",
               CFB: selectedItem ? selectedItem.conversionFactor : 0,
-              selectedUnit: ufms[0].unitOfMeasureName,
+              selectedUnit: ufms.length >0 ?ufms[0].unitOfMeasureName : "",
             }}
             validationSchema={unitOfMeasureUpdateSchema}
           >

@@ -44,6 +44,8 @@ const CategoryPage: FC = () => {
         alert(err.response.message);
       })
   }, [dispatch]);
+      console.log(categories.length > 0)
+  
   return (
     <div className={style.container}>
       <div
@@ -53,13 +55,14 @@ const CategoryPage: FC = () => {
           boxShadow: "0 2px 8px" + theme.palette.shadow,
         }}
       >
-        <div className={style.switcher}>
+        <div className={style.switcher }>
           <FontAwesomeIcon
             fontSize={24}
             color={theme.palette.textPrimary}
             cursor={"pointer"}
             icon={faAdd}
             onClick={() => setStatus("add")}
+            className={status=='add' ?style.active : "" }
           />
           <FontAwesomeIcon
             fontSize={24}
@@ -67,6 +70,8 @@ const CategoryPage: FC = () => {
             cursor={"pointer"}
             icon={faEdit}
             onClick={() => setStatus("update")}
+            className={status=='update' ?style.active : "" }
+
           />
           <FontAwesomeIcon
             fontSize={24}
@@ -74,6 +79,7 @@ const CategoryPage: FC = () => {
             cursor={"pointer"}
             icon={faTrashCan}
             onClick={() => setStatus("delete")}
+             className={status=='delete' ?style.active : "" }
           />
         </div>
         {status === "add" && (
@@ -140,12 +146,12 @@ const CategoryPage: FC = () => {
             }}
             initialValues={{
               category: "",
-              selectedCategory: categories[0].categoryName,
+              selectedCategory: categories.length > 0 ? categories[0].categoryName : "" 
             }}
             validationSchema={schema}
           >
             <Form>
-              <SelectField
+              { categories.length > 0 ?<><SelectField
                 name="selectedCategory"
                 width="100%"
                 options={categories.map((p) => {
@@ -161,6 +167,11 @@ const CategoryPage: FC = () => {
               <Button type="submit" fullWidth variant="error">
                 Update
               </Button>
+              </>:
+               <>  <h2 style={{color:'white'}}>No Categories Found</h2>
+              <Button variant="secondary" onClick={()=>setStatus('add')}> Add Category</Button>
+              </>
+        }
             </Form>
           </Formik>
         )}
@@ -186,20 +197,26 @@ const CategoryPage: FC = () => {
                   });
                 });
             }}
-            initialValues={{ selectedCategory: categories[0].categoryName }}
+            initialValues={{ selectedCategory: categories.length > 0 ? categories[0].categoryName : "" }}
             validationSchema={schema}
           >
             <Form>
-              <SelectField
+               {categories.length > 0 ?<><SelectField
                 name="selectedCategory"
                 width="100%"
                 options={categories.map((p) => {
-                  return { key: p.categoryName, value: p.categoryName };
+                  return { key: p.categoryName ? p.categoryName : "", value:p.categoryName ? p.categoryName : ""};
                 })}
-              />
+              /> 
+              
               <Button type="submit" fullWidth variant="error">
                 Delete
               </Button>
+              </>: <>  <h2 style={{color:'white'}}>No Categories Found</h2>
+              <Button variant="secondary" onClick={()=>setStatus('add')}> Add Category</Button>
+              </>
+                } 
+                
             </Form>
           </Formik>
         )}
