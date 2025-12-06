@@ -1,7 +1,6 @@
 import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import style from "./style.module.css";
 import useTheme from "../../context/Theme/useTheme";
-
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/Reducers";
 import ProductRow from "../../Components/ProductRow";
@@ -10,50 +9,42 @@ import TextField from "../../Components/TextField";
 import { Form, Formik } from "formik";
 import SelectField from "../../Components/SelectFeild";
 import ImagePicker from "../../Components/ImagePicker";
-import { addProduct, removeProduct, set_categories, set_products, set_units, updateProduct } from "../../store/Actions";
+import {
+  addProduct,
+  removeProduct,
+  set_categories,
+  set_products,
+  set_units,
+  updateProduct,
+} from "../../store/Actions";
 import { productShcema } from "../../schema";
 import Select from "../../Components/Select";
 import SearchField from "../../Components/SearchField";
-import axios from "axios";
 import useSnackbar from "../../context/Snackbar/useSnackbar";
-/**
- * ## Product Page
- * Product page the page that allow to handle the Product itself in the system.
- * By edit, delete or create new product. The product can take these values.
- * ```ts
- * type Product = {
- * productName: string,
- * productCode: string,
- * productCategory: Category,
- * productImage: string,
- * ProductPrice, double,
- * unitOfMeasure: UnitOfMeasure,
- * }
- * ```
- * Each Product can have one category and one unitOfMeasure.
- */
+import { productApi } from "../../services/productApi";
+import { categoryApi } from "../../services/categoryApi";
+import { unitApi } from "../../services/unitApi";
+
 const ProductPage: FC = () => {
   const snack = useSnackbar();
   const theme = useTheme();
-  // selectedProduct select the product id
   const [selectedProduct, setSlectedProduct] = useState<string>("");
   const dispatch = useDispatch();
-  // GET products from the redux store
+
   const products = useSelector<RootState>(
     (state) => state.productsReducer
   ) as Product[];
-  // GET categories from the redux store
   const categories = useSelector<RootState>(
     (state) => state.categoriessReducer
   ) as Category[];
-  // GET unit of measures from the redux store
   const unitOfMeasures = useSelector<RootState>(
     (state) => state.unitOfMeasureReducer
   ) as UnitOfMeasure[];
+
   const selectProductHandler = (id: string) => {
     setSlectedProduct(id);
   };
-  // after selecting the product id we have to find the correct item
+
   let selectedItem = products.find((p) => p.id === selectedProduct);
   let submitAction: "add" | "update" | "delete" | undefined = undefined;
   const [searchValue, setSearcchValue] = useState("");
@@ -61,7 +52,7 @@ const ProductPage: FC = () => {
     category: "all",
     unitOfMeasure: "all",
   });
-  // Search filters applied when the search value changed or the filtersValues changed
+
   let items: Product[] = [...products].filter(
     (p) =>
       (filters.category === "all"
@@ -75,9 +66,11 @@ const ProductPage: FC = () => {
         (p.title + " " + p.unitOfMeasure).startsWith(searchValue) ||
         p.unitOfMeasure.unitOfMeasureName.startsWith(searchValue))
   );
+
   const searchHandler = (value: string) => {
     setSearcchValue(value);
   };
+
   const onChangeCategoryFilterHandler = (
     event: ChangeEvent<HTMLSelectElement>
   ) => {
@@ -85,26 +78,28 @@ const ProductPage: FC = () => {
       return { ...p, category: event.target.value };
     });
   };
-     useEffect(() => {
-      axios
-        .get("http://localhost:5500/category/categories")
-        .then((res) => dispatch(set_categories(res.data)))
-        .catch((err) => {
-          alert(err.response.message);
-        });
-      axios
-        .get("http://localhost:5500/product/products")
-        .then((res) => dispatch(set_products(res.data)))
-        .catch((err) => {
-          alert(err.response.message);
-        });
-      axios
-        .get("http://localhost:5500/unit/units")
-        .then((res) => dispatch(set_units(res.data)))
-        .catch((err) => {
-          alert(err.response.message);
-        });
-    }, [dispatch]);
+
+  useEffect(() => {
+    categoryApi
+      .getAll()
+      .then((data) => dispatch(set_categories(data)))
+      .catch((err) => {
+        alert(err.response?.message || "Failed to fetch categories");
+      });
+    productApi
+      .getAll()
+      .then((data) => dispatch(set_products(data)))
+      .catch((err) => {
+        alert(err.response?.message || "Failed to fetch products");
+      });
+    unitApi
+      .getAll()
+      .then((data) => dispatch(set_units(data)))
+      .catch((err) => {
+        alert(err.response?.message || "Failed to fetch units");
+      });
+  }, [dispatch]);
+
   const onSubmitHandler = (values: any) => {
     let formData = new FormData();
     formData.append("productName", values.title);
@@ -112,19 +107,18 @@ const ProductPage: FC = () => {
     formData.append("unitOfMeasure", values.unit);
     formData.append("productPrice", values.price);
     formData.append("image", values.image.img);
-    
- 
+
     if (submitAction === "add") {
-      axios
-        .post("http://localhost:5500/product/new", formData)
+      productApi
+        .create(formData)
         .then((res) => {
           snack.onResponse({
-            message: "Product "+ res.data.id+" have been Created",
-            status: res.status,
+            message: "Product " + res.id + " have been Created",
+            status: 200,
           });
           dispatch(
             addProduct({
-              id: res.data.id,
+              id: res.id,
               title: values.title,
               price: values.price,
               category: { categoryName: values.category } as Category,
@@ -137,17 +131,17 @@ const ProductPage: FC = () => {
         })
         .catch((err) => {
           snack.onResponse({
-            message: err.response.data.message,
-            status: err.response.status,
+            message: err.response?.data?.message || "Error creating product",
+            status: err.response?.status || 500,
           });
         });
     } else if (submitAction === "update") {
-      axios
-        .post("http://localhost:5500/product/update/" + values.id, formData)
+      productApi
+        .update(values.id, formData)
         .then((res) => {
           snack.onResponse({
-            message: res.data.message,
-            status: res.status,
+            message: res.message,
+            status: 200,
           });
           dispatch(
             updateProduct(values.id, {
@@ -164,28 +158,29 @@ const ProductPage: FC = () => {
         })
         .catch((err) => {
           snack.onResponse({
-            message: err.response.data.message,
-            status: err.response.status,
+            message: err.response?.data?.message || "Error updating product",
+            status: err.response?.status || 500,
           });
         });
     } else if (submitAction === "delete") {
-      axios
-        .delete("http://localhost:5500/product/delete/" + values.id)
+      productApi
+        .delete(values.id)
         .then((res) => {
           snack.onResponse({
-            message: res.data.message,
-            status: res.status,
+            message: res.message,
+            status: 200,
           });
           dispatch(removeProduct(values.id));
         })
         .catch((err) => {
           snack.onResponse({
-            message: err.response.data.message,
-            status: err.response.status,
+            message: err.response?.data?.message || "Error deleting product",
+            status: err.response?.status || 500,
           });
         });
     }
   };
+
   const onChangeUnitOfMeasureFilterHandler = (
     event: ChangeEvent<HTMLSelectElement>
   ) => {
@@ -195,10 +190,7 @@ const ProductPage: FC = () => {
   };
 
   return (
-    <div
-      // container of the entire page excpt navbar
-      className={style.container}
-    >
+    <div className={style.container}>
       <div className={style.list}>
         <div className={style.filterControls}>
           <h1 style={{ color: theme.palette.textPrimary }}>EMMARKET</h1>
@@ -243,7 +235,6 @@ const ProductPage: FC = () => {
         </div>
       </div>
       <div
-        // the right side drawer witch have the main to handle the product functionalities
         className={style.info}
         style={{
           backgroundColor: theme.palette.paper,
@@ -319,7 +310,6 @@ const ProductPage: FC = () => {
                 </Button>
                 {selectedProduct && (
                   <>
-                    {" "}
                     <Button
                       fullWidth
                       onClick={() => {

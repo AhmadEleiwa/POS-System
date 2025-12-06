@@ -1,46 +1,36 @@
 import React, { FC, useEffect } from "react";
 import ProductList from "../../Components/ProductList";
 import Aside from "../../Components/Aside";
-import axios from "axios";
 import { set_categories, set_products, set_units } from "../../store/Actions";
 import { useDispatch } from "react-redux";
+import { categoryApi } from "../../services/categoryApi";
+import { productApi } from "../../services/productApi";
+import { unitApi } from "../../services/unitApi";
 
-/**
- * ## POS Page
- * POS Page is the main page of the system witch allow the user to handle the carts/orders.
- * It allow to add or delete products from the carts or even continue the payment.
- * ```ts
- * type Cart = {// order
- * cartId: uuid() //universal unique identifier
- * description: string,
- * tax: double,
- * discount: double,
- * products: Product[]
- * }
- * ```
- */
 const PosPage: FC = () => {
   const dispatch = useDispatch();
+
   useEffect(() => {
-    axios
-      .get("http://localhost:5500/category/categories")
-      .then((res) => dispatch(set_categories(res.data)))
+    categoryApi
+      .getAll()
+      .then((data) => dispatch(set_categories(data)))
       .catch((err) => {
-        alert(err.response.message);
+        alert(err.response?.message || "Failed to fetch categories");
       });
-    axios
-      .get("http://localhost:5500/product/products")
-      .then((res) => dispatch(set_products(res.data)))
+    productApi
+      .getAll()
+      .then((data) => dispatch(set_products(data)))
       .catch((err) => {
-        alert(err.response.message);
+        alert(err.response?.message || "Failed to fetch products");
       });
-    axios
-      .get("http://localhost:5500/unit/units")
-      .then((res) => dispatch(set_units(res.data)))
+    unitApi
+      .getAll()
+      .then((data) => dispatch(set_units(data)))
       .catch((err) => {
-        alert(err.response.message);
+        alert(err.response?.message || "Failed to fetch units");
       });
   }, [dispatch]);
+
   return (
     <>
       <ProductList />

@@ -16,18 +16,9 @@ import {
   set_categories,
   updateCategory,
 } from "../../store/Actions";
-import axios from "axios";
 import useSnackbar from "../../context/Snackbar/useSnackbar";
-/**
- * ## Product Category
- * Category page the page that allow the user to manipulate the different categories
- * in the system. The user can add or edit or even delete a category.
- * ```ts
- * type Category = {
- * categoryName:string,
- * }
- * ```
- */
+import { categoryApi } from "../../services/categoryApi";
+
 const CategoryPage: FC = () => {
   const [status, setStatus] = useState<string>("add");
   const categories = useSelector<RootState>(
@@ -36,16 +27,16 @@ const CategoryPage: FC = () => {
   const { onResponse } = useSnackbar();
   const dispatch = useDispatch();
   const theme = useTheme();
+
   useEffect(() => {
-    axios
-      .get("http://localhost:5500/category/categories")
-      .then((res) => dispatch(set_categories(res.data)))
+    categoryApi
+      .getAll()
+      .then((data) => dispatch(set_categories(data)))
       .catch((err) => {
-        alert(err.response.message);
-      })
+        alert(err.response?.message || "Failed to fetch categories");
+      });
   }, [dispatch]);
-      console.log(categories.length > 0)
-  
+
   return (
     <div className={style.container}>
       <div
@@ -55,14 +46,14 @@ const CategoryPage: FC = () => {
           boxShadow: "0 2px 8px" + theme.palette.shadow,
         }}
       >
-        <div className={style.switcher }>
+        <div className={style.switcher}>
           <FontAwesomeIcon
             fontSize={24}
             color={theme.palette.textPrimary}
             cursor={"pointer"}
             icon={faAdd}
             onClick={() => setStatus("add")}
-            className={status=='add' ?style.active : "" }
+            className={status === "add" ? style.active : ""}
           />
           <FontAwesomeIcon
             fontSize={24}
@@ -70,8 +61,7 @@ const CategoryPage: FC = () => {
             cursor={"pointer"}
             icon={faEdit}
             onClick={() => setStatus("update")}
-            className={status=='update' ?style.active : "" }
-
+            className={status === "update" ? style.active : ""}
           />
           <FontAwesomeIcon
             fontSize={24}
@@ -79,27 +69,25 @@ const CategoryPage: FC = () => {
             cursor={"pointer"}
             icon={faTrashCan}
             onClick={() => setStatus("delete")}
-             className={status=='delete' ?style.active : "" }
+            className={status === "delete" ? style.active : ""}
           />
         </div>
         {status === "add" && (
           <Formik
             onSubmit={(values) => {
-              axios
-                .post("http://localhost:5500/category/new/", {
-                  categoryName: values.category,
-                })
+              categoryApi
+                .create(values.category)
                 .then((res) => {
                   onResponse({
-                    message: res.data.message,
-                    status: res.status,
+                    message: res.message,
+                    status: 200,
                   });
                   dispatch(addCategory(values.category));
                 })
                 .catch((err) => {
                   onResponse({
-                    message: err.response.data.message,
-                    status: err.response.status,
+                    message: err.response?.data?.message || "Error adding category",
+                    status: err.response?.status || 500,
                   });
                 });
             }}
@@ -110,7 +98,7 @@ const CategoryPage: FC = () => {
               <TextField
                 id="category"
                 name="category"
-                placeholder="Enter Catgeory Name"
+                placeholder="Enter Category Name"
                 width="100%"
               />
               <Button type="submit" fullWidth variant="error">
@@ -121,17 +109,13 @@ const CategoryPage: FC = () => {
         )}
         {status === "update" && (
           <Formik
-            onSubmit={(values, actions) => {
-              axios
-                .post(
-                  "http://localhost:5500/category/update/" +
-                    values.selectedCategory,
-                  { categoryName: values.category }
-                )
+            onSubmit={(values) => {
+              categoryApi
+                .update(values.selectedCategory, values.category)
                 .then((res) => {
                   onResponse({
-                    message: res.data.message,
-                    status: res.status,
+                    message: res.message,
+                    status: 200,
                   });
                   dispatch(
                     updateCategory(values.selectedCategory, values.category)
@@ -139,84 +123,100 @@ const CategoryPage: FC = () => {
                 })
                 .catch((err) => {
                   onResponse({
-                    message: err.response.data.message,
-                    status: err.response.status,
+                    message: err.response?.data?.message || "Error updating category",
+                    status: err.response?.status || 500,
                   });
                 });
             }}
             initialValues={{
               category: "",
-              selectedCategory: categories.length > 0 ? categories[0].categoryName : "" 
+              selectedCategory:
+                categories.length > 0 ? categories[0].categoryName : "",
             }}
             validationSchema={schema}
           >
             <Form>
-              { categories.length > 0 ?<><SelectField
-                name="selectedCategory"
-                width="100%"
-                options={categories.map((p) => {
-                  return { key: p.categoryName, value: p.categoryName };
-                })}
-              />
-              <TextField
-                id="category"
-                name="category"
-                width="100%"
-                placeholder="Enter New Catgeory Name"
-              />
-              <Button type="submit" fullWidth variant="error">
-                Update
-              </Button>
-              </>:
-               <>  <h2 style={{color:'white'}}>No Categories Found</h2>
-              <Button variant="secondary" onClick={()=>setStatus('add')}> Add Category</Button>
-              </>
-        }
+              {categories.length > 0 ? (
+                <>
+                  <SelectField
+                    name="selectedCategory"
+                    width="100%"
+                    options={categories.map((p) => {
+                      return { key: p.categoryName, value: p.categoryName };
+                    })}
+                  />
+                  <TextField
+                    id="category"
+                    name="category"
+                    width="100%"
+                    placeholder="Enter New Category Name"
+                  />
+                  <Button type="submit" fullWidth variant="error">
+                    Update
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <h2 style={{ color: "white" }}>No Categories Found</h2>
+                  <Button variant="secondary" onClick={() => setStatus("add")}>
+                    Add Category
+                  </Button>
+                </>
+              )}
             </Form>
           </Formik>
         )}
         {status === "delete" && (
           <Formik
             onSubmit={(values) => {
-              axios
-                .delete(
-                  "http://localhost:5500/category/delete/" +
-                    values.selectedCategory
-                )
+              categoryApi
+                .delete(values.selectedCategory)
                 .then((res) => {
                   onResponse({
-                    message: res.data.message,
-                    status: res.status,
+                    message: res.message,
+                    status: 200,
                   });
                   dispatch(removeCategory(values.selectedCategory));
                 })
                 .catch((err) => {
                   onResponse({
-                    message: err.response.data.message,
-                    status: err.response.status,
+                    message: err.response?.data?.message || "Error deleting category",
+                    status: err.response?.status || 500,
                   });
                 });
             }}
-            initialValues={{ selectedCategory: categories.length > 0 ? categories[0].categoryName : "" }}
+            initialValues={{
+              selectedCategory:
+                categories.length > 0 ? categories[0].categoryName : "",
+            }}
             validationSchema={schema}
           >
             <Form>
-               {categories.length > 0 ?<><SelectField
-                name="selectedCategory"
-                width="100%"
-                options={categories.map((p) => {
-                  return { key: p.categoryName ? p.categoryName : "", value:p.categoryName ? p.categoryName : ""};
-                })}
-              /> 
-              
-              <Button type="submit" fullWidth variant="error">
-                Delete
-              </Button>
-              </>: <>  <h2 style={{color:'white'}}>No Categories Found</h2>
-              <Button variant="secondary" onClick={()=>setStatus('add')}> Add Category</Button>
-              </>
-                } 
-                
+              {categories.length > 0 ? (
+                <>
+                  <SelectField
+                    name="selectedCategory"
+                    width="100%"
+                    options={categories.map((p) => {
+                      return {
+                        key: p.categoryName ? p.categoryName : "",
+                        value: p.categoryName ? p.categoryName : "",
+                      };
+                    })}
+                  />
+
+                  <Button type="submit" fullWidth variant="error">
+                    Delete
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <h2 style={{ color: "white" }}>No Categories Found</h2>
+                  <Button variant="secondary" onClick={() => setStatus("add")}>
+                    Add Category
+                  </Button>
+                </>
+              )}
             </Form>
           </Formik>
         )}
